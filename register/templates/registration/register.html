@@ -1,0 +1,28 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="login-form">
+    <h2>Регистрация</h2>
+    <form method="post">
+        <div class="input-forms">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </div>
+        <button class="btn btn_blue" type="submit">Отправить</button>
+    </form>
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        {% for field in form %}
+        {% for error in field.errors %}
+        <div>{{ error }}</div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if res %}
+    <div class="alert alert-success">{{ res }}</div>
+    {% endif %}
+</div>
+{% endblock %}

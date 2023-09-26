@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Фильтры</title>
+</head>
+<body>
+
+<h1>Фильтры</h1>
+
+<form method="POST" action="{% url 'p2plinks:test2' %}">
+    {% csrf_token %}
+
+    <label for="{{ filters.crypto_multi.id_for_label }}">Криптовалюта (множественный выбор):</label><br>
+    {{ filters.crypto }}<br>
+
+    <h4>Фильтры</h4>
+
+    <label for="{{ filters.payment_methods.id_for_label }}">Способы оплаты:</label><br>
+    {{ filters.payment_methods }}<br>
+
+    <label for="{{ filters.exchanges.id_for_label }}">Биржи:</label><br>
+    {{ filters.exchanges }}<br>
+
+    <label for="{{ filters.crypto.id_for_label }}">Криптовалюта (одиночный выбор):</label><br>
+    {{ filters.crypto_multi }}<br>
+
+    <label for="{{ filters.trade_type.id_for_label }}">Тип торговли:</label><br>
+    {{ filters.trade_type }}<br>
+
+    <label for="{{ filters.lim_first.id_for_label }}">Первый лимит:</label><br>
+    {{ filters.lim_first }}<br>
+
+    <label for="{{ filters.lim_second.id_for_label }}">Второй лимит:</label><br>
+    {{ filters.lim_second }}<br>
+
+    <label for="{{ filters.ord_q.id_for_label }}">Ord Q:</label><br>
+    {{ filters.ord_q }}<br>
+
+    <label for="{{ filters.ord_p.id_for_label }}">Ord P:</label><br>
+    {{ filters.ord_p }}<br>
+
+    <label for="{{ filters.user_spread.id_for_label }}">User Spread:</label><br>
+    {{ filters.user_spread }}<br>
+
+    <label for="{{ filters.available.id_for_label }}">Доступно:</label><br>
+    {{ filters.available }}<br>
+    <button type="submit">Применить фильтры</button>
+</form>
+
+    <h4>Таблица фильтров</h4>
+    <table>
+        <tr>
+            <th>Параметр</th>
+            <th>Значение</th>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>{{ info.type }}</td>
+        </tr>
+        <tr>
+            <td>Payment Method</td>
+            <td>{{ info.pay_method }}</td>
+        </tr>
+        <tr>
+            <td>Exchanges</td>
+            <td>{{ info.exchanges }}</td>
+        </tr>
+        <tr>
+            <td>Fiat</td>
+            <td>{{ info.fiat }}</td>
+        </tr>
+        <tr>
+            <td>Ord P</td>
+            <td>{{ info.ord_p }}</td>
+        </tr>
+        <tr>
+            <td>Ord Q</td>
+            <td>{{ info.ord_q }}</td>
+        </tr>
+        <tr>
+            <td>Limit First</td>
+            <td>{{ info.limit_first }}</td>
+        </tr>
+        <tr>
+            <td>Limit Second</td>
+            <td>{{ info.limit_second }}</td>
+        </tr>
+        <tr>
+            <td>User Spread</td>
+            <td>{{ info.user_spread }}</td>
+        </tr>
+    </table>
+
+<br>
+<br>
+
+    <h4>Spot</h4>
+    <table>
+        <tr>
+            <th>Token</th>
+            <th>Price</th>
+        </tr>
+        {% for ad in spot %}
+            <tr>
+                <td>{{ ad.0 }}</td>
+                <td>{{ ad.1 }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+<br>
+<br>
+
+<ul>
+    <h4>Объявления 1</h4>
+    {% for ad in ads_list.0 %}
+        <li>Имя: {{ ad.0 }}</li>
+        <li>Количество заказов: {{ ad.1 }}</li>
+        <li>Порог заказа: {{ ad.2 }}</li>
+        <li>Цена: {{ ad.3 }}</li>
+        <li>Пороги заказа: {{ ad.4 }} - {{ ad.5 }}</li>
+        <li>Токен: {{ ad.6 }}</li>
+        <li>Способы оплаты: {{ ad.7 }}</li>
+        <li>Биржа: {{ ad.8 }}</li>
+        <li>Тип: {{ ad.9 }}</li><br>
+    {% endfor %}
+</ul>
+
+<ul>
+    <h4>Объявления 2</h4>
+    {% for ad in ads_list.1 %}
+        <li>Имя: {{ ad.0 }}</li>
+        <li>Количество заказов: {{ ad.1 }}</li>
+        <li>Порог заказа: {{ ad.2 }}</li>
+        <li>Цена: {{ ad.3 }}</li>
+        <li>Пороги заказа: {{ ad.4 }} - {{ ad.5 }}</li>
+        <li>Токен: {{ ad.6 }}</li>
+        <li>Способы оплаты: {{ ad.7 }}</li>
+        <li>Биржа: {{ ad.8 }}</li>
+        <li>Тип: {{ ad.9 }}</li><br>
+    {% endfor %}
+</ul>
+
+
+<br>
+<br>
+
+<ul>
+    <h4>Положительный спред</h4>
+    {% for ad in ads_with_spread %}
+        <li>spread: {{ ad.spread }}</li>
+        <li>1 ad: {{ ad.1 }}</li>
+        <li>2 ad: {{ ad.2 }}</li>
+        <br>
+    {% endfor %}
+</ul>
+
+<form>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>Coming Soon
+	</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <meta name="description"
+		content="Повысьте эффективность арбитража криптовалют с нашим P2P сканером. Найдите выгодные сделки мгновенно. Оптимизируйте вашу стратегию арбитража уже сегодня."> -->
+	<meta http-equiv="Content-type" content="text/html" charset="utf-8" />
+	<link rel="icon" href="{% static 'main/img/favicon.svg' %}">
+	<link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
+	<link rel="stylesheet" href="{% static 'main/css/style.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'main/css/slick.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'main/fonts/montserrat/stylesheet.css' %}">
+</head>
+
+<body>
+	{% include 'main/layout_header.html' %}
+	<main>
+		<div class="container">
+			<p class="empty">Coming Soon</p>
+		</div>
+		{% include 'main/layout_footer.html' %}
+		{% include 'main/layout_modal.html' %}
+	</main>
+	<script src="{% static 'main/js/login.js' %}"></script>
+	<script src="{% static 'main/js/script_main.js' %}"></script>
+</body>
+
+</html>

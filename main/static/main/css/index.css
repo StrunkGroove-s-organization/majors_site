@@ -1,0 +1,222 @@
+body {
+  /* background: #808080; */
+  margin: 0;
+  color: #000;
+  font-family: 'Roboto';
+}
+
+
+
+label {
+  color: white;
+}
+
+.container {
+  max-width: 1920px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.my-div {
+  display: flex;
+  align-items: center;
+  position: relative;
+  /* border-radius: 10px; */
+  height: 50px;
+  /* border-bottom: 1px solid #333; */
+  /* border-top: 1px solid #33333350; */
+  /* border-bottom: 1px solid #33333350; */
+  /* padding-left: 20px; */
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: 400;
+  box-shadow: 0px 2px 5px 2px #33333321;
+}
+
+.navbar {
+  /* height: 50px; */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* background: #333; */
+  /* padding: 10px; */
+
+
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-right: 50px;
+  color: #000;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #777;
+
+}
+
+.nav-link.active {
+  border-bottom: 2px solid #4067d1;
+  color: #000;
+
+}
+
+.header {
+  max-width: 1920px;
+  margin: 0 auto;
+  position: relative;
+  /* background: #333; */
+  padding: 10px 100px;
+  position: relative;
+  /* border-radius: 10px; */
+  /* height: 40px; */
+  border-bottom: 1px solid #33333320;
+
+  /* padding-left: 20px; */
+  /* line-height: 40px; */
+  font-size: 18px;
+  z-index: 1;
+  background: #fff;
+}
+
+.header__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__login-block {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.header a {
+  /* color: #000; */
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.header button {
+  font-family: 'Roboto';
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn {
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  border-radius: 5px;
+  color: #000;
+}
+
+.btn_blue {
+  background-color: #4067d1;
+  color: #fff;
+}
+
+
+
+
+/*.navbar a:hover {
+  text-decoration: underline;
+}*/
+
+.sidebar-title {
+  color: white;
+  text-align: center;
+}
+
+/* Стили для боковой панели */
+.sidebar {
+  background: #333;
+  width: 200px;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.sidebar a {
+  display: block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar a:hover {
+  background-color: #ddd;
+}
+
+/* Стили для контента страницы */
+.content {
+  /* padding: 20px; */
+}
+
+.loginForm {
+  max-width: 300px;
+  margin: 100px auto 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  border: 1px solid #33333320;
+  border-radius: 10px;
+}
+
+.loginForm form {
+  width: fit-content;
+}
+
+.loginForm label {
+  color: #333;
+  font-size: 12px;
+}
+
+.loginForm p {
+  align-self: flex-start;
+}
+
+.loginForm a {
+  color: #999;
+  text-align: left;
+  font-size: 10px;
+}
+
+.loginForm .btn {
+  margin: 10px auto 0;
+  border: none;
+  cursor: pointer;
+}
+
+.input-forms input {
+  height: 20px;
+  background: #e1e8fa;
+  border: none;
+  border-radius: 5px;
+  padding: 0 5px;
+  color: #333;
+}
+
+.input-forms {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-forms>div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}

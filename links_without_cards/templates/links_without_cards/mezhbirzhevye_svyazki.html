@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Межбиржевые связки</title>
+    <meta name="description"
+        content="Ищешь межбиржевые связки? Наш инструмент уже все сделал за тебя, выбирай связки и торгуй.">
+    <link rel="icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/montserrat/stylesheet.css' %}">
+</head>
+
+<body>
+    {% include 'main/layout_header.html' %}
+    <!-- Боковая панель -->
+    <div class="container">
+        <div class="title__wrapper">
+            <h1 class="cross-market__title">Связки для межбиржевого арбитража</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <form class="link-cross-market__form">
+            {% csrf_token %}
+            <div class="sidebar sidebar_links">
+                <div class="sidebar__filters sidebar__filters_cross-market">
+
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Исключить биржи на покупку</h3>
+                        <div class="sidebar__select_item sidebar__title_market-buy hidden"><span></span>
+                            <span class="select-title"></span>
+                            <div class="sidebar__select-list hidden">
+                                <input id="checkbox-exchange-buy_bybit-crossmarket" name="exchanges-buy" type="checkbox"
+                                    value="bybit">
+                                <label for="checkbox-exchange-buy_bybit-crossmarket">Bybit</label>
+                                <input id="checkbox-exchange-buy_binance-crossmarket" name="exchanges-buy"
+                                    type="checkbox" value="binance">
+                                <label for="checkbox-exchange-buy_binance-crossmarket">Binance</label>
+                                <input id="checkbox-exchange-buy_huobi-crossmarket" name="exchanges-buy" type="checkbox"
+                                    value="huobi">
+                                <label for="checkbox-exchange-buy_huobi-crossmarket">Huobi</label>
+                                <input id="checkbox-exchange-buy_garantex-crossmarket" name="exchanges-buy"
+                                    type="checkbox" value="garantex">
+                                <label for="checkbox-exchange-buy_garantex-crossmarket">Garantex</label>
+                                <input id="checkbox-exchange-buy_bitpapa-crossmarket" name="exchanges-buy"
+                                    type="checkbox" value="bitpapa">
+                                <label for="checkbox-exchange-buy_bitpapa-crossmarket">Bitpapa</label>
+                                <input id="checkbox-exchange-buy_beribit-crossmarket" name="exchanges-buy"
+                                    type="checkbox" value="beribit">
+                                <label for="checkbox-exchange-buy_beribit-crossmarket">Beribit</label>
+                                <input id="checkbox-exchange-buy_hodlhodl-crossmarket" name="exchanges-buy"
+                                    type="checkbox" value="hodlhodl">
+                                <label for="checkbox-exchange-buy_hodlhodl-crossmarket">Hodl Hodl</label>
+                                <input id="checkbox-exchange-buy_mexc-crossmarket" name="exchanges-buy" type="checkbox"
+                                    value="mexc">
+                                <label for="checkbox-exchange-buy_mexc-crossmarket">Mexc</label>
+                                <input id="checkbox-exchange-buy_kucoin-crossmarket" name="exchanges-buy"
+                                    type="checkbox" value="kucoin">
+                                <label for="checkbox-exchange-buy_kucoin-crossmarket">Kucoin</label>
+                                <input id="checkbox-exchange-buy_gateio-crossmarket" name="exchanges-buy"
+                                    type="checkbox" value="gateio">
+                                <label for="checkbox-exchange-buy_gateio-crossmarket">Gate.io</label>
+                                <input id="checkbox-exchange-buy_totalcoin-crossmarket" name="exchanges-buy"
+                                    type="checkbox" value="totalcoin">
+                                <label for="checkbox-exchange-buy_totalcoin-crossmarket">Totalcoin</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Исключить биржи на продажу</h3>
+                        <div class="sidebar__select_item sidebar__title_market-sell hidden"><span></span>
+                            <span class="select-title"></span>
+                            <div class="sidebar__select-list hidden">
+                                <input id="checkbox-exchange-sell_bybit-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="bybit">
+                                <label for="checkbox-exchange-sell_bybit-crossmarket">Bybit</label>
+                                <input id="checkbox-exchange-sell_binance-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="binance">
+                                <label for="checkbox-exchange-sell_binance-crossmarket">Binance</label>
+                                <input id="checkbox-exchange-sell_huobi-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="huobi">
+                                <label for="checkbox-exchange-sell_huobi-crossmarket">Huobi</label>
+                                <input id="checkbox-exchange-sell_garantex-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="garantex">
+                                <label for="checkbox-exchange-sell_garantex-crossmarket">Garantex</label>
+                                <input id="checkbox-exchange-sell_bitpapa-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="bitpapa">
+                                <label for="checkbox-exchange-sell_bitpapa-crossmarket">Bitpapa</label>
+                                <input id="checkbox-exchange-sell_beribit-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="beribit">
+                                <label for="checkbox-exchange-sell_beribit-crossmarket">Beribit</label>
+                                <input id="checkbox-exchange-sell_hodlhodl-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="hodlhodl">
+                                <label for="checkbox-exchange-sell_hodlhodl-crossmarket">Hodl Hodl</label>
+                                <input id="checkbox-exchange-sell_mexc-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="mexc">
+                                <label for="checkbox-exchange-sell_mexc-crossmarket">Mexc</label>
+                                <input id="checkbox-exchange-sell_kucoin-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="kucoin">
+                                <label for="checkbox-exchange-sell_kucoin-crossmarket">Kucoin</label>
+                                <input id="checkbox-exchange-sell_gateio-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="gateio">
+                                <label for="checkbox-exchange-sell_gateio-crossmarket">Gate.io</label>
+                                <input id="checkbox-exchange-sell_totalcoin-crossmarket" name="exchanges-sell"
+                                    type="checkbox" value="totalcoin">
+                                <label for="checkbox-exchange-sell_totalcoin-crossmarket">Totalcoin</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="sidebar__block">
+                        <h3 class="sidebar__title">Спред</h3>
+                        <input type="number" name="user_spread" value="10"
+                            class="sidebar__select_item sidebar__select_spred hidden" required=""
+                            id="id_user_spread-nocard">
+                    </div> -->
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Депозит</h3>
+                        <input type="number" name="deposit" value="10"
+                            class="sidebar__select_item sidebar__select_limit hidden" required=""
+                            id="id_user_deposit-crossmarket">
+                    </div>
+
+                    <div class="sidebar__block">
+                        <div class="sidebar__refresh sidebar__refresh_crossmarket">
+                            <input id="checkbox-refresh" type="checkbox" name="refresh">
+                            <label for="checkbox-refresh">Обновлять автоматически</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="link-content link-content_crossmarket">
+            <div class="link-content__title-block">
+                <div class="link-content__title link-content__title_buy">Покупка</div>
+                <div class="link-content__title link-content__title_sell">Продажа</div>
+                <div class="link-content__title link-content__title_spred">Спред, %</div>
+                <div class="link-content__title link-content__title_profit">Прибыль, $</div>
+            </div>
+            <div class="link-content__content-block"></div>
+        </div>
+    </div>
+
+
+
+
+    <!-- модальные окна  -->
+    {% include 'main/layout_modal.html' %}
+
+    <script src="{% static 'main/js/links.js' %}"></script>
+    <script src="{% static 'main/js/login.js' %}"></script>
+    <script src="{% static 'main/js/mezhbirzhevye_svyazki.js' %}"></script>
+</body>
+
+</html>
