@@ -5,3 +5,4 @@ __init__.py
 secrets.py
 myprojectenv/
 payment/
+static/
