@@ -1,4 +1,7 @@
-# majors_site
+# majors_site  
+
+https://arbitools.ru/  
+
 
 Stack: Django + Redis + Celery + PostgreSQL + docker.  
 
