@@ -1,0 +1,60 @@
+body {
+  background: #808080;
+}
+label {
+  color: white;
+}
+
+.navbar {
+  background: #333;
+  padding: 10px;
+  position: relative;
+  border-radius: 10px;
+  height: 40px;
+
+  padding-left: 20px;
+  line-height: 40px;
+  font-size: 18px;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+/*.navbar a:hover {
+  text-decoration: underline;
+}*/
+
+.sidebar-title {
+  color: white;
+  text-align: center;
+}
+
+/* Стили для боковой панели */
+.sidebar {
+  background: #333;
+  width: 200px;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.sidebar a {
+  display: block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar a:hover {
+  background-color: #ddd;
+}
+
+/* Стили для контента страницы */
+.content {
+  padding: 20px;
+}

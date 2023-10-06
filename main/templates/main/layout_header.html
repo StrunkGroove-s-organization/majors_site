@@ -19,11 +19,15 @@
                         </p>
                      </div>
                   </li>
-                  <li class="menu_item" data-menu="nocard">
-                     <a href="{% url 'links_without_cards' %}" class="menu__link">Без карт</a>
-                  </li>
-                  <li class="menu_item" data-menu="crossmarket">
-                     <a href="{% url 'mezhbirzhevye_svyazki' %}" class="menu__link">Межбиржевые</a>
+                  <li class="menu_item drop-menu__btn"> Без карт
+                     <div class="drop-menu__item">
+                        <p class="menu_item" data-menu="nocard">
+                           <a href="{% url 'links_without_cards' %}" class="menu__link">Bestchange</a>
+                        </p>
+                        <p class="menu_item" data-menu="crossmarket">
+                           <a href="{% url 'mezhbirzhevye_svyazki' %}" class="menu__link">Межбиржевые</a>
+                        </p>
+                     </div>
                   </li>
                   <!-- <li class="menu_item" data-menu="constructor"><a href="#" class="menu__link">Конструктор
                         связок</a></li> -->
