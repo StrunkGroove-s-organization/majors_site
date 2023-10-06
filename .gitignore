@@ -1,8 +1,0 @@
-*.log
-__pycache__
-migrations
-__init__.py
-secrets.py
-myprojectenv/
-payment/
-static/
