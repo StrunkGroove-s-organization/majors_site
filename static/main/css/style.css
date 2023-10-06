@@ -4545,6 +4545,7 @@ table tbody {
   text-align: center;
 }
 .token-links_group-title {
+  position: relative;
   padding: 9px 40px;
   color: #fff;
   font-size: 20px;

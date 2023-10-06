@@ -249,7 +249,9 @@ function sendData(formData) {
                     let titleSection = document.createElement('div')
                     titleSection.classList.add('token-links_group')
                     titleSection.innerHTML = `
-                    <div class="token-links_group-title">${item['0'].ad_give_first} - ${item['0'].ad_give_second.abbr} - ${item['0'].ad_get_first.abbr} - ${item['0'].ad_get_second}</div>
+                    <div class="token-links_group-title">${item['0'].ad_give_first} - ${item['0'].ad_give_second.abbr} - ${item['0'].ad_get_first.abbr} - ${item['0'].ad_get_second}
+                    <a class='link-content__favorite_add'>В избранное</a>
+                    </div>
                     `
                     for (const key in item) {
                         const element = item[key]
@@ -338,7 +340,7 @@ function sendData(formData) {
                                     
                                     </div>
                                 </div>
-                                <a class='link-content__favorite_add' data-hash = "${element.hash}">В избранное</a>
+                                
 
                             `
                             pairRows.push(row)
@@ -347,6 +349,7 @@ function sendData(formData) {
                     }
 
                     if (pairRows.length != 0) {
+                        console.log('createRow');
                         table.insertAdjacentElement("beforeend", titleSection)
                         pairRows.forEach(element => {
                             table.insertAdjacentElement("beforeend", element)
@@ -357,10 +360,10 @@ function sendData(formData) {
                 };
 
                 if (pairCounter == 0) {
+                    console.log('pairCounter == 0');
                     renderError({ error: 'Не найдено ни одного выгодного предложения. Попробуйте изменить значения фильтров' })
                 }
             }
-
         }).catch(error => {
             console.error(error);
         });
@@ -507,6 +510,10 @@ function delFavorite(item) {
     // .then((dataObj) => {
     //     const data = dataObj.data
     //     table.innerHTML = ''
-
 }
 // })
+
+
+//favorite
+
+

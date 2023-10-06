@@ -167,12 +167,6 @@ class GetInfoBestChange(BaseAPIView):
                         'info_star, '
                         'info_verification, '
                         'info_registration, '
-                        'addition_floating, '
-                        'addition_verifying, '
-                        'addition_manual, '
-                        'addition_percent, '
-                        'addition_otherin, '
-                        'addition_reg '
                     'FROM links_exchange_info '
                     'WHERE exchange_id = %s;',
                     [id]
