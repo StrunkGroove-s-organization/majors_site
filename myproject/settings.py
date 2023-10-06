@@ -8,6 +8,11 @@ from .secrets import (
 )
 
 from .secrets import (
+    WITHOUT_PG_NAME, WITHOUT_PG_USER, WITHOUT_PG_PASSWORD, 
+    WITHOUT_PG_HOST, WITHOUT_PG_PORT
+)
+
+from .secrets import (
     DEFAULT_REDIS_HOST, DEFAULT_REDIS_PORT, DEFAULT_REDIS_NUMBER
 )
 
@@ -90,13 +95,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': DEFAULT_PG_NAME,
         'USER': DEFAULT_PG_USER,
         'PASSWORD': DEFAULT_PG_PASSWORD,
         'HOST': DEFAULT_PG_HOST,
         'PORT': DEFAULT_PG_PORT
-    }
+    },
+    'links_without_cards': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': WITHOUT_PG_NAME,
+        'USER': WITHOUT_PG_USER,
+        'PASSWORD': WITHOUT_PG_PASSWORD,
+        'HOST': WITHOUT_PG_HOST,
+        'PORT': WITHOUT_PG_PORT,
+    },
 }
 
 CACHES = {

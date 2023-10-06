@@ -2,7 +2,7 @@ from .serializers import (
     PriceThreeSerializer, FavouriteThreeModelSerializer, 
     FavouriteTwoModelSerializer, FavouriteDeleteSerializer,
     FavouriteTwoAllSerializer, FavouriteThreeAllSerializer, 
-    PriceTwoSerializer
+    PriceTwoSerializer, GetInfoBestChangeSerializer
 )
 
 from .models import FavouriteTwoModel, FavouriteThreeModel
@@ -11,6 +11,7 @@ from base.views import BaseFormView, BaseAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.core.cache import caches
+from django.db import connections
 from rest_framework import status
 
 
@@ -148,3 +149,40 @@ class FavouriteTwoView(APIView):
                     status=status.HTTP_404_NOT_FOUND
                 )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetInfoBestChange(BaseAPIView):
+    def get_serializer(self, data):
+        return GetInfoBestChangeSerializer(data=data)
+
+    def process_request(self, request, validated_data):
+        def get_data(id):
+            with connections['links_without_cards'].cursor() as cursor:
+                cursor.execute(
+                    'SELECT '
+                        'exchange_id, '
+                        'exchange_name, '
+                        'info_reverse, '
+                        'info_age, '
+                        'info_star, '
+                        'info_verification, '
+                        'info_registration, '
+                        'addition_floating, '
+                        'addition_verifying, '
+                        'addition_manual, '
+                        'addition_percent, '
+                        'addition_otherin, '
+                        'addition_reg '
+                    'FROM links_exchange_info '
+                    'WHERE exchange_id = %s;',
+                    [id]
+                )
+                columns = [col[0] for col in cursor.description]
+                result = [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+            return result
+
+        id = validated_data.get('id')
+        data = get_data(id)
+
+        return data

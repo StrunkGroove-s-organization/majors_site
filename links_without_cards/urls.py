@@ -16,4 +16,5 @@ urlpatterns = [
     path('api/v1/mezhbirzhevye-svyazki/', views.PriceViewTwo.as_view()),
     path('api/v1/favorite-without-2/', views.FavouriteTwoView.as_view()),
     path('api/v1/favorite-without-3/', views.FavouriteThreeView.as_view()),
+    path('api/v1/get-info-best-change/', views.GetInfoBestChange.as_view()),
 ]

@@ -145,6 +145,8 @@ class FavouriteDeleteSerializer(serializers.Serializer):
     id = serializers.IntegerField()
 
     def validate_id(self, value):
+        if value < 0:
+            raise serializers.ValidationError(f'Only positive number.')
         return value
     
 
@@ -160,3 +162,12 @@ class FavouriteTwoAllSerializer(serializers.ModelSerializer):
     class Meta:
         model = FavouriteTwoModel
         fields = '__all__'
+
+
+class GetInfoBestChangeSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+
+    def validate_id(self, value):
+        if value < 0:
+            raise serializers.ValidationError(f'Only positive number.')
+        return value
