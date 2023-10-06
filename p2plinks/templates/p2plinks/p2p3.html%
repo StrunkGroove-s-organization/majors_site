@@ -1,0 +1,180 @@
+<form method="post" action="{% url 'p2plinks:p2plinks_3' %}">
+  {% csrf_token %}
+  <label for="way_of_trading">Способ торговли</label>
+  <select name="way_of_trading" id="way_of_trading">
+    <option value="Buy/Sell">Тейкер - Тейкер</option>
+    <option value="Sell/Buy">Мейкер - Мейкер</option>
+    <option value="Sell/Sell">Мейкер - Тейкер</option>
+    <option value="Buy/Buy">Тейкер - Мейкер</okaliption>
+  </select>
+
+  <label for="exchanges">Биржи</label>
+  <select name="exchanges" id="exchanges" multiple>
+    <option value="Binance">Binance</option>
+    <option value="Huobi">Huobi</option>
+    <option value="ByBit">ByBit</option>
+    <option value="Okx">Okx</option>
+    <option value="BitGet">BitGet</option>
+    <option value="Garantex">Garantex</option>
+    <option value="Bitpapa">Bitpapa</option>
+    <option value="Beribit">Beribit</option>
+    <option value="Hodl Hodl">Hodl Hodl</option>
+    <option value="Mexc">Mexc</option>
+    <option value="Kucoin">Kucoin</option>
+    <option value="Gate.io">Gate.io</option>
+    <option value="PexPay">PexPay</option>
+  </select>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <label for="cryptocurrency">Криптовалюта</label>
+  <select name="cryptocurrency" id="cryptocurrency" multiple>
+    <option value="USDT">USDT</option>
+    <option value="BTC">BTC</option>
+    <option value="ETH">ETH</option>
+    <option value="BUSD">BUSD</option>
+    <option value="BNB">BNB</option>
+    <option value="SHIB">SHIB</option>
+    <option value="DOGE">DOGE</option>
+    <option value="TRX">TRX</option>
+    <option value="USDD">USDD</option>
+    <option value="USDC">USDC</option>
+    <option value="RUB">RUB</option>
+    <option value="HT">HT</option>
+    <option value="EOS">EOS</option>
+    <option value="XRP">XRP</option>
+    <option value="LTC">LTC</option>
+    <option value="GMT">GMT</option>
+    <option value="TON">TON</option>
+    <option value="XMR">XMR</option>
+    <option value="DAI">DAI</option>
+  </select>
+
+  <label for="payment_system">Платежная система</label>
+  <select name="payment_system" id="payment_system" multiple>
+    <option value="Tinkoff">Тинькофф</option>
+    <option value="Sber">Сбер</option>
+    <option value="MTS-Bank">МТС Банк</option>
+    <option value="Raiffeisenbank">Райффайзен</option>
+    <option value="QIWI">Qiwi</option>
+    <option value="ЮMoney">ЮMoney</option>
+  </select>
+
+  <label for="lim_1">Лимит 1 стобец</label>
+  <input type="text" name="lim_1" id="lim_1">
+
+  <label for="lim_2">Лимит 2 стобец</label>
+  <input type="text" name="lim_2" id="lim_2">
+
+  <label for="spread">Спред до</label>
+  <input type="text" name="spread" id="spread">
+</form>
+  
+  <div id="selected-error"></div>
+  <div id="selected-cryptos-list"></div>
+  <div id="selected-exchanges-list"></div>
+  <div id="selected-payment_system-list"></div>
+  <div id="selected-lim1"></div>
+  <div id="selected-lim2"></div>
+  <div id="selected-spread"></div>
+  <div id="selected-wayOfTrading"></div>
+
+  <div id="selected-spot"></div>
+  <div id="selected-response"></div>
+  <div id="selected-secondAdsEl2"></div>
+
+  <div id="selected-ads"></div>
+  <div id="selected-jsonData"></div>
+
+<script>
+function updateSelectedItems() {
+  var selectedCryptos = [];
+  $('#cryptocurrency option:selected').each(function() {
+    selectedCryptos.push($(this).val());
+  });
+
+  var selectedExchanges = [];
+  $('#exchanges option:selected').each(function() {
+    selectedExchanges.push($(this).val());
+  });
+
+  var selectedPaymentSystems = [];
+  $('#payment_system option:selected').each(function() {
+    selectedPaymentSystems.push($(this).val());
+  });
+
+  var lim1 = $('#lim_1').val();
+  var lim2 = $('#lim_2').val();
+  var spread = $('#spread').val();
+
+  var wayOfTrading = $('#way_of_trading').val();
+
+  var spot = $('#spot').val();
+
+  var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+
+  $.ajax({
+    url: '/p2plinks_3/',
+    type: 'POST',
+    data: {
+      'csrfmiddlewaretoken': csrfToken,
+      'selected_cryptos': selectedCryptos,
+      'selected_exchanges': selectedExchanges,
+      'selected_payment_systems': selectedPaymentSystems,
+      'lim_1': lim1,
+      'lim_2': lim2,
+      'spread': spread,
+      'way_of_trading': wayOfTrading,
+    },
+    success: function(response) {
+      if (response.error) {
+        $('#selected-cryptos-list').html(response.error);
+      } else {
+        $('#selected-cryptos-list').html('Выбранные криптовалюты: ' + response.selected_cryptos.join(', '));
+        $('#selected-exchanges-list').html('Выбранные биржи: ' + response.selected_exchanges.join(', '));
+        $('#selected-payment_system-list').html('Выбранные методы оплаты: ' + response.selected_payment_systems.join(', '));
+        $('#selected-lim1').html('Лимит 1 столбец: ' + response.lim_1);
+        $('#selected-lim2').html('Лимит 2 столбец: ' + response.lim_2);
+        $('#selected-spread').html('Спред до: ' + response.spread);
+        $('#selected-wayOfTrading').html('Способ торговли: ' + response.way_of_trading);
+        $('#selected-spot').html(JSON.stringify(response.spot));
+
+        var ads = JSON.parse(response.ads);
+        var jsonData = JSON.parse(response.json_data);
+
+        var html = '';
+        for (var i = 0; i < jsonData.length; i++) {
+          var firstAds;
+          var secondAds;
+
+          for (var j = 0; j < ads.length; j++) {
+            if (jsonData[i][1] === ads[j]['num']) {
+              firstAds = ads[j];
+            } else if  (jsonData[i][2] === ads[j]['num']) {
+              secondAds = ads[j];
+            }
+          }
+          if (firstAds) {
+            html += 
+            'firstAds: ' + JSON.stringify(firstAds, null, 2) + 
+            '<br>' +
+            'secondAds: ' + JSON.stringify(secondAds, null, 2) + 
+            '<br>' +
+            'spread: ' + JSON.stringify(jsonData[i], null, 2) + 
+            '<br>' + '<br>';
+          } else {
+            html += 'Name: Not found, Buy/Sell: Not found, Price: Not found<br>';
+          }
+        }
+        $('#selected-response').html(html);
+      }
+    },
+    error: function(xhr, errmsg, err) {
+    }
+  });
+}
+
+$('#cryptocurrency, #exchanges, #payment_system, #lim_1, #lim_2, #spread, #way_of_trading').on('change', function() {
+  updateSelectedItems();
+});
+</script>

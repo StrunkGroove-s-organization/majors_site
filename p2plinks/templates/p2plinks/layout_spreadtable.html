@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Получите доступ ко всем p2p связкам с положительным спредом и торгуй только в плюс. Широкий выбор p2p бирж и ликвидных платежек. ">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/montserrat/stylesheet.css' %}">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(95116621, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/95116621" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+
+<body class="body_buy" data-page="spreadtable">
+    <div class="wrapper">
+        {% include 'main/layout_header.html' %}
+        <div id="div2" class="my-div" style="display:none">
+            <div class=" container">
+                <div class="navbar">
+                    <a class="nav-link" data-page="buy">Покупка</a>
+                    <a class="nav-link" data-page="sell">Продажа</a>
+                </div>
+            </div>
+        </div>
+        <div id="div3" class="my-div" ">
+            <div class=" container">
+            <div class="navbar">
+                <a class="nav-link" data-page="p2plinks_2">P2P в 2 действия</a>
+                <a class="nav-link" data-page="p2plinks_3">P2P в 3 действия</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="title__wrapper">
+            <h1 class="spread__title">P2P связки для арбитража: Таблица спреда</h1>
+        </div>
+    </div>
+    <!-- Боковая панель -->
+    <div class="container">
+        <form class="sidebar__form" method="post" action="{% url 'p2plinks:spreadtable' %}">
+            {% csrf_token %}
+            <div class="sidebar sidebar_links">
+                <div class="sidebar__filters">
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Платёжная система</h3>
+                        <div class="sidebar__select_item sidebar__select_system hidden">
+                            <span class="select-title"></span>
+                            <div class="sidebar__select-list hidden">
+                                {{ filters.payment_methods }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Биржи</h3>
+                        <div class="sidebar__select_item sidebar__title_market hidden"><span></span>
+                            <span class="select-title"></span>
+                            <div class="sidebar__select-list hidden">
+                                {{ filters.exchanges }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Криптовалюта</h3>
+                        <div class="sidebar__select_item sidebar__select_token hidden">
+                            <span class="select-title"></span>
+                            <div class="sidebar__select-list hidden">
+                                <div class="sidebar__list-wrapper p2p2 show">{{ filters.crypto }}</div>
+                                <div class="sidebar__list-wrapper p2p3">{{ filters.crypto_multi }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Способ торговли</h3>
+                        <div class="sidebar__select_item sidebar__select_trade hidden">
+                            <span class="select-title"></span>
+                            <div class="sidebar__select-list hidden">
+                                {{ filters.trade_type }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Спред до</h3>
+                        {{ filters.user_spread }}
+                    </div>
+                    <div class="sidebar__block sidebar__block_double">
+                        <div class="sidebar__sidebar__block">
+                            <h3 class="sidebar__title">Ордеров</h3>
+                            {{ filters.ord_q }}
+                        </div>
+                        <div class="sidebar__sidebar__block">
+                            <h3 class="sidebar__title">Процент</h3>
+                            {{ filters.ord_p }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-section">
+                <div class="input-section__block">
+                    <div class="input-section__item">
+                        <label for="{{ filters.lim_first.id_for_label }}">Лимит на покупку</label>
+                        {{ filters.lim_first }}
+                    </div>
+                    <div class="input-section__item">
+                        <label for="{{ filters.lim_second.id_for_label }}">Лимит на продажу</label>
+                        {{ filters.lim_second }}
+                    </div>
+                    <div class="input-section__item">
+                        <label for="deposit">Депозит</label>
+                        <input type="number" id="deposit" name="deposit" placeholder="Введите значение" required
+                            value="10000">
+                    </div>
+                </div>
+                <div class="input-section__hidden-btn hidden"></div>
+                <div class="input-section__hidden-block hidden">
+                    <div class="input-section__block">
+                        <div class="input-section__item">
+                            <label>Доступно для покупки</label>
+                            {{ filters.available_first }}
+                        </div>
+                        <div class="input-section__item">
+                            <label>Доступно для продажи</label>
+                            {{ filters.available_second }}
+                        </div>
+
+                        <div class="input-section__item input-section__item_checkbox">
+                            {{ filters.only_stable_coin }}
+                            <label for="{{ filters.only_stable_coin.id_for_label }}">Sell USDT</label>
+                            <input type="checkbox" id="refrsh_links">
+                            <label for="refrsh_links">Автообновление</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <div class="link-content">
+            <div class="link-content__title-block"></div>
+            <div class="link-content__content-block"></div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="bottom-text">
+            <p>Таблица спреда это инструмент, который упрощает вашу задачу в поиске P2P связок. Она анализирует все
+                возможные исходы и дает вам список связок с положительным спредом. Ваша задача выбрать свою стратегию
+                торговли, настроить фильтры и выбрать связку из предложенных.
+            </p>
+            <!-- <section class="screener">
+                <div class="screener__content">
+                    <div class="screener__block">
+                        <div class="screener__title">Начать пользоваться P2P скринером ARBITOOLS</div>
+                        <div class="screener__subtitle">Экономьте время и повышайте свою эффективность вместе с ARBI
+                            TOOLS. Начните использовать уже сегодня!
+                        </div>
+                        <div class="screener__btn-block">
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Начать</a>
+                            {% else %}
+                            <a class="screener__btn btn btn_white" data-screener='noauth'>Начать</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <img src="{% static 'main/img/main/screener-new.png' %}" alt="">
+                </div>
+            </section> -->
+            <h3>Как искать P2P связки с помощью Таблицы спреда</h3>
+            <p>Давайте подробнее разберём весь функционал таблицы и научимся искать уникальные связки, уникальность
+                торговли повышает эффективность и увеличивает ваш доход.
+            </p>
+            <h4>Фильтры</h4>
+            <img class="bottom-text__img" src="{% static 'main/img/spreadtable-1.png' %}" alt="">
+            <ol>
+                <li><span>Платёжная система:</span>
+                    Тинькофф, Сбер, Райффайзен, МТС, Юмани, QIWI. В этом фильтре предусмотрен одиночный выбор - для
+                    торговли по одной платёжке и мультивыбор - для поиска связок по нескольким платёжным системам.
+                </li>
+                <li><span>Способ торговли:</span>
+                    Тейкер - Тейкер, Тейкер - Мейкер, Мейкер - Мейкер, Мейкер - Тейкер. При
+                    выборе стратегии обязательно нужно учитывать способ торговли. Как вы будите покупать и продавать
+                    криптовалюту - создавать объявление (мейкер) или же торговать по уже созданным (тейкер).
+                </li>
+                <li><span>Биржи:</span>Binance, Bybit, Huobi, OKX, BitPapa, Garantex, BeriBit, BitGet, Gate io, Kucoin,
+                    Totalcoin, Mexc, HodlHodl. Здесь также предусмотрен одиночный выбор - торговля на одной бирже и
+                    мультивыбор - поиск межбиржевых P2P связок. Работа с различными P2P платформами увеличивает риск
+                    нарваться на скам и поэтому к выбору бирж стоит относиться ответственно.
+                </li>
+                <li><span>Спред до: </span>
+                    фильтр для ограничения размера спреда. Нужен для того чтобы исключить связки
+                    в которые попадают акции, как например покупка USDT за 1 рубль.
+                </li>
+                <li><span>Криптовалюта: </span>
+                    USDT, BTC, ETH, BUSD, BNB, DOGE, TRX, USDD, USDC, RUB, HT, EOS, XRP, LTC,
+                    TON, XMR, DAI, TUSD. Этот фильтр работает с некоторыми отличиями в зависимости от связок. В 2
+                    действия вы выбираете криптовалюту, которой собираетесь торговать. А в 3 действия выбираем монету,
+                    которую будем торговать в паре с USDT.
+                </li>
+                <li><span>Характеристика мерчанта:</span>
+                    этот фильтр учитывает статистику мерчанта. При выборе
+                    контрагента всегда следует обращать внимание на его статистику, дабы не нарваться на мошенника.
+                </li>
+                <img class="bottom-text__img" src="{% static 'main/img/spreadtable-2.png' %}" alt="">
+                <li><span>Лимиты:</span>
+                    необходим для подбора объявлений по лимитам для закупки и продажи по тейкеру и
+                    оценки наилучшего места для размещения вашего объявления.</li>
+                <li><span>Депозит:</span>
+                    учитывается для расчета прибыли.</li>
+                <li><span>Доступно (резевры):</span>
+                    с помощью этого фильтра отсеиваем контрагентов по размеру общего
+                    резервов, т.е допустим вы указываете лимит 10000, а у контрагента лимиты начинаются от 100 - 100000,
+                    соответственно таблица учтет его при подборе лучшего курса, но исходя из лимитов, биржа не исключит
+                    это объявление если его резерв будет меньше 10000, т.к его тимит от 100.
+                </li>
+
+                <li><span>Продажа USDT:</span>этот фильтр (функция) применяется только для связок в 3 действия. Эта
+                    функция рассчитывает только те исходы, в которых вы покупаете криптовалюту на P2P обмениваете ее на
+                    USDT и продаете его на P2P.
+                </li>
+            </ol>
+            <p>Когда выбрали стратегию и настроили все фильтры приступаем к выбору связок.
+            </p>
+            <p>Не забываем, что ArbiTools показывает исходы только с положительным спредом, если после настройки
+                фильтров вы получили сообщение “Не найдено ни одного выгодного предложения” стоит изменить лимиты или
+                увеличить диапазон поиск (биржи, банки).
+            </p>
+            <h4>Связки</h4>
+            <img class="bottom-text__img" src="{% static 'main/img/spreadtable-3.png' %}" alt="">
+            <ol>
+                <li>Курс покупки USDT на Garantex.</li>
+                <li>Обмен USDT/RUB на споте Binance.</li>
+                <li>Продажа RUB на P2P Binance</li>
+                <li>При наведении курсора на цену вы можете посмотреть доп.информацию о мерчанте и объявлении: Имя,
+                    количество ордеров, процент выполненных ордеров, лимиты.
+                </li>
+            </ol>
+            <img class="bottom-text__img" src="{% static 'main/img/spreadtable-4.png' %}" alt="">
+            <p>Выбрали связку. Время торговать!</p>
+            <p>Друзья, ваше мнение очень важно для нас, если вы заметили ошибки в работе Таблицы или у вас есть
+                пожелания в ее совершенствовании пишите нам в <a href="#">поддержку</a> мы учтем ваши пожелания.
+                Совместное развитие инструментов залог успешной торговли каждого из нас.
+            </p>
+        </div>
+    </div>
+
+    <!-- модальные окна  -->
+    {% include 'main/layout_modal.html' %}
+
+
+    <script src="{% static 'main/js/links.js' %}"></script>
+    <script src="{% static 'main/js/spreadtable.js' %}"></script>
+    <script src="{% static 'main/js/login.js' %}"></script>
+</body>
+
+</html>

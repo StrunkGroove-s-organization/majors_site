@@ -1,0 +1,909 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>{% block title %}{% endblock %}
+	</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description"
+		content="Повысьте эффективность арбитража криптовалют с нашим P2P сканером. Найдите выгодные сделки мгновенно. Оптимизируйте вашу стратегию арбитража уже сегодня.">
+	<meta http-equiv="Content-type" content="text/html" charset="utf-8" />
+	<link rel="icon" href="{% static 'main/img/favicon.svg' %}">
+	<link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
+	<link rel="stylesheet" href="{% static 'main/css/style.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'main/css/slick.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'main/fonts/montserrat/stylesheet.css' %}">
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript">
+		(function (m, e, t, r, i, k, a) {
+			m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+			m[i].l = 1 * new Date();
+			for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+			k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+		})
+			(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+		ym(95116621, "init", {
+			clickmap: true,
+			trackLinks: true,
+			accurateTrackBounce: true,
+			webvisor: true
+		});
+	</script>
+	<noscript>
+		<div><img src="https://mc.yandex.ru/watch/95116621" style="position:absolute; left:-9999px;" alt="" /></div>
+	</noscript>
+	<!-- /Yandex.Metrika counter -->
+</head>
+
+<body>
+	{% include 'main/layout_header.html' %}
+	<main>
+		<section class="main-screen">
+			<div class="container">
+				<div class="main-screen__content">
+					<div class="main-screen__block">
+						<h1 class="main-screen__title">
+							<span>Действительно</span> эффективный инструмент для арбитража криптовалют
+						</h1>
+						<p class="main-screen__text">
+							Экономьте время и усилия, получая все необходимые данные в одном месте.
+
+						</p>
+						<div class="main-screen__btn-block">
+							{% if user.is_authenticated %}
+							<a href="{% url 'profile' %}#premium" class="btn btn_orange btn_main-screen">Попробовать от
+								5$</a>
+							{% else %}
+							<a class="btn btn_orange btn_main-screen" data-screen='noauth'>Рассчитать доходность</a>
+							{% endif %}
+						</div>
+					</div>
+					<div class="main-screen__block">
+						<img src="{% static 'main/img/main/main-screen.png' %}" alt="">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="company">
+			<!-- <div class="container"> -->
+			<ul class="company__list">
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_huoby.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_bitpapa.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_okx.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_kucoin.png' %}" alt=""></li>
+				<!-- <li class="company__item"><img src="{% static 'main/img/main/company-logo_pexpay.png' %}" alt=""></li> -->
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_binance.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_bybit.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_garantex.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_beribit.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_totalcoin.png' %}" alt="">
+				</li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_gateio.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_bitget.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_hodl.png' %}" alt=""></li>
+				<li class="company__item"><img src="{% static 'main/img/main/company-logo_mexc.png' %}" alt=""></li>
+			</ul>
+			<!-- </div> -->
+		</section>
+
+		<section class="round">
+			<div class="round__bg">
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+				<div class="round__item"></div>
+			</div>
+			<div class="round__img round__img_big round__img_x">
+				<svg xmlns="http://www.w3.org/2000/svg" width="122" height="122" viewBox="0 0 122 122" fill="none">
+					<path fill-rule="evenodd" clip-rule="evenodd"
+						d="M93.2854 33H83.6863L68.4978 48.0251C66.2865 50.2045 63.3065 51.4262 60.2017 51.4262C57.097 51.4262 54.1169 50.2045 51.9057 48.0251L36.7288 33H27.1219L47.1061 52.7792C54.3456 59.9383 66.0747 59.9383 73.309 52.7792L93.2854 33ZM27 88.0001H36.6055L51.9173 72.853C54.1286 70.6736 57.1086 69.4519 60.2134 69.4519C63.3181 69.4519 66.2982 70.6736 68.5094 72.853L83.816 88.0001H93.4151L73.309 68.0988C66.0695 60.9397 54.3404 60.9397 47.1061 68.0988L27 88.0001Z"
+						fill="white" />
+					<circle cx="60.5341" cy="60.5341" r="59.5341" stroke="#AD00FF" stroke-width="2" />
+				</svg>
+			</div>
+			<div class="round__img round__img_big round__img_e">
+				<svg xmlns="http://www.w3.org/2000/svg" width="122" height="122" viewBox="0 0 122 122" fill="none">
+					<circle cx="60.5341" cy="60.5341" r="59.5341" stroke="#AD00FF" stroke-width="2" />
+					<g clip-path="url(#clip0_1411_858)" style="transform:translate(29%, 15%)">
+						<path
+							d="M26.0952 31.8216H25.9688C25.9688 31.5646 25.9941 31.3076 25.9941 31.0377C25.9941 20.9936 25.9941 10.9485 25.9941 0.902639C25.965 0.644627 25.9821 0.383398 26.0447 0.131592H26.0978C27.1375 1.69168 28.0431 3.33657 28.9993 4.94806C36.5748 17.7149 44.1462 30.48 51.7133 43.2434C51.7866 43.3693 51.8448 43.5004 51.9106 43.6392C51.6963 43.5927 51.4858 43.53 51.2807 43.4516C49.8919 42.8142 48.4981 42.1665 47.1219 41.5162C44.9666 40.5139 42.8105 39.5132 40.6535 38.5143L30.2616 33.7313C28.8779 33.0836 27.4866 32.4539 26.0952 31.8216Z"
+							fill="white" />
+						<path
+							d="M26.0536 0.118186C25.991 0.369992 25.9739 0.631221 26.003 0.889232C26.003 10.9334 26.003 20.9784 26.003 31.0243C26.003 31.2813 25.9878 31.5383 25.9777 31.8082C24.2069 32.6204 22.4361 33.4274 20.6654 34.2473L0.79476 43.433C0.59046 43.5135 0.381843 43.5821 0.169922 43.6386C0.744158 42.4255 1.49042 41.3255 2.1709 40.1638C10.0551 26.8487 17.9451 13.5361 25.8411 0.226136C25.8932 0.152402 25.9498 0.082015 26.0106 0.0153809L26.0536 0.118186Z"
+							fill="white" />
+						<path
+							d="M26.0833 59.5546C25.8303 59.642 25.6861 59.4184 25.5141 59.3156C17.0818 54.2593 8.65885 49.1995 0.245155 44.1363C0.163683 44.0945 0.0790992 44.0592 -0.0078125 44.0309V43.9178L0.141445 43.8304C0.353366 43.7739 0.561983 43.7052 0.766283 43.6248L20.6369 34.4391C22.4076 33.6192 24.1784 32.8122 25.9492 32H26.0757C26.0757 32.257 26.0757 32.4858 26.0757 32.7299C26.0824 41.6724 26.0849 50.6139 26.0833 59.5546Z"
+							fill="#EDEDED" />
+						<path
+							d="M26.0966 32.0063C27.488 32.6386 28.8793 33.2683 30.2681 33.9057L40.66 38.6888C42.8186 39.686 44.9748 40.6866 47.1284 41.6907C48.5146 42.3358 49.911 42.9886 51.2871 43.626C51.4922 43.7044 51.7028 43.7671 51.917 43.8137C52.17 44.1349 51.7956 44.1478 51.6818 44.2172C49.524 45.5279 47.356 46.8207 45.1932 48.1212C38.9853 51.8531 32.7792 55.5841 26.5747 59.3143C26.4179 59.4068 26.2484 59.4762 26.084 59.5559C26.084 50.6169 26.084 41.677 26.084 32.7363C26.0865 32.4921 26.0941 32.2505 26.0966 32.0063Z"
+							fill="#EDEDED" />
+						<path
+							d="M25.994 64.4477L42.2472 54.7145C45.3502 52.8537 48.4516 50.9912 51.5513 49.127L51.8321 48.9702C51.8599 49.2272 51.6854 49.3634 51.5791 49.5125C44.496 59.6578 37.4129 69.7996 30.3299 79.938C28.9891 81.8605 27.6509 83.7933 26.2976 85.7003C26.2267 85.8005 26.1179 86.2709 25.9004 85.7723C26.0724 85.6232 25.9965 85.4227 25.9965 85.2583C25.9982 78.3188 25.9974 71.382 25.994 64.4477Z"
+							fill="white" />
+						<path
+							d="M25.9926 64.4491C25.9926 71.3834 25.9926 78.3159 25.9926 85.2468C25.9926 85.4241 26.0685 85.6246 25.8965 85.7608C25.5347 85.5398 25.3779 85.144 25.1376 84.8176C16.9245 73.0634 8.71575 61.3075 0.511174 49.5499C0.407458 49.4008 0.311324 49.2415 0.205078 49.077C0.417571 48.951 0.531414 49.1232 0.655368 49.1978C8.96113 54.1805 17.2652 59.1674 25.5676 64.1587C25.7219 64.2563 25.8535 64.3566 25.9926 64.4491Z"
+							fill="white" />
+						<path
+							d="M26.0549 0.118206L25.9941 0.0231115C26.1054 -0.0488529 26.0903 0.0565226 26.108 0.110496L26.0549 0.118206Z"
+							fill="white" />
+					</g>
+					<defs>
+						<clipPath id="clip0_1411_858">
+							<rect width="52" height="86" fill="white" />
+						</clipPath>
+					</defs>
+				</svg>
+			</div>
+			<div class="round__img round__img_small round__img_b">
+				<svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" viewBox="0 0 73 73" fill="none">
+					<path
+						d="M52.9112 31.0904C53.6185 26.362 50.018 23.8202 45.0947 22.1247L46.6919 15.7196L42.7924 14.748L41.2376 20.9845C40.2124 20.7288 39.1596 20.488 38.1133 20.2492L39.6793 13.9715L35.7822 13L34.1842 19.403C33.3359 19.2099 32.5026 19.019 31.6942 18.8179L31.6988 18.7978L26.3212 17.4551L25.2839 21.6194C25.2839 21.6194 28.177 22.2825 28.116 22.3233C29.6951 22.7174 29.9807 23.7626 29.9333 24.591L28.114 31.8879C28.2227 31.9155 28.3637 31.9555 28.5194 32.018C28.3893 31.9857 28.2508 31.9504 28.1072 31.9161L25.5571 42.138C25.3641 42.6177 24.8743 43.3376 23.7703 43.0642C23.8094 43.1208 20.936 42.357 20.936 42.357L19 46.8201L24.0746 48.0849C25.0187 48.3217 25.9438 48.5693 26.8548 48.8022L25.2412 55.2808L29.1362 56.2523L30.7342 49.8425C31.7983 50.1314 32.8309 50.3978 33.8418 50.6489L32.2492 57.0285L36.1489 58L37.7624 51.5336C44.4119 52.7919 49.4118 52.2846 51.5164 46.2709C53.2122 41.4292 51.432 38.6366 47.9337 36.8154C50.4816 36.2279 52.4008 34.5523 52.9126 31.0909L52.9113 31.0901L52.9112 31.0904ZM44.0017 43.5821C42.7965 48.4238 34.6435 45.8065 32.0001 45.1502L34.1415 36.5672C36.7847 37.227 45.2611 38.5327 44.0018 43.5821H44.0017ZM45.2076 31.0203C44.1083 35.4243 37.3224 33.1868 35.1211 32.6382L37.0626 24.854C39.2638 25.4026 46.3528 26.4266 45.208 31.0203H45.2076Z"
+						fill="white" />
+					<circle cx="36.3205" cy="36.3205" r="35.3205" stroke="#AD00FF" stroke-width="2" />
+				</svg>
+			</div>
+			<div class="round__img round__img_medium round__img_u">
+				<svg xmlns="http://www.w3.org/2000/svg" width="94" height="94" viewBox="0 0 94 94" fill="none">
+					<path
+						d="M46.8253 22.1479C48.024 21.533 49.4873 22.9596 48.8493 24.1379C48.4794 25.0983 47.0769 25.3537 46.3606 24.6217C45.6025 23.9189 45.85 22.5302 46.8253 22.1479ZM33.9317 23.515C34.6599 23.22 35.5817 23.8765 35.5073 24.6574C35.5845 25.505 34.5312 26.1293 33.7889 25.7262C32.8055 25.3516 32.9179 23.7808 33.9317 23.5152V23.515ZM60.339 25.75C59.2009 25.6148 59.021 23.8546 60.1166 23.499C60.9665 23.0912 61.7459 23.8559 61.8702 24.6483C61.692 25.3249 61.1161 25.9446 60.339 25.749V25.75ZM36.8649 28.9132C38.0824 28.1556 39.8196 29.2837 39.6323 30.6751C39.5692 32.0798 37.6726 32.8936 36.6027 31.9439C35.5687 31.198 35.7249 29.4865 36.8649 28.9136V28.9132ZM55.4497 29.7175C55.9933 28.3418 58.1942 28.2985 58.8124 29.6404C59.4234 30.6837 58.6718 31.9757 57.5833 32.3302C56.1412 32.5951 54.7715 31.0614 55.4504 29.7186L55.4497 29.7175ZM45.2725 32.2516C45.2606 31.0679 46.3564 30.1859 47.5 30.1054C48.2583 30.2549 49.0851 30.5729 49.4105 31.3259C50.0168 32.3649 49.4785 33.7947 48.3829 34.2715C47.8819 34.5477 47.2895 34.4447 46.7439 34.412C45.9098 34.0092 45.2074 33.2192 45.2727 32.2519L45.2725 32.2516ZM26.0981 33.9763C27.2102 33.3036 28.7106 34.5313 28.2895 35.7198C28.0577 36.7479 26.653 37.1661 25.85 36.5098C24.992 35.8949 25.1286 34.4161 26.0981 33.9763ZM67.2725 33.9741C68.2161 33.2534 69.7731 34.0802 69.6607 35.2512C69.724 36.32 68.3778 37.1258 67.4411 36.5756C66.4095 36.1195 66.3043 34.5581 67.2725 33.973V33.9741ZM50.6647 36.1009C52.2216 35.5507 54.0712 36.2092 54.9587 37.5749C56.1293 39.2446 55.5065 41.7872 53.6897 42.7452C51.8074 43.8783 49.0587 42.9183 48.3635 40.8498C47.5741 38.9983 48.7241 36.6812 50.6647 36.1009ZM41.5292 36.2843C43.2549 35.4834 45.5772 36.1544 46.4108 37.8918C47.3918 39.5823 46.6332 41.9361 44.8796 42.8088C43.1237 43.79 40.6465 43.0469 39.7976 41.2311C38.8439 39.4762 39.69 37.0925 41.5292 36.2843ZM32.3818 39.361C32.5138 38.2671 33.5619 37.5554 34.6201 37.4816C35.7603 37.6169 36.6711 38.4881 36.795 39.6245C36.7202 40.7482 35.8373 41.8469 34.6269 41.84C33.295 41.9528 32.1275 40.6495 32.3818 39.3619V39.361ZM59.4001 37.7204C60.7674 36.9373 62.666 38.0773 62.6052 39.6227C62.699 41.2601 60.5977 42.4149 59.2361 41.4536C57.8218 40.6539 57.932 38.4018 59.4001 37.7206V37.7204ZM37.8114 43.4906C39.4106 43.0577 41.239 43.7993 42.0233 45.2453C42.8813 46.701 42.5313 48.723 41.197 49.7907C39.4856 51.3567 36.3295 50.7279 35.4187 48.5907C34.3721 46.6317 35.6433 44.0062 37.8114 43.4904V43.4906ZM55.1389 43.4824C56.6934 43.045 58.5196 43.6339 59.3554 45.0278C60.4605 46.6215 59.9329 48.9983 58.2879 50.0256C56.5647 51.2184 53.8956 50.592 52.9474 48.7269C51.7979 46.7975 52.9547 44.0709 55.1389 43.4824ZM27.5259 45.3005C28.9073 44.7865 30.4385 46.2862 29.8788 47.6336C29.5372 48.8609 27.7789 49.3154 26.8705 48.4098C25.8077 47.56 26.2013 45.6692 27.5261 45.3005H27.5259ZM64.968 47.2559C64.9282 46.1304 65.7655 45.1326 66.9392 45.0698C67.8853 45.2172 68.8051 45.9681 68.7303 46.9813C68.817 48.3195 67.1779 49.229 66.019 48.6003C65.4758 48.3286 65.1973 47.7806 64.968 47.2553V47.2559ZM20.7343 45.9605C21.5652 45.6036 22.5933 46.3122 22.4036 47.2202C22.3596 48.2483 20.8163 48.6436 20.2496 47.7845C19.7487 47.189 20.0483 46.2691 20.7343 45.9605ZM73.1338 45.9388C73.719 45.5289 74.658 45.8235 74.8896 46.4962C75.283 47.2308 74.5618 48.2373 73.7214 48.113C72.5416 48.2189 72.1594 46.4499 73.1338 45.9388ZM42.3256 50.8738C44.5124 50.3143 46.8631 52.1076 46.877 54.3238C47.0197 56.5622 44.7044 58.5475 42.4659 58.0304C40.7356 57.7564 39.378 56.1166 39.4341 54.3963C39.4295 52.7513 40.6914 51.2219 42.3258 50.8738H42.3256ZM50.9861 50.8693C53.2057 50.2589 55.6264 52.0851 55.5912 54.3517C55.7084 56.5488 53.4653 58.4672 51.2737 58.0313C49.2112 57.7689 47.6894 55.5395 48.2652 53.5703C48.5558 52.2582 49.6701 51.1911 50.9861 50.8693ZM34.2881 52.2329C35.8239 51.9751 37.2638 53.6614 36.641 55.0956C36.1867 56.6246 33.9251 57.0393 32.9252 55.7904C31.7524 54.5911 32.628 52.3985 34.2881 52.2329ZM59.6856 52.3024C61.0551 51.7381 62.7361 52.9034 62.6308 54.366C62.6858 55.9759 60.6103 57.0858 59.2711 56.1462C57.7531 55.3021 58.0303 52.8201 59.6856 52.3024ZM66.7846 59.3076C66.2484 58.3241 67.2224 57.0207 68.3323 57.2027C68.8847 57.1936 69.2713 57.6217 69.6248 57.9819C69.6974 58.5648 69.8193 59.2589 69.3276 59.7092C68.6599 60.5405 67.1474 60.3033 66.7846 59.3085V59.3076ZM26.0939 57.4767C27.1312 56.7973 28.6239 57.8105 28.3907 59.0038C28.2667 60.0589 26.9167 60.662 26.0257 60.0643C25.0707 59.5208 25.1059 57.9733 26.0939 57.4778V57.4767ZM46.587 59.6866C47.9451 59.097 49.6749 60.2602 49.5462 61.7318C49.647 63.3578 47.507 64.484 46.1802 63.5067C44.7062 62.6682 44.9513 60.2016 46.5879 59.686L46.587 59.6866ZM37.094 61.8641C38.2505 61.2654 39.8028 62.2994 39.6975 63.574C39.7327 64.6197 38.6954 65.511 37.6464 65.3565C36.7776 65.3381 36.2111 64.5718 35.9326 63.8433C35.9469 63.0491 36.2791 62.1647 37.094 61.8652V61.8641ZM56.3205 61.8836C57.5098 61.1604 59.2003 62.1992 59.0879 63.561C59.1184 64.9844 57.208 65.8963 56.1005 64.9612C55.0282 64.2283 55.1591 62.4665 56.3205 61.8836ZM59.6645 70.0157C59.1365 69.228 59.7582 68.2791 60.6173 68.0997C61.3081 68.238 62.0385 68.749 61.8933 69.5369C61.7926 70.6031 60.2075 70.9304 59.6645 70.0157ZM33.1238 69.3317C33.3346 68.7075 33.845 68.0871 34.5919 68.2495C35.6807 68.3255 36.0039 69.9399 35.0508 70.4375C34.1939 71.0059 33.1997 70.2276 33.1238 69.3317ZM45.9279 70.0479C46.1364 69.1246 47.3513 68.6754 48.1521 69.1659C48.6801 69.3895 48.8356 69.972 48.9716 70.467C48.899 70.7248 48.8341 70.983 48.7703 71.2408C48.4425 71.623 48.0223 72.0055 47.4756 71.9916C46.4616 72.1085 45.5471 70.9808 45.9279 70.0479Z"
+						fill="white" />
+					<circle cx="47" cy="47" r="46" stroke="#AD00FF" stroke-width="2" />
+				</svg>
+			</div>
+			<div class="round__img round__img_small round__img_a">
+				<svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" viewBox="0 0 73 73" fill="none">
+					<path
+						d="M36.0489 19.0286C40.6932 19.0286 45.3376 19.0286 49.9962 19.0286C50.4106 19.0286 50.5249 19.1286 50.5249 19.5502C50.5249 21.5867 50.5249 23.6162 50.5249 25.6456C50.5249 26.0386 50.4106 26.1243 50.0391 26.1172C46.8166 26.1172 43.6085 26.1172 40.3646 26.1172C39.943 26.1172 39.8573 26.2315 39.8644 26.6245C39.893 27.8488 39.893 29.0708 39.8644 30.2903C39.8644 30.6762 39.943 30.7977 40.3574 30.8191C43.7504 30.931 47.1234 31.3859 50.4249 32.1768C51.5098 32.4288 52.5605 32.8103 53.5545 33.313C53.9547 33.5108 54.3173 33.7768 54.6262 34.099C54.7438 34.2043 54.8379 34.3331 54.9023 34.4772C54.9667 34.6212 55 34.7773 55 34.9351C55 35.0929 54.9667 35.2489 54.9023 35.393C54.8379 35.537 54.7438 35.6659 54.6262 35.7711C54.0217 36.3594 53.2875 36.7976 52.4827 37.0502C50.5236 37.7461 48.4942 38.2253 46.4308 38.4794C44.3908 38.7915 42.3342 38.9824 40.2717 39.051C39.8858 39.051 39.8858 39.2511 39.8858 39.537C39.8858 44.1674 39.8858 48.8265 39.8858 53.4283C39.8858 53.9 39.7644 54 39.3071 54C37.0778 54 34.8414 54 32.6121 54C32.2334 54 32.162 53.8928 32.162 53.5427C32.162 48.9551 32.162 44.3746 32.162 39.787C32.162 39.0725 32.162 39.0725 31.4474 39.0725C28.1105 38.9251 24.796 38.4513 21.5514 37.6576C20.3259 37.3921 19.151 36.9313 18.0718 36.2927C16.6427 35.3995 16.6427 34.4063 18.0718 33.5273C19.5122 32.7143 21.0842 32.1604 22.7161 31.891C25.6925 31.2686 28.7161 30.8981 31.7547 30.7834C32.1048 30.7834 32.1834 30.6691 32.1763 30.3403C32.1763 29.097 32.1763 27.8608 32.1763 26.6245C32.1763 26.2244 32.0977 26.0886 31.6618 26.0958C28.4465 26.0958 25.2312 26.0958 22.023 26.0958C21.5872 26.0958 21.5086 25.96 21.5086 25.5598C21.5086 23.5447 21.5086 21.5296 21.5086 19.5073C21.5086 19.0643 21.6515 19 22.0445 19C26.7174 19.0357 31.3831 19.0286 36.0489 19.0286ZM36.299 37.8648C38.737 37.8906 41.1746 37.7857 43.6013 37.5504C45.772 37.3733 47.9235 37.01 50.0319 36.4643C50.8811 36.2704 51.6939 35.9423 52.4398 35.4924C53.3901 34.8707 53.3758 34.2133 52.4398 33.5917C51.9765 33.2829 51.4711 33.0422 50.9394 32.8771C47.4152 31.9066 43.7835 31.3809 40.1288 31.3122C39.793 31.3122 39.8501 31.498 39.8501 31.6909C39.8501 33.1201 39.8501 34.5921 39.8501 36.0427C39.8501 36.3714 39.7715 36.5071 39.4286 36.5214C37.1207 36.6072 34.8128 36.6215 32.5049 36.5214C32.2048 36.5214 32.1334 36.3999 32.1334 36.1141C32.1334 34.6421 32.1334 33.1772 32.1334 31.7123C32.1334 31.3836 32.0405 31.3122 31.719 31.3193C30.1327 31.3908 28.5465 31.5265 26.9675 31.7123C24.9607 31.9127 22.9788 32.3124 21.0513 32.9057C20.4814 33.0647 19.9375 33.3054 19.4365 33.6202C18.5719 34.2133 18.5791 34.8564 19.4365 35.4495C19.7707 35.6685 20.1277 35.8505 20.5011 35.9926C21.7625 36.4569 23.067 36.7944 24.3952 37.0002C28.3298 37.6396 32.3133 37.9289 36.299 37.8648Z"
+						fill="white" />
+					<circle cx="36.3205" cy="36.3205" r="35.3205" stroke="#AD00FF" stroke-width="2" />
+				</svg>
+			</div>
+		</section>
+		<div class="container">
+			<div class="foryou">
+				<div class="manual__title foryou__title label">
+					<p>arbitools подойдет вам, если:</p>
+				</div>
+				<div class="foryou__content">
+					<div class="foryou__item foryou__item_left hide">
+						<div class="foryou__avatar">
+							<img src="{% static 'main/img/main/avatar1.png' %}" alt="">
+						</div>
+						<div class="foryou__text-block">
+							<span class="foryou__item-title">Ограничено время</span>
+							<p class="foryou__item-text">Арбитраж с ручным поиском связок занимает много времени,
+								но с Arbitools Вы можете уделять торговле всего до нескольких часов в день!</p>
+						</div>
+					</div>
+					<div class="foryou__item foryou__item_right hide">
+						<div class="foryou__avatar">
+							<img src="{% static 'main/img/main/avatar2.png' %}" alt="">
+						</div>
+						<div class="foryou__text-block">
+							<span class="foryou__item-title">Нет большого капитала</span>
+							.bonus {
+							<p class="foryou__item-text">В арбитраже можно начать даже со 100$, <a href="#calc">по нашим
+									подсчетам</a>,
+								через 3 месяца ваш капитал будет составлять ~ 1052$.</p>
+						</div>
+					</div>
+					<div class="foryou__item foryou__item_left hide">
+						<div class="foryou__avatar">
+							<img src="{% static 'main/img/main/avatar3.png' %}" alt="">
+						</div>
+						<div class="foryou__text-block">
+							<span class="foryou__item-title">Нет опыта в арбитраже</span>
+							<p class="foryou__item-text">Наша платформа имеет интуитивно понятный интерфейс,
+								с помощью которого вы без труда найдете рабочую связку.
+								На нашем канале мы обучаем арбитражу и тому,
+								как пользоваться Arbitools. А также вы получаете поддержку
+								по всем вопросам в телеграмм.</p>
+						</div>
+					</div>
+					<div class="foryou__item foryou__item_right hide">
+						<div class="foryou__avatar">
+							<img src="{% static 'main/img/main/avatar4.png' %}" alt="">
+						</div>
+						<div class="foryou__text-block">
+							<span class="foryou__item-title">Есть опыт, но нужно повысить эффективность</span>
+							<p class="foryou__item-text">1000+ действительно рабочих связок, быстрое обновление,
+								тонкие фильтры и другие полезные инструменты для арбитража
+								собраны в Arbitools.</p>
+						</div>
+					</div>
+					<div class="foryou__item foryou__item_left hide">
+						<div class="foryou__avatar">
+							<img src="{% static 'main/img/main/avatar5.png' %}" alt="">
+						</div>
+						<div class="foryou__text-block">
+							<span class="foryou__item-title">Ищите стабильный и низко рискованный доход</span>
+							<p class="foryou__item-text">Арбитраж по сравнению с его соседними видами заработка
+								является более безопасным. Потому что вам не нужно знать
+								пойдет ли цена вверх или вниз, вам нужно всего лишь знать
+								схему покупки и продажи активов в реальном времени.
+								В этом и помогает арбитулс!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<section class="screener screener_main screener_first">
+			<div class="container">
+				<div class="screener__content">
+					<div class="screener__block">
+						<div class="screener__title">Вам не нужны большие инвестиции или специальные навыки.
+							Просто подключите наш P2P скринер, выберите
+							криптовалюту и начните зарабатывать.</div>
+						<!-- <div class="screener__subtitle">Вам не нужны большие инвестиции или специальные навыки.
+							Просто подключите наш P2P скринер, выберите
+							криптовалюту и начните зарабатывать.
+						</div> -->
+						<a href="#" class="btn btn_white">Попробовать ArbiTools</a>
+					</div>
+					<img src="{% static 'main/img/main/screener_first.png' %}" alt="">
+				</div>
+			</div>
+		</section>
+
+		<div class="container">
+			<section class="instructions">
+				<div class="instructions__title label">
+					<p>Как работает arbitools?</p>
+				</div>
+				<div class="instructions__subtitle">
+					Задача: найти выгодную СТРАТЕГИЮ торговли
+				</div>
+				<div class="instructions__section instructions__section_p2p">
+					<div class="instructions__img">
+						<img src="{% static 'main/img/main/instruction1.png' %}" alt="">
+					</div>
+					<div class="instructions__list">
+						<div class="instructions__item instructions__item-title">P2P</div>
+						<div class="instructions__item instructions__p2p_1">
+							<div class="instructions__number">1</div>
+							<div class="instructions__text">Выбираете банк</div>
+						</div>
+						<div class="instructions__item instructions__p2p_2">
+							<div class="instructions__number">2</div>
+							<div class="instructions__text">Биржи и криптовалюту</div>
+						</div>
+						<div class="instructions__item instructions__p2p_3">
+							<div class="instructions__number">3</div>
+							<div class="instructions__text">Выбираете способ торговли</div>
+						</div>
+						<div class="instructions__item instructions__p2p_4">
+							<div class="instructions__number">4</div>
+							<div class="instructions__text">Указываете депозит и лимиты</div>
+						</div>
+						<div class="instructions__item instructions__p2p_5">
+							<div class="instructions__number">5</div>
+							<div class="instructions__text">Выбираете подходящий вариант связки</div>
+						</div>
+						<div class="instructions__item instructions__p2p_6">
+							<div class="instructions__number">6</div>
+							<div class="instructions__text">Торгуете</div>
+						</div>
+					</div>
+				</div>
+				<div class="instructions__section instructions__section_nocard">
+					<div class="instructions__img">
+						<img src="{% static 'main/img/main/instruction2.png' %}" alt="">
+
+					</div>
+					<div class="instructions__list">
+						<div class="instructions__item instructions__item-title">АРБИТРАЖ БЕЗ КАРТ</div>
+						<div class="instructions__item instructions__nocard_1">
+							<div class="instructions__number">1</div>
+							<div class="instructions__text">Выбираем торговую пару</div>
+						</div>
+						<div class="instructions__item instructions__nocard_2">
+							<div class="instructions__number">2</div>
+							<div class="instructions__text">Указываем лимит</div>
+						</div>
+						<div class="instructions__item instructions__nocard_3">
+							<div class="instructions__number">3</div>
+							<div class="instructions__text">Выбираете подходящий вариант связки</div>
+						</div>
+						<div class="instructions__item instructions__nocard_4">
+							<div class="instructions__number">4</div>
+							<div class="instructions__text">Торгуете</div>
+						</div>
+					</div>
+				</div>
+				<div class="instructions__section instructions__section_crossmarket">
+					<div class="instructions__img">
+						<img src="{% static 'main/img/main/instruction3.png' %}" alt="">
+
+					</div>
+					<div class="instructions__list">
+						<div class="instructions__item instructions__item-title">межбиржевой АРБИТРАЖ</div>
+						<div class="instructions__item instructions__crossmarket_1">
+							<div class="instructions__number">1</div>
+							<div class="instructions__text">Выбираем способ торговли</div>
+						</div>
+						<div class="instructions__item instructions__crossmarket_2">
+							<div class="instructions__number">2</div>
+							<div class="instructions__text">Указываем депозит и биржи</div>
+						</div>
+						<div class="instructions__item instructions__crossmarket_3">
+							<div class="instructions__number">3</div>
+							<div class="instructions__text">Выбираете подходящий вариант связки</div>
+						</div>
+						<div class="instructions__item instructions__crossmarket_4">
+							<div class="instructions__number">4</div>
+							<div class="instructions__text">Торгуете</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div class="container">
+			<div class="call__content" id="calc">
+				<div class="call__title label">Калькулятор дохода</div>
+			</div>
+			<form class="calculator">
+				<div class="calculator__profit">
+					<div class="calculator__input-line">
+						<div class="calculator__value-block">
+							<label for="calculator-profit_deposit">Депозит</label>
+							<input type="number" id="calculator-profit_deposit" value="10000" max="50000" min="500"
+								readonly>
+							<input type="range" step="500" value="10000" min="500" max="50000">
+
+						</div>
+						<div class="calculator__value-block">
+							<label for="calculator-profit_range">Круги</label>
+							<input type="number" id="calculator-profit_range" value="1" max="20" min="1" readonly>
+							<input type="range" value="1" min="1" max="20">
+						</div>
+						<div class="calculator__value-block">
+							<label for="calculator-profit_spred">Спред</label>
+							<input type="number" id="calculator-profit_spred" value="1" max="10" min="0.5" readonly>
+							<input type="range" value="1" min="0.5" max="10" step="0.1">
+						</div>
+						<div class="calculator__value-block">
+							<label for="calculator-profit_target">Желаемый капитал</label>
+							<div class="calculator__arrow"></div>
+							<input type="number" id="calculator-profit_target" value="50000">
+							<div class="calculator__menu">
+								<span data-calc='profit'>Желаемый доход</span>
+								<span data-calc='deposit'>Желаемый капитал</span>
+							</div>
+						</div>
+					</div>
+					<div class="calculator__total">
+						<div class="calculator__total-block">
+							<label for="calculator-profit_total">Дней до цели</label>
+							<input type="number" id="calculator-profit_total" readonly>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- <div class="container">
+			<div class="call__content">
+				<div class="call__title label">Калькулятор дохода</div>
+			</div>
+			<form class="calculator">
+				<div class="calculator__profit">
+					<div class="calculator__input-line">
+						<div class="calculator__value-block">
+							<label for="calculator-profit_deposit">Депозит</label>
+							<input type="number" id="calculator-profit_deposit" value="10000" max="1000000" min="500">
+							<input type="range" step="500" value="10000" min="500" max="1000000">
+						</div>
+						<div class="calculator__value-block">
+							<label for="calculator-profit_range">Круги в день</label>
+							<input type="number" id="calculator-profit_range" value="1" max="20" min="1">
+							<input type="range" value="1" min="1" max="20">
+						</div>
+						<div class="calculator__value-block">
+							<label for="calculator-profit_spred">Спред</label>
+							<input type="number" id="calculator-profit_spred" value="1" max="10" min="0.5">
+							<input type="range" value="1" min="0.5" max="10" step="0.1">
+						</div>
+						<div class="calculator__value-block">
+							<label for="calculator-profit_target">Цель депозита</label>
+							<input type="number" id="calculator-profit_target" value="50000">
+						</div>
+					</div>
+					<div class="calculator__total">
+						<div class="calculator__total-block">
+							<label for="calculator-profit_total">Дней до цели</label>
+							<input type="number" id="calculator-profit_total" readonly>
+						</div>
+					</div>
+				</div>
+
+				<div class="calculator__day-profit">
+					<div class="calculator__input-line">
+						<div class="calculator__value-block">
+							<label for="calculator-profit_deposit">Депозит</label>
+							<input type="number" id="calculator-day-profit_deposit" value="10000" max="1000000"
+								min="500">
+							<input type="range" step="500" value="10000" min="500" max="1000000">
+						</div>
+						<div class="calculator__value-block">
+							<label for="calculator-day-profit_range">Круги в день</label>
+							<input type="number" id="calculator-day-profit_range" value="1" max="20" min="1">
+							<input type="range" value="1" min="1" max="20">
+						</div>
+						<div class="calculator__value-block">
+							<label for="calculator-day-profit_spred">Спред</label>
+							<input type="number" id="calculator-day-profit_spred" value="1" max="10" min="0.5">
+							<input type="range" value="1" min="0.5" max="10" step="0.1">
+						</div>
+						<div class="calculator__value-block">
+							<label for="calculator-day-profit_target">Цель дохода в день </label>
+							<input type="number" id="calculator-day-profit_target" value="50000">
+						</div>
+					</div>
+					<div class="calculator__total">
+						<div class="calculator__total-block">
+							<label for="calculator-day-profit_total">Дней до цели</label>
+							<input type="number" id="calculator-day-profit_total" readonly>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div> -->
+
+		<!-- <section class="call">
+			<div class="container">
+				<div class="call__content">
+					<div class="call__title label">ИСКАТЬ СВЯЗКИ ПРОСТО</div>
+				</div>
+			</div>
+		</section> -->
+
+		<!-- <section class="description">
+			<div class="container">
+				<ul class="description__table">
+					<li class="description__card">
+						<div class="description__title">
+							<p class="label">Работа в реальном</p>
+							<p class="label">времени</p>
+						</div>
+						<div class="description__img"><img src="{% static 'main/img/main/description_work.png' %}"
+								alt="">
+						</div>
+					</li>
+					<li class="description__card">
+						<div class="description__title">
+							<p class="label">Гибкая настройка</p>
+							<p class="label">фильтров</p>
+						</div>
+						<div class="description__img"><img src="{% static 'main/img/main/description_filter.png' %}"
+								alt="">
+						</div>
+					</li>
+					<li class="description__card">
+						<div class="description__title">
+							<p class="label">Широкий выбор</p>
+							<p class="label">P2P площадок</p>
+						</div>
+						<div class="description__img"><img src="{% static 'main/img/main/description_select.png' %}"
+								alt="">
+						</div>
+					</li>
+					<li class="description__card">
+						<div class="description__title">
+							<p class="label">Ликвидные</p>
+							<p class="label">платёжки</p>
+						</div>
+						<div class="description__img"><img src="{% static 'main/img/main/description_pay.png' %}"
+								alt="">
+						</div>
+					</li>
+					<li class="description__card">
+						<div class="description__title">
+							<p class="label">Биржевые и межбирживые связки</p>
+						</div>
+						<div class="description__img"><img src="{% static 'main/img/main/description_link.png' %}"
+								alt="">
+						</div>
+					</li>
+					<li class="description__card">
+						<div class="description__title">
+							<p class="label">Большой выбор</p>
+							<p class="label">криптовалют</p>
+						</div>
+						<div class="description__img"><img src="{% static 'main/img/main/description_coins.png' %}"
+								alt="">
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section> -->
+
+		<section class="screener screener_main">
+			<div class="container">
+				<div class="screener__content">
+					<div class="screener__block">
+						<div class="screener__title">Начни зарабатывать со скринером ARBI TOOLS уже сегодня</div>
+						<!-- <div class="screener__subtitle">Не знаешь как искать связи? ArbiTools все сделает за тебя!
+						</div> -->
+						<a href="#rates" class="btn btn_white">Выбрать тариф</a>
+					</div>
+					<img src="{% static 'main/img/main/screener.png' %}" alt="">
+				</div>
+			</div>
+		</section>
+
+		<section class="about">
+			<div class="container">
+				<div class="about__title label">
+					<p>почему arbitools?</p>
+				</div>
+				<div class="about__content">
+					<div class="about__item about__item_open">
+						<div class="about__img">
+							<img src="{% static 'main/img/main/about1.png' %}" alt="">
+							<img src="{% static 'main/img/main/about_arrow.png' %}" alt="" class="about__arrow">
+							<div class="about__sub">*Нажмите, чтобы познакомиться
+								с каналом и владельцем</div>
+						</div>
+						<div class="about__text">Открытый владелец платформы
+							с опытом в арбитраже</div>
+					</div>
+					<div class="about__item about__item_tools">
+						<div class="about__img"><img src="{% static 'main/img/main/about2.png' %}" alt=""></div>
+						<div class="about__text">Полный набор инструментов
+							для торговли, в том числе
+							арбитраж без карт</div>
+					</div>
+					<div class="about__item about__item_filter">
+						<div class="about__img"><img src="{% static 'main/img/main/about3.png' %}" alt=""></div>
+						<div class="about__text">Тонкая настройка фильтров,
+							что позволяет отбирать наиболее
+							подходящую связку</div>
+					</div>
+					<div class="about__item about__item_worked">
+						<div class="about__img"><img src="{% static 'main/img/main/about4.png' %}" alt=""></div>
+						<div class="about__text">Мы не завлекаем пользователей
+							нерабочими связками, используем
+							только ликвидные инструменты</div>
+					</div>
+					<div class="about__item about__item_develop">
+						<div class="about__img"><img src="{% static 'main/img/main/about5.png' %}" alt=""></div>
+						<div class="about__text">Команда разработчиков -
+							практикующие арбитражнки</div>
+					</div>
+					<svg width="104" height="1410" viewBox="0 0 104 1410" fill="none"
+						xmlns="http://www.w3.org/2000/svg">
+						<line x1="54.5" x2="54.5" y2="1410" stroke="url(#paint0_linear_1525_830)" stroke-width="5" />
+						<path
+							d="M0.93934 275.939C0.353553 276.525 0.353553 277.475 0.93934 278.061L10.4853 287.607C11.0711 288.192 12.0208 288.192 12.6066 287.607C13.1924 287.021 13.1924 286.071 12.6066 285.485L4.12132 277L12.6066 268.515C13.1924 267.929 13.1924 266.979 12.6066 266.393C12.0208 265.808 11.0711 265.808 10.4853 266.393L0.93934 275.939ZM2 278.5H56V275.5H2V278.5Z"
+							fill="#A54BE3" />
+						<path
+							d="M103.061 432.061C103.646 431.475 103.646 430.525 103.061 429.939L93.5147 420.393C92.9289 419.808 91.9792 419.808 91.3934 420.393C90.8076 420.979 90.8076 421.929 91.3934 422.515L99.8787 431L91.3934 439.485C90.8076 440.071 90.8076 441.021 91.3934 441.607C91.9792 442.192 92.9289 442.192 93.5147 441.607L103.061 432.061ZM55 432.5L102 432.5L102 429.5L55 429.5L55 432.5Z"
+							fill="#CA5F9E" />
+						<path
+							d="M0.93934 640.939C0.353553 641.525 0.353553 642.475 0.93934 643.061L10.4853 652.607C11.0711 653.192 12.0208 653.192 12.6066 652.607C13.1924 652.021 13.1924 651.071 12.6066 650.485L4.12132 642L12.6066 633.515C13.1924 632.929 13.1924 631.979 12.6066 631.393C12.0208 630.808 11.0711 630.808 10.4853 631.393L0.93934 640.939ZM2 643.5H56V640.5H2V643.5Z"
+							fill="#DD7766" />
+						<path
+							d="M103.061 844.061C103.646 843.475 103.646 842.525 103.061 841.939L93.5147 832.393C92.9289 831.808 91.9792 831.808 91.3934 832.393C90.8076 832.979 90.8076 833.929 91.3934 834.515L99.8787 843L91.3934 851.485C90.8076 852.071 90.8076 853.021 91.3934 853.607C91.9792 854.192 92.9289 854.192 93.5147 853.607L103.061 844.061ZM53 844.5L102 844.5L102 841.5L53 841.5L53 844.5Z"
+							fill="#EF9031" />
+						<path
+							d="M0.93934 1044.94C0.353553 1045.53 0.353553 1046.47 0.93934 1047.06L10.4853 1056.61C11.0711 1057.19 12.0208 1057.19 12.6066 1056.61C13.1924 1056.02 13.1924 1055.07 12.6066 1054.49L4.12132 1046L12.6066 1037.51C13.1924 1036.93 13.1924 1035.98 12.6066 1035.39C12.0208 1034.81 11.0711 1034.81 10.4853 1035.39L0.93934 1044.94ZM2 1047.5H57V1044.5H2V1047.5Z"
+							fill="#FFA501" />
+						<defs>
+							<linearGradient id="paint0_linear_1525_830" x1="52" y1="1410" x2="52" y2="127.654"
+								gradientUnits="userSpaceOnUse">
+								<stop stop-color="#FFA500" stop-opacity="0" />
+								<stop offset="0.232292" stop-color="#FFA500" />
+								<stop offset="1" stop-color="#AE39F2" />
+							</linearGradient>
+						</defs>
+					</svg>
+				</div>
+			</div>
+		</section>
+
+		<section class="rates" id='rates'>
+			<div class="container">
+				<div class="rates__title label">
+					<p>Тарифы</p>
+				</div>
+				<div class="bonus">
+					<p class="bonus__title">Бонус!</p>
+					<p class="bonus__title">Бонус!</p>
+					<div class="bonus__content">
+						Покупая сейчас вы оставляете
+						за собой фиксированную цену навсегда.
+					</div>
+					<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+					<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+					<svg version="1.1" id="svg1" xml:space="preserve" width="100%" height="100%" <defs id="defs1">
+						<linearGradient inkscape:collect="always" xlink:href="#linearGradient1" id="linearGradient2"
+							x1="61.573189" y1="107.38699" x2="161.83777" y2="107.38699"
+							gradientUnits="userSpaceOnUse" />
+						<linearGradient id="linearGradient1" inkscape:collect="always">
+							<stop style="stop-color:#ffa500;stop-opacity:1;" offset="0" id="stop1" />
+							<stop style="stop-color:#a54be3;stop-opacity:1;" offset="1" id="stop2" />
+						</linearGradient>
+						</defs>
+						<g id="g1" transform="matrix(3.7795276,0,0,3.7795276,-232.7164,-310.87917)">
+							<rect
+								style="fill:none;stroke:url(#linearGradient2);stroke-width:0.264583;stroke-dasharray:2.11667, 1.05833;stroke-dashoffset:26.4583;stroke-opacity:1"
+								id="rect1" width="26.3%" height="26%" x="61.705479" y="82.386986" rx="6" ry="6" />
+						</g>
+					</svg>
+
+				</div>
+				<div class="rates__slider-btn_prev"></div>
+				<div class="rates__slider-btn_next"></div>
+				<div class="rates__slider">
+					<div class="rates__slide">
+						<div class="rates__item">
+							<h3 class="rates__item-title">ТАРИФ “ПРОБНЫЙ”</h3>
+							<div class="rates__item-price">5$</div>
+							<div class="rates__item-subtitle">Тариф для исследования всего функционала Arbi Tools. Оцени
+								возможности нашего инструмента. <p>Получи доступ на 1 день к Таблицам спреда.</p>
+							</div>
+							<ul class="rates__item-description">
+								<li>для P2Pшников</li>
+								<li>для Арбитража без карт на BestChange</li>
+								<li>для Межбиржевого арбитража на CEX и DEX биржах</li>
+
+							</ul>
+							<div class="rate__btn-block">
+								{% if user.is_authenticated %}
+								<a href="{% url 'profile' %}#premium" class="btn btn_white btn_rates">Оформить подписку
+								</a>
+								{% else %}
+								<a class="btn btn_white btn_rates" data-link='noauth'>Оформить подписку
+								</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<div class="rates__slide">
+						<div class="rates__item">
+							<h3 class="rates__item-title">Тариф "Стандарт"</h3>
+							<div class="rates__item-price">20$ - <span class="rates__item-old-price">55$</span></div>
+							<div class="rates__item-subtitle">Тариф для тех кто серьезно настроен на становление
+								профессиональным арбитражником. <p>Получи доступ на 1 месяц к Таблицам спреда:</p>
+							</div>
+							<ul class="rates__item-description">
+								<li>для P2Pшников</li>
+								<li>для Арбитража без карт на BestChange</li>
+								<li>для Межбиржевого арбитража на CEX и DEX биржах</li>
+								<li>Связки без карт в один обмен (редкое явление)</li>
+							</ul>
+							<div class="rate__btn-block">
+								{% if user.is_authenticated %}
+								<a href="{% url 'profile' %}#premium" class="btn btn_white btn_rates">Оформить подписку
+								</a>
+								{% else %}
+								<a class="btn btn_white btn_rates" data-link='noauth'>Оформить подписку
+								</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<div class="rates__slide">
+						<div class="rates__item">
+							<h3 class="rates__item-title">Тариф “ВЕЧНЫЙ”</h3>
+							<div class="rates__item-price">500$ - <span class="rates__item-old-price">1000$</span></div>
+							<div class="rates__item-subtitle">Тариф для ограниченного количества пользователей. Ты
+								получишь бесконечный доступ ко всему функционалу ArbiTools, возможность в принятии
+								решения по изменению, улучшению и добавлению новых инструментов для арбитражников.
+								<p>Получи вечный доступ ко всем инструментам!</p>
+							</div>
+							<ul class="rates__item-description">
+								<li>для P2Pшников</li>
+								<li>для Арбитража без карт на BestChange</li>
+								<li>для Межбиржевого арбитража на CEX и DEX биржах</li>
+								<li>Связки без карт в один обмен (редкое явление)</li>
+								<li>Таблицам спреда</li>
+								<li>Чату арбитражников и разработчиков</li>
+							</ul>
+							<div class="rate__btn-block">
+								{% if user.is_authenticated %}
+								<a href="{% url 'profile' %}#premium" class="btn btn_white btn_rates">Оформить подписку
+								</a>
+								{% else %}
+								<a class="btn btn_white btn_rates" data-link='noauth'>Оформить подписку
+								</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+		</section>
+
+
+		<!-- <section class="manual">
+			<div class="container">
+				<div class="manual__title">
+					<p>Как искать связки</p>
+				</div>
+				<div class="manual__table">
+					<div class="manual__step manual__step1">
+						<div class="manual__arrow"><img src="{% static 'main/img/main/arrow.svg' %}" alt=""></div>
+						<div class="manual__text-block">
+							<div class="manual__step-text">
+								<p class="manual__text">Выбираешь способ торговли</p>
+								<p class="manual__number">1</p>
+							</div>
+						</div>
+						<div class="manual__img"><img src="{% static 'main/img/main/step1.png' %}" alt=""></div>
+					</div>
+					<div class="manual__step manual__step2">
+						<div class="manual__arrow"><img src="{% static 'main/img/main/arrow.svg' %}" alt=""></div>
+						<div class="manual__text-block">
+							<div class="manual__step-text">
+								<p class="manual__text">Нужные тебе платёжки</p>
+								<p class="manual__number">2</p>
+							</div>
+						</div>
+						<div class="manual__img"><img src="{% static 'main/img/main/step2.png' %}" alt=""></div>
+					</div>
+					<div class="manual__step manual__step3">
+						<div class="manual__arrow"><img src="{% static 'main/img/main/arrow.svg' %}" alt=""></div>
+						<div class="manual__text-block">
+							<div class="manual__step-text">
+								<p class="manual__text">Биржи, на которых собираешься торговать</p>
+								<p class="manual__number">3</p>
+							</div>
+						</div>
+						<div class="manual__img"><img src="{% static 'main/img/main/step3.png' %}" alt=""></div>
+					</div>
+					<div class="manual__step manual__step4">
+						<div class="manual__arrow"><img src="{% static 'main/img/main/arrow.svg' %}" alt=""></div>
+						<div class="manual__text-block">
+							<div class="manual__step-text">
+								<p class="manual__text">Криптовалюты</p>
+								<p class="manual__number">4</p>
+							</div>
+						</div>
+						<div class="manual__img"><img src="{% static 'main/img/main/step4.png' %}" alt=""></div>
+					</div>
+					<div class="manual__step manual__step5">
+						<div class="manual__text-block">
+							<div class="manual__step-text">
+								<p class="manual__text">Указываешь лимиты и депозит</p>
+								<p class="manual__number">5</p>
+							</div>
+						</div>
+						<div class="manual__img"><img src="{% static 'main/img/main/step5.png' %}" alt=""></div>
+					</div>
+				</div>
+			</div>
+		</section> -->
+
+		<div class="container">
+			<section class="main-contacts">
+				<div class="main-contacts__title label">
+					<p>наше комьюнити</p>
+				</div>
+				<div class="main-contacts__content">
+					<div class="main-contacts__item">
+						<div class="main-contacts__ring">
+							<img src="{% static 'main/img/main/youtube.png' %}" alt="">
+						</div>
+						<a href="#" class="btn btn_contacts">Переходи на наш ютуб канал</a>
+					</div>
+					<div class="main-contacts__item">
+						<div class="main-contacts__ring">
+							<img src="{% static 'main/img/main/telegram.png' %}" alt="">
+						</div>
+						<svg class="border-left" xmlns="http://www.w3.org/2000/svg" width="4" height="153"
+							viewBox="0 0 4 153" fill="none">
+							<path d="M2 151.014L2 2.00024" stroke="white" stroke-width="3" stroke-linecap="round"
+								stroke-dasharray="20 20" />
+						</svg>
+						<svg class="border-right" xmlns="http://www.w3.org/2000/svg" width="4" height="153"
+							viewBox="0 0 4 153" fill="none">
+							<path d="M2 151.014L2 2.00024" stroke="white" stroke-width="3" stroke-linecap="round"
+								stroke-dasharray="20 20" />
+						</svg>
+						<a href="#" class="btn btn_contacts">Подписывайся на наш телеграм канал</a>
+					</div>
+					<div class="main-contacts__item">
+						<div class="main-contacts__ring"><img src="{% static 'main/img/main/telegram_grad.png' %}"
+								alt=""></div>
+						<a href="#" class="btn btn_contacts">Общайся в чате разработчиков </a>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<section class="quote">
+			<div class="container">
+				<div class="quote__content">
+					<div class="quote__img-top">
+						<img src="{% static 'main/img/main/quote_top.png' %}" alt="">
+					</div>
+					<div class="quote__img-bottom">
+						<img src="{% static 'main/img/main/quote_bottom.png' %}" alt="">
+					</div>
+					<p class="quote__text">
+						ArbiTools исключит исходы с отрицательным спредом и предложит
+						все возможные варианты для прибыльной торговли.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		{% include 'main/layout_footer.html' %}
+		{% include 'main/layout_modal.html' %}
+	</main>
+
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="{% static 'main/js/slick.min.js' %}"></script>
+	<script src="{% static 'main/js/login.js' %}"></script>
+	<script src="{% static 'main/js/script_main.js' %}"></script>
+</body>
+
+</html>

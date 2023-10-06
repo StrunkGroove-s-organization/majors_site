@@ -1,0 +1,13 @@
+{% extends 'main/layout_trade.html' %}
+
+{% block title %}
+{% endblock %}
+{% block script %}
+<script>
+	document.querySelector('[data-page="favorite"]').classList.add('active')
+</script>
+{% endblock %}
+
+{% block content %}
+<h1>Favorite</h1>
+{% endblock %}

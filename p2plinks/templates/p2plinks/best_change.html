@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Filter Page</h1>
+    
+    <label for="get_currency">get_currency:</label>
+    <select id="get_currency">
+        <option value="bitcoin">bitcoin</option>
+        <option value="bitcoin-cash">bitcoin-cash</option>
+        <option value="ethereum">ethereum</option>
+    </select>
+    
+    <label for="give_currency">give_currency:</label>
+    <select id="give_currency">
+        <option value="tether-trc20">tether-trc20</option>
+        <option value="tether-bep20">tether-bep20</option>
+    </select>
+    
+    <button id="applyFilters">Apply Filters</button>
+    
+    <h1>Filter Page</h1>
+    <div id="results"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#applyFilters').on('click', function() {
+                var get_currencyValue = $('#get_currency').val();
+                var give_currencyValue = $('#give_currency').val();
+                
+                var filters = {
+                    get_currency: get_currencyValue,
+                    give_currency: give_currencyValue
+                };
+                
+                var filtersJSON = JSON.stringify(filters);
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/best_change/',
+                    data: filtersJSON,
+                    contentType: 'application/json',
+                    success: function(response) {
+                        console.log('Filters applied successfully:', response);
+                        var resultsContainer = $('#results');
+                        resultsContainer.empty();
+                        for (var i = 0; i < response.length; i++) {
+                            var result = response[i];
+                            var resultHtml = '<p>get_currency: ' + result.get_currency + ', give_currency: ' + result.give_currency + ', info_reverse: ' + result.info_reverse + '</p>';
+                            resultsContainer.append(resultHtml);
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error applying filters:', error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

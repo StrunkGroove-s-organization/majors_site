@@ -1,0 +1,504 @@
+{% load static %}
+<html lang="ru"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>P2P Majors</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header class="header">
+        <div class="wrapper container">
+          <div class="header-items">
+            <nav class="navigation">
+              <ul class="navigation-block">
+                <li class="navigation-item">
+                  <a href="{% url 'index' %}" class="navigation-link active">Главная</a>
+                </li>
+                <li class="navigation-item">
+                  <a href="{% url 'buy' %}" class="navigation-link">P2P цены</a>
+                </li>
+                <li class="navigation-item">
+                  <a href="#" class="navigation-link">P2P связки</a>
+                </li>
+                <li class="navigation-item">
+                  <a href="#" class="navigation-link">Тарифы</a>
+                </li>
+              </ul>
+            </nav>
+            <div class="other-nav">
+              <div class="icons-block">
+                <svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.65597 17V9.24548H8.22501L8.60969 6.2234H5.65597V4.294C5.65597 3.41904 5.89578 2.82278 7.13417 2.82278L8.71368 2.82208V0.119112C8.44051 0.0822826 7.5029 -1.65981e-08 6.41206 -1.65981e-08C4.13475 -1.65981e-08 2.57564 1.40836 2.57564 3.9947V6.2234H-2.3404e-08V9.24548H2.57564V17H5.65597Z" fill="#B6BAC7"></path>
+                </svg>
+                <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.04945 8.72806L11.4957 12.5768C12.1172 12.9048 12.5657 12.735 12.7205 12.0249L14.9374 2.03246C15.1644 1.16206 14.5906 0.76729 13.996 1.02547L0.978404 5.82666C0.0898302 6.16756 0.0950105 6.64173 0.816436 6.85301L4.15705 7.85032L11.8909 3.18335C12.256 2.97158 12.5911 3.08543 12.3161 3.31891" fill="#B6BAC7"></path>
+                </svg>
+                <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0328 1.84041C16.4253 2.11761 15.7726 2.30417 15.0877 2.38898C15.7868 1.95807 16.3239 1.27594 16.5767 0.46342C15.9222 0.862259 15.1973 1.15191 14.4257 1.308C13.8081 0.631966 12.9276 0.210602 11.9535 0.210602C10.0832 0.210602 8.56631 1.76886 8.56631 3.69017C8.56631 3.96313 8.59598 4.22867 8.65402 4.48334C5.83853 4.33759 3.3424 2.95159 1.67204 0.847419C1.38053 1.36154 1.2135 1.95887 1.2135 2.59648C1.2135 3.80359 1.81147 4.86853 2.72005 5.49303C2.16541 5.47448 1.64276 5.31812 1.18615 5.05709V5.10081C1.18615 6.7876 2.35476 8.19347 3.90258 8.51347C3.61882 8.59297 3.31957 8.63537 3.01181 8.63537C2.79357 8.63537 2.581 8.61417 2.37462 8.5731C2.80543 9.95591 4.05659 10.9619 5.53864 10.99C4.37931 11.9228 2.91868 12.4793 1.33113 12.4793C1.05768 12.4793 0.788618 12.4634 0.523682 12.4308C2.02249 13.4183 3.80327 13.9944 5.71599 13.9944C11.946 13.9944 15.3531 8.69155 15.3531 4.09365C15.3531 3.94259 15.3498 3.79286 15.3433 3.64313C16.0053 3.15286 16.5798 2.53937 17.0338 1.84107" fill="#6188FF"></path>
+                </svg>
+                <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.0001 2.10651H16.3472C16.1047 2.10651 15.7619 2.45072 15.7619 2.67109V10.6583C15.7619 10.8789 16.1047 11.1796 16.3472 11.1796H17.0001V13.0755H11.084V11.1796H12.3223V2.78361H12.2616L9.36999 13.0755H7.13129L4.277 2.78361H4.20477V11.1796H5.44303V13.0755H0.48999V11.1796H1.12422C1.38542 11.1796 1.72825 10.8789 1.72825 10.6583V2.67109C1.72825 2.45072 1.38542 2.10651 1.12422 2.10651H0.48999V0.210635H6.68355L8.717 7.65872H8.77295L10.8252 0.210635H17.0001V2.10651Z" fill="#757E9A"></path>
+                </svg>
+              </div>
+              <button class="nav-button">Get started</button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <section class="productivity-block">
+        <img class="production-bg-img" src="{% static 'main/img/clouds.png' %}" alt="">
+        <img class="production-graphic-img" src="{% static 'main/img/chart.png' %}" alt="">
+        <div class="productivity-text-block">
+          <p class="first-head-text">plan your life</p>
+          <p class="main-head-text">
+            Increase your
+            <span class="main-head-text-bold">productivity</span>
+          </p>
+          <p class="body-text">
+            Brute laoreet efficiendi id his, ea illum nonumes luptatum pro. Usu
+            atqui laudem an, insolens gubergren similique est cu. Et vel modus
+            congue vituperata.
+          </p>
+        </div>
+        <div class="play-block">
+          <img class="play-block_img" src="{% static 'main/img/play_button.png' %}" alt="">
+        </div>
+
+        <div class="dotts-block">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="4" cy="4" r="4" fill="#5283FF"></circle>
+          </svg>
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+          </svg>
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+          </svg>
+        </div>
+      </section>
+      <section class="logos-block">
+        <div class="wrapper container">
+          <div class="logo-block-items">
+            <img src="{% static 'main/img/bitbucket.png' %}" alt="" class="bitbucket-logo-img">
+            <img src="{% static 'main/img/apple.png' %}" alt="" class="apple-watch-logo-img">
+            <img src="{% static 'main/img/facebook.png' %}" alt="" class="facebook-logo-img">
+            <img src="{% static 'main/img/atlassian.png' %}" alt="" class="atlassian-logo-img">
+            <img src="{% static 'main/img/audi.png' %}" alt="" class="audi-logo-img">
+          </div>
+        </div>
+      </section>
+      <section class="plan-and-manage-block">
+        <div class="plan-and-manage-text-block">
+          <p class="plan-and-manage__first-head-text">desctop and mobile app</p>
+          <p class="plan-and-manage__main-head-text">
+            <span class="plan-and-manage__main-head-text-bold">Plan</span> and
+            <span class="plan-and-manage__main-head-text-bold"> manage</span>
+          </p>
+          <p class="plan-and-manage__body-text">
+            Brute laoreet efficiendi id his, ea illum nonumes luptatum pro. Usu
+            atqui laudem an, insolens gubergren similique est cu. Et vel modus
+            congue vituperata. Solum patrioque no sea. Mea ex malis mollis
+            oporteat. Eum an expetenda consequat.
+          </p>
+          <div class="plan-and-manage__buttons-block">
+            <button class="plan-and-manage__video-button">
+              <span class="plan-and-manage__video-button-text">View video</span>
+              <svg width="7" height="8" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 2.73354C6.66667 3.11844 6.66667 4.08069 6 4.46559L1.5 7.06367C0.833333 7.44857 0 6.96744 0 6.19764V1.00149C0 0.231691 0.833333 -0.249434 1.5 0.135467L6 2.73354Z" fill="white"></path>
+              </svg>
+            </button>
+            <button class="plan-and-manage__features-button">
+              See features
+            </button>
+          </div>
+        </div>
+        <div class="plan-and-manage-img-block">
+          <img src="{% static 'main/img/illustration.png' %}" alt="" class="plan-and-manage__img">
+        </div>
+      </section>
+      <section class="about-block">
+        <img class="about-block__img" src="{% static 'main/img/clouds2.png' %}" alt="">
+        <div class="about-block__items-block">
+          <div class="about-block__head-block">
+            <p class="about-block__first-head-text">about us</p>
+            <p class="about-block__main-head-text">Read about our app</p>
+          </div>
+          <div class="about-block__body-block">
+            <div class="about-block__body-item">
+              <div class="about-block__body-item-icon-block">
+                <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 7.87273V19H6.42105L9 17L11.5789 19H16V7.87273L9 2L2 7.87273Z" stroke="#4074F8" stroke-width="2.5"></path>
+                </svg>
+              </div>
+              <p class="about-block__body-item-head-text">Overview</p>
+              <p class="about-block__body-item-body-text">
+                Brute laoreet efficiendi id his, ea illum nonumes luptatum pro.
+              </p>
+              <!-- <div class="about-block__body-item-text-block">
+                
+              </div> -->
+            </div>
+            <div class="about-block__body-item">
+              <div class="about-block__body-item-icon-block">
+                <svg width="28" height="18" viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.7544 16H12.0877H9.19945H2V5.94956V2H12.0877L13.7018 5.16129H19.7544V6.96774M19.7544 16L25 6.96774H19.7544M19.7544 16V6.96774" stroke="#4074F8" stroke-width="2.5"></path>
+                </svg>
+              </div>
+              <p class="about-block__body-item-head-text">Files</p>
+              <p class="about-block__body-item-body-text">
+                No vim nulla vitae intellegat. Ei enim error ius, solet atomorum
+                conceptam ex has.
+              </p>
+              <!-- <div class="about-block__body-item-text-block">
+                
+              </div> -->
+            </div>
+            <div class="about-block__body-item">
+              <div class="about-block__body-item-icon-block">
+                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 2V6.94956V13.5H4.28115L5.5 17L9 13.5H13.7018H19.7544V7.96774V2H17H12.5H2Z" stroke="#4074F8" stroke-width="2.5"></path>
+                </svg>
+              </div>
+              <p class="about-block__body-item-head-text">Meeting chats</p>
+              <p class="about-block__body-item-body-text">
+                Vim ne tacimates neglegentur. Erat diceret omittam at est.
+              </p>
+              <!-- <div class="about-block__body-item-text-block">
+                
+              </div> -->
+            </div>
+            <div class="about-block__body-item">
+              <div class="about-block__body-item-icon-block">
+                <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 11.9677V17.5H4.28115H9H13.7018H19.2544V11.9677M6.75439 5L10.7544 2M14.7544 5L10.7544 2M10.7544 2V12.5" stroke="#4074F8" stroke-width="2.5"></path>
+                </svg>
+              </div>
+              <p class="about-block__body-item-head-text">Save events</p>
+              <p class="about-block__body-item-body-text">
+                Nisl idque mel ea, nominati voluptatum.
+              </p>
+            </div>
+          </div>
+          <div class="about-block__buttons-block">
+            <button class="about-block__red-button">Read more</button>
+            <span>OR</span>
+            <button class="about-block__blue-button">Get started</button>
+          </div>
+        </div>
+      </section>
+      <section class="performans-block">
+        <div class="performans__speed-block">
+          <div class="performans__speed-block-items text-right">
+            <svg width="67" height="68" viewBox="0 0 67 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 33.625C2 16.159 16.2412 2 33.8085 2C37.0463 2 40.1712 2.48098 43.1147 3.375" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M26.9628 40.4307C30.7436 44.1895 36.873 44.1895 40.6537 40.4307C44.4343 36.6719 60.0847 10.2499 58.7018 8.87494C57.3188 7.49994 30.7436 23.0602 26.9628 26.819C23.1823 30.5778 23.1823 36.6719 26.9628 40.4307ZM33.808 36.3751C35.3356 36.3751 36.5742 35.1439 36.5742 33.6251C36.5742 32.1063 35.3356 30.8751 33.808 30.8751C32.2805 30.8751 31.0422 32.1063 31.0422 33.6251C31.0422 35.1439 32.2805 36.3751 33.808 36.3751Z" fill="white"></path>
+              <ellipse cx="6.14901" cy="50.125" rx="2.76596" ry="2.75" fill="white"></ellipse>
+              <ellipse cx="17.2127" cy="61.125" rx="2.76596" ry="2.75" fill="white"></ellipse>
+              <ellipse cx="33.8084" cy="65.25" rx="2.76596" ry="2.75" fill="white"></ellipse>
+              <ellipse cx="50.4041" cy="61.125" rx="2.76596" ry="2.75" fill="white"></ellipse>
+              <ellipse cx="60.085" cy="50.125" rx="2.76596" ry="2.75" fill="white"></ellipse>
+              <ellipse cx="64.234" cy="33.625" rx="2.76596" ry="2.75" fill="white"></ellipse>
+            </svg>
+            <p class="performans__item-head-text performans__speed-block-text">
+              89%
+            </p>
+            <p class="performans__item-body-text performans__speed-block-text">
+              Customers who have increased their productivity
+            </p>
+          </div>
+        </div>
+        <div class="performans__peoples-block">
+          <div class="performans__peoples-block-items text-left">
+            <svg width="75" height="66" viewBox="0 0 75 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="28.6252" cy="17.5" rx="15.6369" ry="15.5" stroke="#5E80FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></ellipse>
+              <path d="M55.2501 64.0001C55.2501 49.6556 43.3296 38.0271 28.625 38.0271C13.9204 38.0271 2 49.6556 2 64.0001" stroke="#5E80FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              <ellipse cx="62.0117" cy="20.2229" rx="6.45334" ry="6.49324" stroke="#5E80FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></ellipse>
+              <path d="M72.9999 39.7027C72.9999 33.6935 68.0804 28.8221 62.0118 28.8221C55.9432 28.8221 51.0237 33.6935 51.0237 39.7027" stroke="#5E80FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <p class="performans__item-head-text performans__people-block-text">
+              3123
+            </p>
+            <p class="performans__item-body-text performans__people-block-text">
+              Users who have used our application
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="blog-block">
+        <div class="blog__text-block">
+          <p class="first-head-text">our resources</p>
+          <p class="main-head-text">Start reading our blog</p>
+        </div>
+        <div class="blog__body-block">
+          <div class="blog__body-img-block">
+            <div class="blog__body-img-big-img-block me-3">
+              <img src="{% static 'main/img/blog_big_img.png' %}" alt="" class="blog__body-img-big-img">
+              <img src="{% static 'main/img/search_icon.png' %}" alt="" class="blog__search-img">
+            </div>
+            <div class="blog__body-img-small-imgs-block">
+              <img src="{% static 'main/img/blog_small_img1.png' %}" alt="" class="blog__body-img-small-img">
+              <img src="{% static 'main/img/blog_small_img2.png' %}" alt="" class="blog__body-img-small-img">
+            </div>
+          </div>
+          <div class="blog__body-text-block">
+            <p class="blog__body-header-text">How to start planning</p>
+            <p class="blog__body-body-text">
+              Quidam vocibus eum ne, erat consectetuer voluptatibus ut nam. Eu
+              usu vidit tractatos, vero tractatos ius an, in mel diceret
+              persecuti. Natum petentium principes mei ea. Tota everti periculis
+              vis ei, quas tibique pro at, eos ut decore ...
+            </p>
+            <div class="blog__body-button-block">
+              <button class="blog__body-button about-block__blue-button me-3">
+                Read now
+              </button>
+              <p class="blog__body-button-blog-text">Add to your bookmarks</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dotts-block">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="4" cy="4" r="4" fill="#5283FF"></circle>
+          </svg>
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+          </svg>
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+          </svg>
+        </div>
+      </section>
+      <section class="testmonials-block">
+        <div class="testmonials__text-block text-start">
+          <p class="testmonials__first-head-text">testmonials</p>
+          <p class="testmonials__main-head-text text-start">
+            Customers's quotes
+          </p>
+          <p class="body-text text-start">
+            Brute laoreet efficiendi id his, ea illum nonumes luptatum pro. Usu
+            atqui laudem an, insolens gubergren similique est cu. Et vel modus
+            congue vituperata.
+          </p>
+        </div>
+        <div class="testmonials__slider-block">
+          <div class="testmonials__slider-block-items">
+            <div class="testmonials__slider-block-item">
+              <p class="testmonials__slider-block-item-text text-start">
+                Quidam vocibus eum ne, erat consectetuer voluptatibus ut nam. Eu
+                usu vidit tractatos, vero tractatos ius an, in mel diceret
+                persecuti.
+              </p>
+              <img src="{% static 'main/img/testmonials_item_img.png' %}" alt="" class="testmonials__slider-block-item-img">
+            </div>
+            <div class="testmonials__second-item">
+              <p class="text-start testmonials__second-item-text">
+                Quidam vocibus eum ne, erat consectetuer voluptatibus ut nam. Eu
+                usu vidit tractatos, vero tractatos ius an, in mel diceret
+                persecuti.
+              </p>
+            </div>
+          </div>
+          <div class="dotts-block testmonials__dotts">
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+            </svg>
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+            </svg>
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4" cy="4" r="4" fill="#5283FF"></circle>
+            </svg>
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+            </svg>
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+            </svg>
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+            </svg>
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+            </svg>
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+            </svg>
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4" cy="4" r="4" fill="#D1D6E3"></circle>
+            </svg>
+          </div>
+        </div>
+      </section>
+      <section class="customer_block">
+        <div class="customer-block__text-block">
+          <p class="testmonials__first-head-text">customer help</p>
+          <p class="testmonials__main-head-text">Frequently asked questions</p>
+        </div>
+        <div class="customer-block__accordion-block">
+          <div class="customer-block__accordion accordion accordion-flush" id="accordionFlushExample">
+            <div class="customer-block__accordion-item accordion-item">
+              <h2 class="customer-block__accordion-header accordion-header">
+                <button class="customer-block__accordion-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Reque insolens in vel?
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="customer-block__accordion-collapse accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="customer-block__accordion-body accordion-body">
+                  <span class="customer-block__accordion-body-text">Placeholder content for this accordion, which is intended
+                    to demonstrate the <code>.accordion-flush</code> class. This
+                    is the first item's accordion body.</span>
+                </div>
+              </div>
+            </div>
+            <div class="customer-block__accordion-item accordion-item">
+              <h2 class="customer-block__accordion-header accordion-header">
+                <button class="customer-block__accordion-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  Vis rebum error graecis ea, id sit postea accusamus?
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="customer-block__accordion-collapse accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="customer-block__accordion-body accordion-body">
+                  <span class="customer-block__accordion-body-text">Placeholder content for this accordion, which is intended
+                    to demonstrate the <code>.accordion-flush</code> class. This
+                    is the second item's accordion body. Let's imagine this
+                    being filled with some actual content.</span>
+                </div>
+              </div>
+            </div>
+            <div class="customer-block__accordion-item accordion-item">
+              <h2 class="customer-block__accordion-header accordion-header">
+                <button class="customer-block__accordion-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  Lorem repudiandae ne nec?
+                </button>
+              </h2>
+              <div id="flush-collapseThree" class="customer-block__accordion-collapse accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="customer-block__accordion-body accordion-body">
+                  <span class="customer-block__accordion-body-text">Quidam vocibus eum ne, erat consectetuer voluptatibus ut
+                    nam. Eu usu vidit tractatos, vero tractatos ius an, in mel
+                    diceret persecuti.</span>
+                  <button class="customer-block__accordion-body-button">
+                    Go to documentation
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="customer-block__accordion-item accordion-item">
+              <h2 class="customer-block__accordion-header accordion-header">
+                <button class="customer-block__accordion-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                  Ad dicit numquam vel. Et eos iudico feugait percipitur?
+                </button>
+              </h2>
+              <div id="flush-collapseFour" class="customer-block__accordion-collapse accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="customer-block__accordion-body accordion-body">
+                  <span class="customer-block__accordion-body-text">Quidam vocibus eum ne, erat consectetuer voluptatibus ut
+                    nam. Eu usu vidit tractatos, vero tractatos ius an, in mel
+                    diceret persecuti.</span>
+                </div>
+              </div>
+            </div>
+            <div class="customer-block__accordion-item accordion-item">
+              <h2 class="customer-block__accordion-header accordion-header">
+                <button class="customer-block__accordion-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                  Sea no dico percipitur. Fierent constituam definitiones id
+                  eum?
+                </button>
+              </h2>
+              <div id="flush-collapseFive" class="customer-block__accordion-collapse accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="customer-block__accordion-body accordion-body">
+                  <span class="customer-block__accordion-body-text">Quidam vocibus eum ne, erat consectetuer voluptatibus ut
+                    nam. Eu usu vidit tractatos, vero tractatos ius an, in mel
+                    diceret persecuti.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="plan-block">
+        <div class="plan-block__items">
+          <p class="plan-block__first-head-text">plan your life</p>
+          <p class="plan-block__main-head-text">
+            Get <span class="plan-block__main-head-bold-text">started</span> now
+          </p>
+          <p class="plan-block__body-text">
+            Brute laoreet efficiendi id his, ea illum nonumes luptatum pro. Usu
+            atqui laudem an, insolens gubergren similique est cu. Et vel modus
+            congue vituperata.
+          </p>
+          <div class="plan-block__buttons">
+            <button class="plan-block__white-button">View pricing</button>
+            <button class="plan-block__blue-button">Read documentation</button>
+          </div>
+        </div>
+        <img src="{% static 'main/img/plan_clouds.png' %}" alt="" class="plan-block__bg-img">
+      </section>
+      <section class="newsleter-block">
+        <div class="newsletter-block__items">
+          <div class="newsleter-block__text-item">
+            <p class="newsleter-block__header-text">Sign up for newsletter</p>
+            <p class="newsleter-block__body-text">
+              Cu qui soleat partiendo urbanitas. Eum aperiri indoctum eu, homero
+              alterum.
+            </p>
+          </div>
+          <div class="newsleter-block__input-item">
+            <input type="text" class="newsleter-block__input" placeholder="Email address">
+            <button class="newsleter-block__input-button">Save me</button>
+          </div>
+        </div>
+      </section>
+      <footer class="header">
+        <div class="wrapper container">
+          <div class="header-items">
+            <nav class="navigation">
+              <ul class="navigation-block">
+                <li class="navigation-item">
+                  <a href="#" class="navigation-link active">Главная</a>
+                </li>
+                <li class="navigation-item">
+                  <a href="#" class="navigation-link">P2P цены</a>
+                </li>
+                <li class="navigation-item">
+                  <a href="#" class="navigation-link">P2P связки</a>
+                </li>
+                <li class="navigation-item">
+                  <a href="#" class="navigation-link">Тарифы</a>
+                </li>
+              </ul>
+            </nav>
+            <div class="other-nav">
+              <div class="icons-block">
+                <svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.65597 17V9.24548H8.22501L8.60969 6.2234H5.65597V4.294C5.65597 3.41904 5.89578 2.82278 7.13417 2.82278L8.71368 2.82208V0.119112C8.44051 0.0822826 7.5029 -1.65981e-08 6.41206 -1.65981e-08C4.13475 -1.65981e-08 2.57564 1.40836 2.57564 3.9947V6.2234H-2.3404e-08V9.24548H2.57564V17H5.65597Z" fill="#B6BAC7"></path>
+                </svg>
+                <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.04945 8.72806L11.4957 12.5768C12.1172 12.9048 12.5657 12.735 12.7205 12.0249L14.9374 2.03246C15.1644 1.16206 14.5906 0.76729 13.996 1.02547L0.978404 5.82666C0.0898302 6.16756 0.0950105 6.64173 0.816436 6.85301L4.15705 7.85032L11.8909 3.18335C12.256 2.97158 12.5911 3.08543 12.3161 3.31891" fill="#B6BAC7"></path>
+                </svg>
+                <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0328 1.84041C16.4253 2.11761 15.7726 2.30417 15.0877 2.38898C15.7868 1.95807 16.3239 1.27594 16.5767 0.46342C15.9222 0.862259 15.1973 1.15191 14.4257 1.308C13.8081 0.631966 12.9276 0.210602 11.9535 0.210602C10.0832 0.210602 8.56631 1.76886 8.56631 3.69017C8.56631 3.96313 8.59598 4.22867 8.65402 4.48334C5.83853 4.33759 3.3424 2.95159 1.67204 0.847419C1.38053 1.36154 1.2135 1.95887 1.2135 2.59648C1.2135 3.80359 1.81147 4.86853 2.72005 5.49303C2.16541 5.47448 1.64276 5.31812 1.18615 5.05709V5.10081C1.18615 6.7876 2.35476 8.19347 3.90258 8.51347C3.61882 8.59297 3.31957 8.63537 3.01181 8.63537C2.79357 8.63537 2.581 8.61417 2.37462 8.5731C2.80543 9.95591 4.05659 10.9619 5.53864 10.99C4.37931 11.9228 2.91868 12.4793 1.33113 12.4793C1.05768 12.4793 0.788618 12.4634 0.523682 12.4308C2.02249 13.4183 3.80327 13.9944 5.71599 13.9944C11.946 13.9944 15.3531 8.69155 15.3531 4.09365C15.3531 3.94259 15.3498 3.79286 15.3433 3.64313C16.0053 3.15286 16.5798 2.53937 17.0338 1.84107" fill="#6188FF"></path>
+                </svg>
+                <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.0001 2.10651H16.3472C16.1047 2.10651 15.7619 2.45072 15.7619 2.67109V10.6583C15.7619 10.8789 16.1047 11.1796 16.3472 11.1796H17.0001V13.0755H11.084V11.1796H12.3223V2.78361H12.2616L9.36999 13.0755H7.13129L4.277 2.78361H4.20477V11.1796H5.44303V13.0755H0.48999V11.1796H1.12422C1.38542 11.1796 1.72825 10.8789 1.72825 10.6583V2.67109C1.72825 2.45072 1.38542 2.10651 1.12422 2.10651H0.48999V0.210635H6.68355L8.717 7.65872H8.77295L10.8252 0.210635H17.0001V2.10651Z" fill="#757E9A"></path>
+                </svg>
+              </div>
+              <button class="nav-button">Get started</button>
+            </div>
+          </div>
+          <div class="footer-copyright">Copyright © 2018 by Random site</div>
+        </div>
+      </footer>
+    </div>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script> -->
+    <script src="{% static 'main/js/jquery-3.7.0.min.js' %}"></script>
+    <script src="{% static 'main/js/bootstrap.bundle.js' %}"></script>
+    <!-- <script src="js/slick.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="{% static 'main/js/main.js' %}js/main.js"></script>
+  
+
+</body></html>

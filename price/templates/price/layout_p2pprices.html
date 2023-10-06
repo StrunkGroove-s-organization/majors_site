@@ -1,0 +1,481 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Отслеживайте актуальный курс Bitcoin, USDT и других криптовалют на P2P рынке. Максимизируйте свои прибыли с лучшими курсами обмена фиат крипта. Присоединяйтесь к нам сегодня! ">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/montserrat/stylesheet.css' %}">
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(95116621, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/95116621" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+
+<body class="body_buy">
+    <div class="wrapper">
+        {% include 'main/layout_header.html' %}
+
+        <!-- Верхние бары -->
+        <div id="div2" class="my-div">
+            <div class="container">
+                <div class="navbar">
+                    <a class="nav-link" data-page="buy">Покупка</a>
+                    <a class="nav-link" data-page="sell">Продажа</a>
+                </div>
+            </div>
+        </div>
+        <div id="div3" class="my-div" style="display:none">
+            <div class="container">
+                <div class="navbar">
+                    <a class="nav-link" data-page="p2plinks_2">P2P в 2
+                        действия</a>
+                    <a class="nav-link" data-page="p2plinks_3">P2P в 3
+                        действия</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="title__wrapper">
+                <h1 class="price__title">Мониторинг P2P рынка</h1>
+            </div>
+        </div>
+
+        <!-- Боковая панель -->
+        <div class="container">
+            <div class="content-block">
+                <div class="sidebar sidebar_buy">
+                    <div>
+                        <h2 class="sidebar__title">Фильтры</h2>
+                    </div>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="sidebar__filters">
+                            <div class="sidebar__block">
+                                <h3 class="sidebar__title">Криптовалюта</h3>
+                                <div class="sidebar__select_token hidden">
+                                    <span class="select-title"></span>
+                                    <ul class="sidebar__radio-list hidden">
+                                        <li>
+                                            <input id="radio_token1" name="token" type="radio" value="USDT" checked>
+                                            <label for="radio_token1"><img src="{% static 'main/img/token/USDT.png' %}"
+                                                    alt="">USDT</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token2" name="token" type="radio" value="BTC">
+                                            <label for="radio_token2"><img src="{% static 'main/img/token/BTC.png' %}"
+                                                    alt="">BTC</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token3" name="token" type="radio" value="ETH">
+                                            <label for="radio_token3"><img src="{% static 'main/img/token/ETH.png' %}"
+                                                    alt="">ETH</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token4" name="token" type="radio" value="BUSD">
+                                            <label for="radio_token4"><img src="{% static 'main/img/token/BUSD.png' %}"
+                                                    alt="">BUSD</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token5" name="token" type="radio" value="BNB">
+                                            <label for="radio_token5"><img src="{% static 'main/img/token/BNB.png' %}"
+                                                    alt="">BNB</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token7" name="token" type="radio" value="DOGE">
+                                            <label for="radio_token7"><img src="{% static 'main/img/token/DOGE.png' %}"
+                                                    alt="">DOGE</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token8" name="token" type="radio" value="TRX">
+                                            <label for="radio_token8"><img src="{% static 'main/img/token/TRX.png' %}"
+                                                    alt="">TRX</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token9" name="token" type="radio" value="USDD">
+                                            <label for="radio_token9"><img src="{% static 'main/img/token/USDD.png' %}"
+                                                    alt="">USDD</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token11" name="token" type="radio" value="USDC">
+                                            <label for="radio_token11"><img src="{% static 'main/img/token/USDC.png' %}"
+                                                    alt="">USDC</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token12" name="token" type="radio" value="RUB">
+                                            <label for="radio_token12"><img src="{% static 'main/img/token/RUBe.png' %}"
+                                                    alt="">RUB</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token13" name="token" type="radio" value="HT">
+                                            <label for="radio_token13"><img src="{% static 'main/img/token/HT.png' %}"
+                                                    alt="">HT</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token14" name="token" type="radio" value="EOS">
+                                            <label for="radio_token14"><img src="{% static 'main/img/token/EOS.png' %}"
+                                                    alt="">EOS</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token15" name="token" type="radio" value="XRP">
+                                            <label for="radio_token15"><img src="{% static 'main/img/token/XRP.png' %}"
+                                                    alt="">XRP</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token16" name="token" type="radio" value="LTC">
+                                            <label for="radio_token16"><img src="{% static 'main/img/token/LTC.png' %}"
+                                                    alt="">LTC</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token17" name="token" type="radio" value="GMT">
+                                            <label for="radio_token17"><img src="{% static 'main/img/token/GMT.png' %}"
+                                                    alt="">GMT</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token18" name="token" type="radio" value="TON">
+                                            <label for="radio_token18"><img src="{% static 'main/img/token/TON.png' %}"
+                                                    alt="">TON</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token19" name="token" type="radio" value="XMR">
+                                            <label for="radio_token19"><img src="{% static 'main/img/token/XMR.png' %}"
+                                                    alt="">XMR</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token20" name="token" type="radio" value="DAI">
+                                            <label for="radio_token20"><img src="{% static 'main/img/token/DAI.png' %}"
+                                                    alt="">DAI</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_token21" name="token" type="radio" value="TUSD">
+                                            <label for="radio_token21"><img src="{% static 'main/img/token/TUSD.png' %}"
+                                                    alt="">TUSD</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar__block">
+                                <h3 class="sidebar__title">Фиат</h3>
+                                <div class="sidebar__select_fiat hidden">
+                                    <span class="select-title"></span>
+                                    <ul class="sidebar__radio-list hidden">
+                                        <li>
+                                            <input id="radio_fiat1" name="fiat" type="radio" value="RUB" checked>
+                                            <label for="radio_fiat1"><img src="{% static 'main/img/fiat/RUB.png' %}"
+                                                    alt="">
+                                                RUB</label>
+                                        </li>
+                                        <!-- <li>
+                                            <input id="radio_fiat2" name="fiat" type="radio" value="KZT">
+                                            <label for="radio_fiat2"><img src="/static/main/img/fiat/KZT.png"
+                                                    alt="">KZT</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_fiat3" name="fiat" type="radio" value="CNY">
+                                            <label for="radio_fiat3"><img src="/static/main/img/fiat/CNY.png"
+                                                    alt="">CNY</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_fiat4" name="fiat" type="radio" value="BYR">
+                                            <label for="radio_fiat4"><img src="/static/main/img/fiat/BYN.png"
+                                                    alt="">BYR</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_fiat5" name="fiat" type="radio" value="EUR">
+                                            <label for="radio_fiat5"><img src="/static/main/img/fiat/EUR.png"
+                                                    alt="">EUR</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_fiat6" name="fiat" type="radio" value="TRY">
+                                            <label for="radio_fiat6"><img src="/static/main/img/fiat/TRY.png"
+                                                    alt="">TRY</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_fiat7" name="fiat" type="radio" value="USD">
+                                            <label for="radio_fiat7"><img src="/static/main/img/fiat/USD.png"
+                                                    alt="">USD</label>
+                                        </li>
+                                        <li>
+                                            <input id="radio_fiat8" name="fiat" type="radio" value="HKD">
+                                            <label for="radio_fiat8"><img src="/static/main/img/fiat/HKD.png"
+                                                    alt="">HKD</label>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar__block">
+                                <h3 class="sidebar__title">Оплата</h3>
+                                <div class="sidebar__title_pay hidden ">
+                                    <span class="select-placeholder">Оплата</span>
+                                    <span class="select-title"></span>
+                                    <ul class="sidebar__select-list hidden">
+                                        <li>
+                                            <input id="checkbox_payment1" type="checkbox" name="paymentMethod"
+                                                value="Tinkoff">
+                                            <label for="checkbox_payment1">Тинькофф</label>
+                                            <div class="sidebar__color-box" style="background: #000000;"></div>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_payment2" type="checkbox" name="paymentMethod"
+                                                value="Sber">
+                                            <label for="checkbox_payment2">Сбер</label>
+                                            <div class="sidebar__color-box" style="background: #07991a;"></div>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_payment3" type="checkbox" name="paymentMethod"
+                                                value="MTS-Bank">
+                                            <label for="checkbox_payment3">МТС Банк</label>
+                                            <div class="sidebar__color-box" style="background: #6e0303;"></div>
+                                        </li>
+                                        <!-- <li>
+                                            <input  id="checkbox_payment22" type="checkbox" name="paymentMethod" value="Rosbank">
+                                            <label for="checkbox_payment22">Росбанк</label>
+                                            <div class="sidebar__color-box" style="background: #c9eb0a;"></div>
+                                        </li> -->
+                                        <li>
+                                            <input id="checkbox_payment4" type="checkbox" name="paymentMethod"
+                                                value="Raiffeisenbank">
+                                            <label for="checkbox_payment4">Райффайзен</label>
+                                            <div class="sidebar__color-box" style="background: #c9eb0a;"></div>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_payment5" type="checkbox" name="paymentMethod"
+                                                value="QIWI">
+                                            <label for="checkbox_payment5">Qiwi</label>
+                                            <div class="sidebar__color-box" style="background: #c2a504;"></div>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_payment6" type="checkbox" name="paymentMethod"
+                                                value="ЮMoney">
+                                            <label for="checkbox_payment6">Юмани</label>
+                                            <div class="sidebar__color-box" style="background: #ac07ee;"></div>
+                                        </li>
+                                        <!-- <li>
+                                            <input  id="checkbox_payment7" type="checkbox" name="paymentMethod"
+                                                value="Post Bank">
+                                            <label for="checkbox_payment7">Почта Банк</label>
+                                            <div class="sidebar__color-box" style="background: #180ae0;"></div>
+                                        </li>
+                                        <li>
+                                            <input  id="checkbox_payment8" type="checkbox" name="paymentMethod"
+                                                value="Home Credit Bank (Russia)">
+                                            <label for="checkbox_payment8">Хоум Кредит</label>
+                                            <div class="sidebar__color-box" style="background: #057996;"></div>
+                                        </li>
+                                        <li>
+                                            <input  id="checkbox_payment9" type="checkbox" name="paymentMethod" value="УралСиб">
+                                            <label for="checkbox_payment9">УралСиб</label>
+                                            <div class="sidebar__color-box" style="background: #9c2653;"></div>
+                                        </li>
+                                        <li>
+                                            <input  id="checkbox_payment10" type="checkbox" name="paymentMethod"
+                                                value="Alfa Bank">
+                                            <label for="checkbox_payment10">Альфа</label>
+                                            <div class="sidebar__color-box" style="background: #f30202;"></div>
+                                        </li> -->
+                                        <!-- <li>
+                                            <input  id="checkbox_payment11" type="checkbox" name="paymentMethod" value="SBP">
+                                            <label for="checkbox_payment11">СБП</label>
+                                            <div class="sidebar__color-box" style="background: #0ae7e7;"></div>
+                                        </li> -->
+                                        <!-- <li>
+                                            <input  id="checkbox_payment12" type="checkbox" name="paymentMethod" value="VTB">
+                                            <label for="checkbox_payment12">ВТБ</label>
+                                            <div class="sidebar__color-box" style="background: #2f07bd;"></div>
+                                        </li>
+                                        <li>
+                                            <input  id="checkbox_payment13" type="checkbox" name="paymentMethod"
+                                                value="Gazprombank">
+                                            <label for="checkbox_payment13">Газпром</label>
+                                            <div class="sidebar__color-box" style="background: #03a2e0;"></div>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar__block">
+                                <h3 class="sidebar__title">Биржи</h3>
+                                <div class="sidebar__title_market hidden">
+                                    <span class="select-placeholder">Биржи</span>
+                                    <span class="select-title"></span>
+                                    <ul class="sidebar__select-list hidden">
+                                        <li>
+                                            <input id="checkbox_exchange1" type="checkbox" name="exchange"
+                                                value="Binance">
+                                            <label for="checkbox_exchange1">Binance</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange2" type="checkbox" name="exchange"
+                                                value="Huobi">
+                                            <label for="checkbox_exchange2">Huobi</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange3" type="checkbox" name="exchange"
+                                                value="ByBit">
+                                            <label for="checkbox_exchange3">ByBit</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange4" type="checkbox" name="exchange" value="Okx">
+                                            <label for="checkbox_exchange4">Okx</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange5" type="checkbox" name="exchange"
+                                                value="BitGet">
+                                            <label for="checkbox_exchange5">BitGet</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange6" type="checkbox" name="exchange"
+                                                value="Garantex">
+                                            <label for="checkbox_exchange6">Garantex</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange7" type="checkbox" name="exchange"
+                                                value="Bitpapa">
+                                            <label for="checkbox_exchange7">Bitpapa</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange8" type="checkbox" name="exchange"
+                                                value="Beribit">
+                                            <label for="checkbox_exchange8">Beribit</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange9" type="checkbox" name="exchange"
+                                                value="hodlhodl">
+                                            <label for="checkbox_exchange9">Hodl Hodl</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange10" type="checkbox" name="exchange"
+                                                value="mexc">
+                                            <label for="checkbox_exchange10">Mexc</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange11" type="checkbox" name="exchange"
+                                                value="kucoin">
+                                            <label for="checkbox_exchange11">Kucoin</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange12" type="checkbox" name="exchange"
+                                                value="gateio">
+                                            <label for="checkbox_exchange12">Gate.io</label>
+                                        </li>
+                                        <li>
+                                            <input id="checkbox_exchange13" type="checkbox" name="exchange"
+                                                value="totalcoinio">
+                                            <label for="checkbox_exchange13">Totalcoin</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="sidebar__title">Сумма</h3>
+                        <input type="number" name="summ" id="amount" placeholder="Введите сумму">
+                        <div class="sidebar__block">
+                            <div class="sidebar__refresh">
+                                <input id="checkbox-refresh" type="checkbox" name="refresh">
+                                <label for="checkbox-refresh">Обновлять автоматически</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="content">
+                    <div class="table-responsive">
+                        <div class="table__title">
+                            <div class="sortable" style="width: 22%;">Имя</div>
+                            <div class="sortable" style="width: 10%;">Цена</div>
+                            <div class="sortable" style="width: 22%;">Лимит</div>
+                            <div class="sortable" style="width: 22%;">Оплата</div>
+                            <div class="sortable" style="width: 14%;">Избранное</div>
+                        </div>
+                        <div class="table-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- модальные окна  -->
+    {% include 'main/layout_modal.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Добавление обработчика события клика для сортируемого столбца
+            $('.sortable').click(function () {
+                // var table = $(this).closest('table');
+                var table = $(this).closest('.table-responsive');
+                var index = $(this).index();
+
+                // Получение строк для сортировки
+                // var rows = table.find('tbody tr').get();
+                var rows = table.find('.table-item').get();
+
+                // Определение порядка сортировки (возрастание или убывание)
+                var sortOrder = $(this).hasClass('asc') ? -1 : 1;
+
+                // Переключение класса порядка сортировки
+                $(this).toggleClass('asc desc');
+
+                // Сортировка строк на основе выбранного столбца
+                rows.sort(function (a, b) {
+                    // var cellA = $(a).children('td').eq(index).text().toUpperCase();
+                    // var cellB = $(b).children('td').eq(index).text().toUpperCase();
+                    var cellA = $(a).children('div').eq(index).text().toUpperCase();
+                    var cellB = $(b).children('div').eq(index).text().toUpperCase();
+
+                    if (index === 1) {
+                        // Сортировка числовых значений для столбца "Цена"
+                        cellA = parseFloat(cellA.replace(',', '.'));
+                        cellB = parseFloat(cellB.replace(',', '.'));
+                    }
+
+                    if (cellA < cellB) {
+                        return -1 * sortOrder;
+                    } else if (cellA > cellB) {
+                        return 1 * sortOrder;
+                    } else {
+                        return 0;
+                    }
+                });
+
+                // Перемещение отсортированных строк в таблицу
+                $.each(rows, function (index, row) {
+                    // table.children('tbody').append(row);
+                    table.children('.table-content').append(row);
+                });
+            });
+        });
+    </script>
+
+
+    {% block script_showSelect %}{% endblock %}
+    <script src="{% static 'main/js/links.js' %}"></script>
+    <script src="{% static 'main/js/login.js' %}"></script>
+    <script src="{% static 'main/js/price.js' %}"></script>
+</body>
+
+</html>

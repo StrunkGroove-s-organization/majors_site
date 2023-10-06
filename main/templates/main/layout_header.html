@@ -1,0 +1,67 @@
+{% load static %}
+
+<header class="header">
+   <div class="container">
+      <div class="header__content">
+         <div class="header__logo">
+            <a href="{% url 'index' %}"><img src="{% static 'main/img/main/logo.png' %}" alt=""></a>
+         </div>
+         <div class="header__menu-block">
+            <div class="menu">
+               <ul class="menu__list">
+                  <li class="menu_item drop-menu__btn"> P2P
+                     <div class="drop-menu__item">
+                        <p class="menu_item" data-menu="market">
+                           <a href="{% url 'best_prices' %}" class="menu__link">P2P Цены</a>
+                        </p>
+                        <p class="menu_item" data-menu="links">
+                           <a href="{% url 'p2plinks:spreadtable' %}" class="menu__link">P2P Связки</a>
+                        </p>
+                     </div>
+                  </li>
+                  <li class="menu_item" data-menu="nocard">
+                     <a href="{% url 'links_without_cards' %}" class="menu__link">Без карт</a>
+                  </li>
+                  <li class="menu_item" data-menu="crossmarket">
+                     <a href="{% url 'mezhbirzhevye_svyazki' %}" class="menu__link">Межбиржевые</a>
+                  </li>
+                  <!-- <li class="menu_item" data-menu="constructor"><a href="#" class="menu__link">Конструктор
+                        связок</a></li> -->
+                  <li class="menu_item" data-menu="price">
+                     <a href="{% url 'index' %}#rates" class="menu__link">Тарифы</a>
+                  </li>
+                  <li class="menu_item" data-menu="blog">
+                     <a href="{% url 'empty' %}" class="menu__link">Блог</a>
+                  </li>
+                  <li class="menu_item" data-menu="manual">
+                     <a href="{% url 'empty' %}" class="menu__link">Инструкции</a>
+                  </li>
+               </ul>
+            </div>
+            <div class="header__btn-block">
+               {% if user.is_authenticated %}
+               <a href="{% url 'profile' %}" class="login-block">
+                  <div class="login__img">
+                     <img src="{% static 'main/img/main/user.png' %}" alt="">
+                  </div>
+                  <span class="login__link">{{ user.get_username }}</span>
+               </a>
+               <a class="btn btn_black btn_header"
+                  href="{% url 'accounts:custom_logout'%}?next={{request.path}}">Выход</a>
+               {% else %}
+               <a class="btn btn_black btn_header" data-link="reg">Регистрация</a>
+               <a class="btn btn_black btn_header" data-link="login">Вход</a>
+               {% endif %}
+            </div>
+         </div>
+         <div class="burger__btn">
+            <div></div>
+            <div></div>
+            <div>
+               <div></div>
+               <div></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</header>

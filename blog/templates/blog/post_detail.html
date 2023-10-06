@@ -1,0 +1,35 @@
+{% extends 'blog/layout_blog.html' %}
+
+
+{% block content %}
+
+  <div class="post-entry">
+
+    <h2>{{ post.title }}</h2>
+
+    {% if post.preview_image %}
+      <img src="{{ post.preview_image.url }}" alt="Preview Image">
+    {% endif %}
+
+    {% if post.preview_text %}
+      <p>{{ post.preview_text }}</p>
+    {% endif %}
+
+    <p>{{ post.body }}</p>
+
+    {% for image in post.images.all %}
+      <br>
+      <img src="{{ image.image.url }}" alt="Post Image" width="400" height="300">
+      <br>
+
+      {% for caption in image.captions.all %}
+        <p>{{ caption.caption }}</p>
+        <br>
+      {% endfor %}
+
+    {% endfor %}
+
+  </div>
+ 
+{% endblock content %}
+

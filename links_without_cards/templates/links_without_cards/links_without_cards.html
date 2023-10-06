@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Связки для арбитража без карт</title>
+    <meta name="description"
+        content="Здесь ты найдёшь те связки, которые ищут многие арбитражники. Выбирай пару и крути связку Binance – BestChange не используя банковских кар">
+    <link rel="icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/montserrat/stylesheet.css' %}">
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(95116621, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/95116621" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+
+<body>
+    {% include 'main/layout_header.html' %}
+    <div class="container">
+        <div class="title__wrapper">
+            <h1 class="link-nocard__title">Арбитраж без карт – Биржа/Обменник</h1>
+        </div>
+
+        <form class="link-nocard__form">
+            {% csrf_token %}
+            <div class="sidebar sidebar_links">
+                <div class="sidebar__filters sidebar__filters_nocard">
+
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Биржи</h3>
+                        <div class="sidebar__select_item sidebar__title_market hidden"><span></span>
+                            <span class="select-title"></span>
+                            <div class="sidebar__select-list hidden">
+                                <input checked="checked" id="checkbox-exchange_bybit-nocard" name="exchanges"
+                                    type="radio" value="bybit">
+                                <label for="checkbox-exchange_bybit-nocard">Bybit</label>
+                                <input id="checkbox-exchange_binance-nocard" name="exchanges" type="radio"
+                                    value="binance">
+                                <label for="checkbox-exchange_binance-nocard">Binance</label>
+                                <input id="checkbox-exchange_huobi-nocard" name="exchanges" type="radio" value="huobi">
+                                <label for="checkbox-exchange_huobi-nocard">Huobi</label>
+                                <input id="checkbox-exchange_okx-nocard" type="radio" name="exchanges" value="okx">
+                                <label for="checkbox-exchange_okx-nocard">Okx</label>
+                                <!-- <input id="checkbox-exchange_garantex-nocard" name="exchanges" type="checkbox"
+                                    value="garantex">
+                                <label for="checkbox-exchange_garantex-nocard">Garantex</label>
+                                <input id="checkbox-exchange_bitpapa-nocard" name="exchanges" type="checkbox"
+                                    value="bitpapa">
+                                <label for="checkbox-exchange_bitpapa-nocard">Bitpapa</label>
+                                <input id="checkbox-exchange_beribit-nocard" name="exchanges" type="checkbox"
+                                    value="beribit">
+                                <label for="checkbox-exchange_beribit-nocard">Beribit</label>
+                                <input id="checkbox-exchange_hodlhodl-nocard" name="exchanges" type="checkbox"
+                                    value="hodlhodl">
+                                <label for="checkbox-exchange_hodlhodl-nocard">Hodl Hodl</label>
+                                <input id="checkbox-exchange_mexc-nocard" name="exchanges" type="checkbox" value="mexc">
+                                <label for="checkbox-exchange_mexc-nocard">Mexc</label> -->
+                                <input id="checkbox-exchange_kucoin-nocard" name="exchanges" type="radio"
+                                    value="kucoin">
+                                <label for="checkbox-exchange_kucoin-nocard">Kucoin</label>
+                                <!-- <input id="checkbox-exchange_gateio-nocard" name="exchanges" type="checkbox"
+                                    value="gateio">
+                                <label for="checkbox-exchange_gateio-nocard">Gate.io</label>
+                                <input checked="checked" id="checkbox-exchange_totalcoin-nocard" name="exchanges"
+                                    type="checkbox" value="totalcoin">
+                                <label for="checkbox-exchange_totalcoin-nocard">Totalcoin</label> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Базовая криптовалюта</h3>
+                        <div class="sidebar__select_item sidebar__select_token hidden">
+                            <span class="select-title"></span>
+                            <div class="sidebar__select-list hidden">
+                                <input checked="checked" id="radio-USDT-nocard" name="crypto" type="radio" value="USDT">
+                                <label for="radio-USDT-nocard">USDT</label>
+                                <input id="radio-USDC-nocard" name="crypto" type="radio" value="USDC">
+                                <label for="radio-USDC-nocard">USDC</label>
+                                <!-- <input id="radio-BTC-nocard" name="crypto" type="radio" value="BTC"> <label
+                                    for="radio-BTC-nocard">BTC</label> -->
+                                <!-- <input id="radio-ETH-nocard" name="crypto" type="radio" value="ETH"> <label
+                                    for="radio-ETH-nocard">ETH</label>
+                                <input id="radio-BUSD-nocard" name="crypto" type="radio" value="BUSD"> <label
+                                    for="radio-BUSD-nocard">BUSD</label> -->
+                                <!-- <input id="radio-BNB-nocard" name="crypto" type="radio" value="BNB"> <label
+                                    for="radio-BNB-nocard">BNB</label> -->
+                                <!-- <input id="radio-DOGE-nocard" name="crypto" type="radio" value="DOGE"> <label
+                                    for="radio-DOGE-nocard">DOGE</label>
+                                <input id="radio-TRX-nocard" name="crypto" type="radio" value="TRX"> <label
+                                    for="radio-TRX-nocard">TRX</label>
+                                <input id="radio-USDD-nocard" name="crypto" type="radio" value="USDD"> <label
+                                    for="radio-USDD-nocard">USDD</label>
+                                <input id="radio-USDC-nocard" name="crypto" type="radio" value="USDC"> <label
+                                    for="radio-USDC-nocard">USDC</label>
+                                <input id="radio-RUB-nocard" name="crypto" type="radio" value="RUB"> <label
+                                    for="radio-RUB-nocard">RUB</label>
+                                <input id="radio-HT-nocard" name="crypto" type="radio" value="HT"> <label
+                                    for="radio-HT-nocard">HT</label>
+                                <input id="radio-EOS-nocard" name="crypto" type="radio" value="EOS"> <label
+                                    for="radio-EOS-nocard">EOS</label>
+                                <input id="radio-XRP-nocard" name="crypto" type="radio" value="XRP"> <label
+                                    for="radio-XRP-nocard">XRP</label>
+                                <input id="radio-LTC-nocard" name="crypto" type="radio" value="LTC"> <label
+                                    for="radio-LTC-nocard">LTC</label>
+                                <input id="radio-GMT-nocard" name="crypto" type="radio" value="GMT"> <label
+                                    for="radio-GMT-nocard">GMT</label>
+                                <input id="radio-TON-nocard" name="crypto" type="radio" value="TON"> <label
+                                    for="radio-TON-nocard">TON</label>
+                                <input id="radio-XMR-nocard" name="crypto" type="radio" value="XMR"> <label
+                                    for="radio-XMR-nocard">XMR</label>
+                                <input id="radio-DAI-nocard" name="crypto" type="radio" value="DAI"> <label
+                                    for="radio-DAI-nocard">DAI</label> -->
+                                <!-- <input id="radio-TUSD-nocard" name="crypto" type="radio" value="TUSD"> <label
+                                    for="radio-TUSD-nocard">TUSD</label> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="sidebar__block">
+                        <h3 class="sidebar__title">Спред</h3>
+                        <input type="number" name="user_spread" value="10"
+                            class="sidebar__select_item sidebar__select_spred hidden" required=""
+                            id="id_user_spread-nocard">
+                    </div> -->
+                    <div class="sidebar__block">
+                        <h3 class="sidebar__title">Депозит</h3>
+                        <input type="number" name="user_spread" value="10"
+                            class="sidebar__select_item sidebar__select_limit hidden" required=""
+                            id="id_user_limit-nocard">
+                    </div>
+
+                    <div class="sidebar__block">
+                        <div class="sidebar__refresh sidebar__refresh_nocard">
+                            <input id="checkbox-refresh" type="checkbox" name="refresh">
+                            <label for="checkbox-refresh">Обновлять автоматически</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <div class="token-links">
+        </div>
+    </div>
+
+    <!-- модальные окна  -->
+    {% include 'main/layout_modal.html' %}
+
+    <script src="{% static 'main/js/saveform.js' %}"></script>
+    <script src="{% static 'main/js/links.js' %}"></script>
+    <script src="{% static 'main/js/login.js' %}"></script>
+    <script src="{% static 'main/js/links_without_cards.js' %}"></script>
+</body>
+
+</html>

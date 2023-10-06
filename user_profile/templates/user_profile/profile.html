@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>Личный кабинет</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-type" content="text/html" charset="utf-8" />
+	<link rel="icon" href="{% static 'main/img/favicon.svg' %}">
+	<link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
+	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'main/fonts/montserrat/stylesheet.css' %}">
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript">
+		(function (m, e, t, r, i, k, a) {
+			m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+			m[i].l = 1 * new Date();
+			for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+			k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+		})
+			(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+		ym(95116621, "init", {
+			clickmap: true,
+			trackLinks: true,
+			accurateTrackBounce: true,
+			webvisor: true
+		});
+	</script>
+	<noscript>
+		<div><img src="https://mc.yandex.ru/watch/95116621" style="position:absolute; left:-9999px;" alt="" /></div>
+	</noscript>
+	<!-- /Yandex.Metrika counter -->
+</head>
+
+<body>
+	{% include 'main/layout_header.html' %}
+
+	<main>
+		<section class="user">
+			<div class="container">
+				<div class="user__title">
+					Мой профиль
+				</div>
+				<div class="user__info">
+					<div class="user__info-item user__info-item_name">
+						<div class="user__info-title">Имя пользователя:</div>
+						<div class="user__info-value">{{ username }}</div>
+					</div>
+					<div class="user__info-item user__info-item_email">
+						<div class="user__info-title">EMAIL:</div>
+						<div class="user__info-value">{{ email }}</div>
+					</div>
+
+					<div class="user__info-item user__info-item_rate">
+						<div class="user__info-title">Мой тариф:</div>
+						{% if has_subscription %}
+						<div class="user__info-value">--название тарифа--</div>
+						{% else %}
+						<div class="user__info-value">Не активен</div>
+						{% endif %}
+
+					</div>
+				</div>
+				{% if has_subscription %}
+				<div class="user__rate-time">Осталось {{ subscription_end }} дней</div>
+				{% endif %}
+
+
+			</div>
+		</section>
+
+		<section class="premium" id='premium'>
+			<div class="container">
+				<div class="premium__title">
+					Приобрести PREMIUM АККАУНТ
+				</div>
+				<div class="premium__form">
+					<form action="#">
+						{% csrf_token %}
+						<div class="premium__select-title">Тариф:</div>
+						<div class="premium__rate-select">
+							{{ subscription.subscription }}
+						</div>
+						<div class="premium__description">
+							<span></span>
+						</div>
+
+						<div class="premium__select-title">Криптовалюта:</div>
+						<div class="premium__period-select">
+							{{ subscription.currency }}
+						</div>
+
+						<!-- <div class="premium__select-title">Способ оплаты:</div> -->
+						<div class="premium__select-title"></div>
+						<div class="premium__pay-select">
+							<div class="premium__pay-item">
+								<div class="premium__btn" data-pay='cripto'>Оплатить</div>
+							</div>
+							<!-- <div class="premium__pay-item">
+								<div class="premium__btn" data-pay='fiat'>Binance</div>
+							</div> -->
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+		<section class="pay-block">
+		</section>
+
+
+	</main>
+	{% include 'main/layout_footer.html' %}
+
+	<script>
+		const burgerBtn = document.querySelector('.burger__btn')
+		const burgerMenu = document.querySelector('.header__menu-block')
+		burgerBtn.addEventListener('click', () => {
+			burgerBtn.classList.toggle('active')
+			burgerMenu.classList.toggle('active')
+		})
+	</script>
+
+	<script src="{% static 'main/js/profile.js' %}"></script>
+</body>
+
+</html>
