@@ -47,7 +47,6 @@
             {% csrf_token %}
             <div class="sidebar sidebar_links">
                 <div class="sidebar__filters sidebar__filters_nocard">
-
                     <div class="sidebar__block">
                         <h3 class="sidebar__title">Биржи</h3>
                         <div class="sidebar__select_item sidebar__title_market hidden"><span></span>
@@ -156,12 +155,34 @@
                             <label for="checkbox-refresh">Обновлять автоматически</label>
                         </div>
                     </div>
+                    <div class="sidebar__block">
+                        <div class="sidebar__favorite sidebar__favorite_nocard">
+                            <input id="checkbox-favorite" type="checkbox" name="favorite">
+                            <label for="checkbox-favorite">Избранное</label>
+                        </div>
+                    </div>
                 </div>
+                <div class="sidebar__favorite-block"></div>
             </div>
         </form>
     </div>
     <div class="container">
         <div class="token-links">
+        </div>
+    </div>
+    <div class="container">
+        <div class="bottom-text">
+            <p>Таблица спреда для Арбитража без карт на обменниках анализирует курсы валют на спотовом рынке и
+                сравнивает их с предложениями обменников. На выходе вы получаете все возможные связку биржа - обменник -
+                биржа с положительным спредом.
+            </p>
+            <div class="screener__btn-block">
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Выбрать тариф</a>
+                {% else %}
+                <a class="screener__btn btn btn_white" data-screener='noauth'>Регистрация</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 

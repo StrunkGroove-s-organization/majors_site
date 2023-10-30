@@ -7,6 +7,8 @@ document.querySelector('[data-menu="nocard"]').classList.add('active')
 
 document.addEventListener('DOMContentLoaded', () => {
     saveFormObject.checkAsideForm()
+    favoriteBlockCheck()
+    refreshFavorite()
 }, { once: true })
 
 //sidebar
@@ -97,7 +99,6 @@ function refreshSidebarTitle() {
 }
 refreshSidebarTitle()
 
-
 //Отправка формы и генерация карточек
 
 // let form = new FormData(document.querySelector('form'))
@@ -115,12 +116,33 @@ function reloadRefresh() {
     }
 }
 
-document.querySelector('form').addEventListener('change', () => {
+document.querySelector('form').addEventListener('change', (event) => {
+    if (event.target.parentNode.classList.contains('favorite__item')) {
+        changeFavoriteFilter(event.target)
+    }
     saveFormObject.saveForm()
+    favoriteBlockCheck()
     createFormObject()
     reloadRefresh()
+    refreshFavorite()
+
 
 })
+function checkDeposit(price, qty) {
+    const deposit = document.querySelector("#id_user_limit-nocard").value
+    let diferencia = qty * price - deposit
+
+    if (diferencia <= 0) {
+        return 'red'
+    }
+    else if (diferencia > 0 && diferencia <= 300) {
+        return 'yellow'
+    }
+    else {
+        return 'green'
+    }
+}
+
 function createFormObject() {
     let formObject = {
         // token: [],
@@ -172,8 +194,8 @@ function sendData(formData) {
                     let titleSection = document.createElement('div')
                     titleSection.classList.add('token-links_group')
                     titleSection.innerHTML = `
-                <div class="token-links_group-title">Избранное</div>
-                `
+                    <div class="token-links_group-title">Избранное</div>
+                     `
                     table.insertAdjacentElement("beforeend", titleSection)
                     dataObj.favourite.forEach((element) => {
                         let row = document.createElement('div')
@@ -184,37 +206,37 @@ function sendData(formData) {
                                  <p class="token-links__item-title">${element.exchange}</p>
                                 <div class="token-links__item-content">
                                     <div class="token-links__token-pair">
-                                        <p>${element.ad_give_first}<span>${element.ad_give_first}</span></p>
+                                        <p>${element.first.base}<span>${element.first.base}</span></p>
                                         <span>&nbsp;-&nbsp;</span>
-                                        <p>${element.ad_give_second.abbr} <span>${element.ad_give_second.crypto_name}</span></p>
+                                        <p>${element.best.base.abbr} <span>${element.best.base.crypto_name}</span></p>
                                     </div>
-                                    <span>${element.ad_price_first}</span>
-                                    <a href="${exchangeInfo.generateConvertLink(element.ad_give_second.abbr, element.ad_give_first)}" target="_blank" class="btn btn_purple btn_nocard">Купить</a>
+                                    <span >${element.first.price}</span>
+                                    <a href="${exchangeInfo.generateConvertLink(element.best.base.abbr, element.first.base)}" target="_blank" class="btn btn_purple btn_nocard">Купить</a>
                                 </div>
                                 </div>
 
                                 <div class="token-links__second-step">
                                     <div class="token-links__wrapper">
-                                        <p class="token-links__item-title">${element.exchange_info.exchange_name}</p>
+                                        <p class="token-links__item-title">${element.best.exchange_info.exchange_name}</p>
                                         <div class="token-links__item-content">
                                             <div class="token-links__token-pair">
-                                                <p>${element.ad_give_second.abbr}<span>${element.ad_give_second.crypto_name}</span></p>
+                                                <p>${element.best.base.abbr}<span>${element.best.base.crypto_name}</span></p>
                                                 <span>&nbsp;-&nbsp;</span>
-                                                <p>${element.ad_get_first.abbr} <span>${element.ad_get_first.crypto_name}</span></p>
+                                                <p>${element.best.quote.abbr} <span>${element.best.quote.crypto_name}</span></p>
                                             </div>
-                                            <span>${element.best_price}</span>
-                                            <a href="https://www.bestchange.ru/click.php?id=${element.exchange_info.exchange_id}" target="_blank" class="btn btn_purple btn_nocard">Обмен</a>
+                                            <span>${element.best.price}</span>
+                                            <a href="https://www.bestchange.ru/click.php?id=${element.best.exchange_info.exchange_id}" target="_blank" class="btn btn_purple btn_nocard">Обмен</a>
                                         </div>
                                         <div class="token-links__arrow close"></div>
                                     </div>
                                     <div class="token-links__info hidden">
                                         <div class="token-links__info-wrapper">
-                                            <p>Мин. лимиты <span>${element.lim_min}</span></p>
-                                            <p>Резервы <span>${element.available}</span></p>
-                                            <p>Отзывы <span>${element.positive_reviews}/${element.negative_reviews}</span></p>
-                                            <p>Рейтинг <span>${element.exchange_info.info_star}</span></p>
-                                            <p>Доп. проверка<span>${checkValue(element.exchange_info.info_verification)}</span></p>
-                                            <p>Юр. регистрация<span>${checkValue(element.exchange_info.info_registration)}</span></p>
+                                            <p>Мин. лимиты <span>${element.best.lim_min}</span></p>
+                                            <p>Резервы <span>${element.best.available}</span></p>
+                                            <p>Отзывы <span>${element.best.positive_reviews}/${element.best.negative_reviews}</span></p>
+                                            <p>Рейтинг <span>${element.best.exchange_info.info_star}</span></p>
+                                            <p>Доп. проверка<span>${checkValue(element.best.exchange_info.info_verification)}</span></p>
+                                            <p>Юр. регистрация<span>${checkValue(element.best.exchange_info.info_registration)}</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -223,12 +245,12 @@ function sendData(formData) {
                                     <p class="token-links__item-title">${element.exchange}</p>
                                     <div class="token-links__item-content">
                                         <div class="token-links__token-pair">
-                                            <p>${element.ad_get_first.abbr}<span>${element.ad_get_first.crypto_name}</span></p>
+                                            <p>${element.best.quote.abbr}<span>${element.best.quote.crypto_name}</span></p>
                                             <span>&nbsp;-&nbsp;</span>
-                                            <p>${element.ad_get_second} <span>${element.ad_get_second}</span></p>
+                                            <p>${element.second.quote} <span>${element.second.quote}</span></p>
                                         </div>
-                                        <span>${element.ad_price_second}</span>
-                                        <a href="${exchangeInfo.generateConvertLink(element.ad_get_first.abbr, element.ad_get_second)}" target="_blank" class="btn btn_purple btn_nocard btn_nocard_sell">Продать</a>
+                                        <span class = "${checkDeposit(element.second.price, element.second.qty)}">${element.second.price}</span>
+                                        <a href="${exchangeInfo.generateConvertLink(element.best.quote.abbr, element.second.quote)}" target="_blank" class="btn btn_purple btn_nocard btn_nocard_sell">Продать</a>
                                     </div>
                                 </div>
                                 <div class="token-links__percent">${element.spread_with_fee}%</div>
@@ -246,11 +268,89 @@ function sendData(formData) {
 
                 for (const key in data) {
                     const item = data[key]
+
+                    //************* temp Favorite *****************
+                    let favoriteFlag = 0;
+                    function changeFavoriteBtn() {
+                        if (favoriteFlag == 1) {
+                            return `<svg class="link-content__favorite_add link-content__favorite_delete" data-favorite="delete" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                            width="1280.000000pt" height="1216.000000pt" viewBox="0 0 1280.000000 1216.000000"
+                            preserveAspectRatio="xMidYMid meet">
+                           <g transform="translate(0.000000,1216.000000) scale(0.100000,-0.100000)"
+                           fill="#FFF200" stroke="none">
+                           <path d="M5890 10598 c-332 -755 -736 -1674 -898 -2043 -161 -368 -295 -671
+                           -297 -673 -2 -2 -308 -25 -682 -52 -373 -27 -1054 -76 -1513 -109 -459 -34
+                           -1087 -79 -1395 -101 -308 -22 -585 -43 -615 -46 l-54 -6 49 -47 c28 -25 336
+                           -300 684 -611 349 -311 806 -718 1016 -905 1267 -1130 1560 -1391 1572 -1400
+                           17 -13 74 228 -542 -2265 -256 -1036 -464 -1887 -463 -1890 2 -4 869 499 1928
+                           1117 1058 618 1931 1122 1940 1120 8 -2 398 -242 865 -532 468 -291 1165 -724
+                           1550 -963 385 -239 811 -504 947 -588 135 -85 249 -154 253 -154 4 0 4 17 0
+                           38 -6 34 -411 1897 -776 3568 -87 402 -159 738 -159 747 0 13 649 563 2997
+                           2542 258 217 261 220 230 227 -18 4 -1011 104 -2207 223 -1196 119 -2184 220
+                           -2196 225 -15 6 -62 111 -199 446 -98 242 -412 1013 -697 1714 -285 701 -564
+                           1388 -620 1525 -56 138 -104 253 -108 258 -3 4 -278 -610 -610 -1365z"/>
+                           </g>
+                           </svg>
+                           `
+                        }
+                        else if (favoriteFlag == 0) {
+                            return `<svg class="link-content__favorite_add" data-favorite="add" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                            width="1280.000000pt" height="1216.000000pt" viewBox="0 0 1280.000000 1216.000000"
+                            preserveAspectRatio="xMidYMid meet">
+                           <g transform="translate(0.000000,1216.000000) scale(0.100000,-0.100000)"
+                           fill="none" stroke="#fff">
+                           <path d="M5890 10598 c-332 -755 -736 -1674 -898 -2043 -161 -368 -295 -671
+                           -297 -673 -2 -2 -308 -25 -682 -52 -373 -27 -1054 -76 -1513 -109 -459 -34
+                           -1087 -79 -1395 -101 -308 -22 -585 -43 -615 -46 l-54 -6 49 -47 c28 -25 336
+                           -300 684 -611 349 -311 806 -718 1016 -905 1267 -1130 1560 -1391 1572 -1400
+                           17 -13 74 228 -542 -2265 -256 -1036 -464 -1887 -463 -1890 2 -4 869 499 1928
+                           1117 1058 618 1931 1122 1940 1120 8 -2 398 -242 865 -532 468 -291 1165 -724
+                           1550 -963 385 -239 811 -504 947 -588 135 -85 249 -154 253 -154 4 0 4 17 0
+                           38 -6 34 -411 1897 -776 3568 -87 402 -159 738 -159 747 0 13 649 563 2997
+                           2542 258 217 261 220 230 227 -18 4 -1011 104 -2207 223 -1196 119 -2184 220
+                           -2196 225 -15 6 -62 111 -199 446 -98 242 -412 1013 -697 1714 -285 701 -564
+                           1388 -620 1525 -56 138 -104 253 -108 258 -3 4 -278 -610 -610 -1365z"/>
+                           </g>
+                           </svg>
+                        `
+                        }
+                    }
+
+                    if (document.querySelector('.sidebar__favorite_nocard input').checked) {
+                        // console.log('favorite_1');
+                        // if (!document.querySelector('.favorite__item')) {
+                        //     continue
+                        // }
+                        filterArr = Array.from(document.querySelectorAll('.favorite__item:has(input:checked)'))
+                        // debugger
+                        if (
+                            (filterArr.find((element) => { return element.dataset.firstcoin == item['0'].best.quote.abbr })) && (filterArr.find((element) => { return element.dataset.secondcoin == item['0'].best.base.abbr }))
+                        ) {
+                            favoriteFlag = 1
+                        } else {
+                            continue
+                        }
+                    }
+                    else {
+                        if (localStorage.getItem('nocard_favorite')) {
+                            const favoriteArr = JSON.parse(localStorage.getItem('nocard_favorite'))
+
+                            if (favoriteArr.find((itemFavorite) => {
+                                return ((itemFavorite.firstCoin == item['0'].best.quote.abbr) && (itemFavorite.secondCoin == item['0'].best.base.abbr))
+                            })) {
+                                favoriteFlag = 1
+                            }
+                        }
+                    }
+
+                    //*************************************************
                     let titleSection = document.createElement('div')
                     titleSection.classList.add('token-links_group')
+                    // titleSection.dataset.firstcoin = item['0'].best.quote.abbr
+                    // titleSection.dataset.secondcoin = item['0'].best.base.abbr
                     titleSection.innerHTML = `
-                    <div class="token-links_group-title">${item['0'].ad_give_first} - ${item['0'].ad_give_second.abbr} - ${item['0'].ad_get_first.abbr} - ${item['0'].ad_get_second}
-                    <a class='link-content__favorite_add'>В избранное</a>
+                    <div class="token-links_group-title" data-firstcoin="${item['0'].best.quote.abbr}" data-secondcoin = "${item['0'].best.base.abbr}">${item['0'].first.base} - <span>${item['0'].best.base.abbr} </span> - <span> ${item['0'].best.quote.abbr}</span> - ${item['0'].second.quote}
+                    ${changeFavoriteBtn()}
                     </div>
                     `
                     for (const key in item) {
@@ -263,11 +363,7 @@ function sendData(formData) {
                                 return "Нет"
                             }
                         }
-
-                        if ((limitFilterValue >= element.lim_min)) {
-                            // console.log('imitFilterValue' + limitFilterValue);
-                            // console.log('element.lim_min' + element.lim_min);
-                            // rowCounter++
+                        if ((Number(limitFilterValue) >= element.best.lim_min)) {
                             let row = document.createElement('div')
                             row.classList.add('token-links__item')
                             row.innerHTML = `
@@ -276,44 +372,44 @@ function sendData(formData) {
                                      <p class="token-links__item-title">${element.exchange}</p>
                                     <div class="token-links__item-content">
                                         <div class="token-links__token-pair">
-                                            <p>${element.ad_give_first}<span>${element.ad_give_first}</span></p>
+                                            <p>${element.first.base}<span>${element.first.base}</span></p>
                                             <span>&nbsp;-&nbsp;</span>
-                                            <p>${element.ad_give_second.abbr} <span>${element.ad_give_second.crypto_name}</span></p>
+                                            <p>${element.best.base.abbr} <span>${element.best.base.crypto_name}</span></p>
                                         </div>
                                         <div class = "token-links__price">
-                                            <span>${element.ad_price_first}</span>
-                                            <p>${element.full_price_first}</p>
+                                            <span class= "${checkDeposit(element.first.price, element.first.qty)}">${element.first.price}</span>
+                                            <p>${element.first.price_full}</p>
                                         </div>
-                                        <a href="${exchangeInfo.createConvertLink(element.exchange, element.ad_give_first, element.ad_give_second.abbr)}" target="_blank" class="btn btn_purple btn_nocard">Купить</a>
+                                        <a href="${exchangeInfo.createConvertLink(element.exchange, element.first.base, element.best.base.abbr)}" target="_blank" class="btn btn_purple btn_nocard">Купить</a>
                                     </div>
                                     </div>
 
                                     <div class="token-links__second-step">
                                         <div class="token-links__wrapper">
-                                            <p class="token-links__item-title">${element.exchange_info.exchange_name}</p>
+                                            <p class="token-links__item-title">${element.best.exchange_info.exchange_name}</p>
                                             <div class="token-links__item-content">
                                                 <div class="token-links__token-pair">
-                                                    <p>${element.ad_give_second.abbr}<span>${element.ad_give_second.crypto_name}</span></p>
+                                                    <p>${element.best.base.abbr}<span>${element.best.base.crypto_name}</span></p>
                                                     <span>&nbsp;-&nbsp;</span>
-                                                    <p>${element.ad_get_first.abbr} <span>${element.ad_get_first.crypto_name}</span></p>
+                                                    <p>${element.best.quote.abbr} <span>${element.best.quote.crypto_name}</span></p>
                                                 </div>
                                                 <div class = "token-links__price">
-                                                    <span>${element.best_price}</span>
-                                                    <p>${element.best_full_price}</p>
+                                                <span>${element.best.price}</span>
+                                                    <p>${element.best.price_full}</p>
                                                 </div>
                                                 
-                                                <a href="https://www.bestchange.ru/click.php?id=${element.exchange_info.exchange_id}" target="_blank" class="btn btn_purple btn_nocard">Обмен</a>
+                                                <a href="https://www.bestchange.ru/click.php?id=${element.best.exchange_info.exchange_id}" target="_blank" class="btn btn_purple btn_nocard">Обмен</a>
                                             </div>
                                             <div class="token-links__arrow close"></div>
                                         </div>
                                         <div class="token-links__info hidden">
                                             <div class="token-links__info-wrapper">
-                                                <p>Мин. лимиты <span>${element.lim_min}</span></p>
-                                                <p>Резервы <span>${element.available}</span></p>
-                                                <p>Отзывы <span>${element.positive_reviews}/${element.negative_reviews}</span></p>
-                                                <p>Рейтинг <span>${element.exchange_info.info_star}</span></p>
-                                                <p>Доп. проверка<span>${checkValue(element.exchange_info.info_verification)}</span></p>
-                                                <p>Юр. регистрация<span>${checkValue(element.exchange_info.info_registration)}</span></p>
+                                                <p>Мин. лимиты <span>${element.best.lim_min}</span></p>
+                                                <p>Резервы <span>${element.best.available}</span></p>
+                                                <p>Отзывы <span>${element.best.positive_reviews}/${element.best.negative_reviews}</span></p>
+                                                <p>Рейтинг <span>${element.best.exchange_info.info_star}</span></p>
+                                                <p>Доп. проверка<span>${checkValue(element.best.exchange_info.info_verification)}</span></p>
+                                                <p>Юр. регистрация<span>${checkValue(element.best.exchange_info.info_registration)}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -322,30 +418,27 @@ function sendData(formData) {
                                         <p class="token-links__item-title">${element.exchange}</p>
                                         <div class="token-links__item-content">
                                             <div class="token-links__token-pair">
-                                                <p>${element.ad_get_first.abbr}<span>${element.ad_get_first.crypto_name}</span></p>
+                                                <p>${element.best.quote.abbr}<span>${element.best.quote.crypto_name}</span></p>
                                                 <span>&nbsp;-&nbsp;</span>
-                                                <p>${element.ad_get_second} <span>${element.ad_get_second}</span></p>
+                                                <p>${element.second.quote} <span>${element.second.quote}</span></p>
                                             </div>
                                         <div class = "token-links__price">
-                                            <span>${element.ad_price_second}</span>
-                                            <p>${element.full_price_second}</p> 
+                                            <span class="${checkDeposit(element.second.price, element.second.qty)}">${element.second.price}</span>
+                                            <p>${element.second.price_full}</p> 
 
                                         </div>
-                                            <a href="${exchangeInfo.createConvertLink(element.exchange, element.ad_get_second, element.ad_get_first.abbr)}" target="_blank" class="btn btn_purple btn_nocard btn_nocard_sell">Продать</a>
+                                            <a href="${exchangeInfo.createConvertLink(element.exchange, element.second.quote, element.best.quote.abbr)}" target="_blank" class="btn btn_purple btn_nocard btn_nocard_sell">Продать</a>
                                         </div>
                                     </div>
-                                    <div class="token-links__percent">${element.spread_with_fee}%</div>
+                                    <div class="token-links__percent">${element.spread}%</div>
                                     <div class="token-links__profit">
-                                ${((Number(deposit) + (element.spread_with_fee * Number(deposit)) / 100) - Number(deposit)).toFixed(1)} $
+                                ${((Number(deposit) + (element.spread * Number(deposit)) / 100) - Number(deposit)).toFixed(1)} $
                                     
                                     </div>
                                 </div>
-                                
-
                             `
                             pairRows.push(row)
                         }
-                        // table.insertAdjacentElement("beforeend", row)
                     }
 
                     if (pairRows.length != 0) {
@@ -400,8 +493,8 @@ function renderError(errorData) {
 //         // debugger
 //         const item = data[key]
 //         menuLinksList.insertAdjacentHTML("beforeend",
-//             `<input id="checkbox-token-pair-${item[0].ad_give_second.abbr}${item[0].ad_get_first.abbr}-nocard" name="token-pair" type="checkbox">
-//         <label for="checkbox-token-pair-${item[0].ad_give_second.abbr}${item[0].ad_get_first.abbr}-nocard">${item['0'].ad_give_first} - ${item[0].ad_give_second.abbr} - ${item[0].ad_get_first.abbr} - ${item[0].ad_get_second}</label>
+//             `<input id="checkbox-token-pair-${item[0].ad_give_second.abbr}${item[0].best.quote.abbr}-nocard" name="token-pair" type="checkbox">
+//         <label for="checkbox-token-pair-${item[0].ad_give_second.abbr}${item[0].best.quote.abbr}-nocard">${item['0'].first.base} - ${item[0].ad_give_second.abbr} - ${item[0].best.quote.abbr} - ${item[0].ad_get_second}</label>
 //         `)
 //     }
 //     menuTokenPairChekbox = new SidebarCheckboxList('.sidebar__title_token-pair', 'all');
@@ -422,8 +515,24 @@ function renderError(errorData) {
 document.addEventListener('click', checkClick)
 
 function checkClick(event) {
+    console.log(event.target);
     if (event.target.classList.contains('token-links__arrow')) {
         toggleInfo(event.target)
+    }
+    else if (event.target.dataset.favorite == 'add') {
+        addToFavorite(event.target)
+    }
+    else if (event.target.parentNode.parentNode.dataset.favorite == 'add') {
+        addToFavorite(event.target.parentNode.parentNode)
+    }
+    else if (event.target.dataset.favorite == 'delete') {
+        deleteFavoriteItem(event.target)
+    }
+    else if (event.target.parentNode.dataset.favorite == 'delete') {
+        deleteFavoriteItem(event.target.parentNode)
+    }
+    else if (event.target.parentNode.parentNode.dataset.favorite == 'delete') {
+        deleteFavoriteItem(event.target.parentNode.parentNode)
     }
 }
 
@@ -446,6 +555,9 @@ document.querySelector('.sidebar').addEventListener('click', (event) => {
                 element.changeTitle()
             }
         }
+        else if (event.target.classList.contains('favorite__del-btn')) {
+            deleteFavoriteItem(event.target)
+        }
         else {
             element.hide()
         }
@@ -453,14 +565,14 @@ document.querySelector('.sidebar').addEventListener('click', (event) => {
 })
 
 //Favorite
-document.querySelector('.token-links').addEventListener('click', (event) => {
-    if (event.target.classList.contains('link-content__favorite_add')) {
-        addFavorite(event.target.parentElement)
-    }
-    else if (event.target.classList.contains('link-content__favorite_del')) {
-        delFavorite(event.target.parentElement)
-    }
-})
+// document.querySelector('.token-links').addEventListener('click', (event) => {
+//     if (event.target.classList.contains('link-content__favorite_add')) {
+//         addFavorite(event.target.parentElement)
+//     }
+//     else if (event.target.classList.contains('link-content__favorite_del')) {
+//         delFavorite(event.target.parentElement)
+//     }
+// })
 function addFavorite(item) {
     let data = {
 
@@ -515,5 +627,112 @@ function delFavorite(item) {
 
 
 //favorite
+let favoriteNodeBlock = document.querySelector('.sidebar__favorite-block')
 
+function addToFavorite(element) {
+    let data
+    if (localStorage.getItem('nocard_favorite')) {
+        data = JSON.parse(localStorage.getItem('nocard_favorite'))
+    } else {
+        data = []
+    }
+    if (data.find((dataElement) => {
+        return dataElement.secondCoin == element.parentNode.dataset.secondcoin && dataElement.firstCoin == element.parentNode.dataset.firstcoin
+    }) == undefined) {
+        data.push({
+            firstCoin: element.parentNode.dataset.firstcoin,
+            secondCoin: element.parentNode.dataset.secondcoin,
+            isChecked: 'on'
+        })
+        localStorage.setItem('nocard_favorite', JSON.stringify(data))
+        element.classList.add('link-content__favorite_delete')
+        element.dataset.favorite = 'delete'
+        refreshFavorite()
+    }
+}
+
+function refreshFavorite() {
+    if (localStorage.getItem('nocard_favorite')) {
+
+        favoriteNodeBlock.innerHTML = ''
+        // debugger
+        let favoriteArr = JSON.parse(localStorage.getItem('nocard_favorite'))
+        favoriteArr.forEach((element) => {
+            // let checked = ''
+            // if (element.isChecked == 'on') {
+            //     checked = 'checked'
+            // }
+            let node = document.createElement('div')
+            node.classList.add('favorite__item')
+            node.dataset.secondcoin = element.secondCoin
+            node.dataset.firstcoin = element.firstCoin
+            node.innerHTML = `
+        <label for="checkbox-favorite-${element.secondCoin}-${element.firstCoin}">USDT-${element.secondCoin}-${element.firstCoin}-USDT</label>
+        <div class="favorite__del-btn" data-favorite="delete">
+        <div></div>
+        <div></div>
+        </div>
+        `
+            let inputNode = document.createElement('input')
+            inputNode.setAttribute('id', `checkbox-favorite-${element.secondCoin}-${element.firstCoin}`)
+            inputNode.setAttribute('type', `checkbox`)
+            inputNode.setAttribute('name', `favorite-item`)
+            if (element.isChecked == 'on') {
+                inputNode.checked = true;
+            }
+            node.insertAdjacentElement('afterbegin', inputNode)
+
+
+            favoriteNodeBlock.insertAdjacentElement("beforeend", node)
+        })
+    }
+}
+function changeFavoriteFilter(input) {
+    let value = ''
+    if (input.checked) {
+        value = 'on'
+    } else {
+        value = 'off'
+    }
+    let favoriteArr = JSON.parse(localStorage.getItem('nocard_favorite'))
+    favoriteArr[favoriteArr.findIndex((element) => {
+        return (element.secondCoin == input.parentNode.dataset.secondcoin) && (element.firstCoin == input.parentNode.dataset.firstcoin)
+    })].isChecked = value
+    localStorage.setItem('nocard_favorite', JSON.stringify(favoriteArr))
+    createFormObject()
+}
+
+function favoriteBlockCheck() {
+    if (document.querySelector('#checkbox-favorite:checked')) {
+        if (!document.querySelector('.sidebar__favorite-block').classList.contains('show')) {
+            document.querySelector('.sidebar__favorite-block').classList.add('show')
+        }
+    } else {
+        if (document.querySelector('.sidebar__favorite-block').classList.contains('show')) {
+            document.querySelector('.sidebar__favorite-block').classList.remove('show')
+        }
+    }
+}
+function deleteFavoriteItem(input) {
+    let favoriteArr = JSON.parse(localStorage.getItem('nocard_favorite'))
+
+    let indexDelElement = favoriteArr.findIndex((element) => {
+        return ((element.secondCoin == input.parentNode.dataset.secondcoin) && (element.firstCoin == input.parentNode.dataset.firstcoin))
+    })
+    console.log(indexDelElement);
+
+    if (indexDelElement != -1) {
+        favoriteArr.splice(indexDelElement, 1)
+        localStorage.setItem('nocard_favorite', JSON.stringify(favoriteArr))
+    }
+
+    input.classList.remove('link-content__favorite_delete')
+    input.dataset.favorite = 'add'
+    if (document.querySelector('.sidebar__favorite_nocard input').checked) {
+        createFormObject()
+    }
+    refreshFavorite()
+    // document.querySelector('.sidebar__favorite-block').removeChild(input.parentNode)
+}
+refreshFavorite()
 

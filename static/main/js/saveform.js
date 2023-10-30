@@ -15,10 +15,12 @@ class SaveForm {
     saveForm() {
         let checkedInputs = {}
         this.form.querySelectorAll('input').forEach((element) => {
-            if ((element.type == 'checkbox' || element.type == 'radio') && element.checked == true) {
-                checkedInputs[element.id] = element.value
-            } else if (element.type == 'number') {
-                checkedInputs[element.id] = element.value
+            if (!element.parentNode.classList.contains('favorite__item')) {
+                if ((element.type == 'checkbox' || element.type == 'radio') && element.checked == true) {
+                    checkedInputs[element.id] = element.value
+                } else if (element.type == 'number') {
+                    checkedInputs[element.id] = element.value
+                }
             }
         })
 

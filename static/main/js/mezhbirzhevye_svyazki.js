@@ -342,6 +342,8 @@ function renderData(dataObject) {
     // const summ = 10000;
     let data = dataObject.data
     let contentBlock = document.querySelector('.link-content__content-block')
+
+
     function checkDeposit(number, price, ask, bid) {
         const tradeSelected = document.querySelector(".sidebar__select_trade input:checked").value
         const deposit = document.querySelector("#id_user_deposit-crossmarket").value
@@ -374,26 +376,103 @@ function renderData(dataObject) {
             return 'green'
         }
     }
+
     document.querySelector('.link-content__content-block').innerHTML = '';
     for (const key in data) {
         if (Object.hasOwnProperty.call(data, key)) {
             const element = data[key];
+
+            //************* temp Favorite *****************
+            let favoriteFlag = 0;
+            function changeFavoriteBtn() {
+                if (favoriteFlag == 1) {
+                    return `<svg class="link-content__favorite_add link-content__favorite_delete" data-favorite="delete" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                    width="1280.000000pt" height="1216.000000pt" viewBox="0 0 1280.000000 1216.000000"
+                    preserveAspectRatio="xMidYMid meet">
+                   <g transform="translate(0.000000,1216.000000) scale(0.100000,-0.100000)"
+                   fill="#FFF200" stroke="none">
+                   <path d="M5890 10598 c-332 -755 -736 -1674 -898 -2043 -161 -368 -295 -671
+                   -297 -673 -2 -2 -308 -25 -682 -52 -373 -27 -1054 -76 -1513 -109 -459 -34
+                   -1087 -79 -1395 -101 -308 -22 -585 -43 -615 -46 l-54 -6 49 -47 c28 -25 336
+                   -300 684 -611 349 -311 806 -718 1016 -905 1267 -1130 1560 -1391 1572 -1400
+                   17 -13 74 228 -542 -2265 -256 -1036 -464 -1887 -463 -1890 2 -4 869 499 1928
+                   1117 1058 618 1931 1122 1940 1120 8 -2 398 -242 865 -532 468 -291 1165 -724
+                   1550 -963 385 -239 811 -504 947 -588 135 -85 249 -154 253 -154 4 0 4 17 0
+                   38 -6 34 -411 1897 -776 3568 -87 402 -159 738 -159 747 0 13 649 563 2997
+                   2542 258 217 261 220 230 227 -18 4 -1011 104 -2207 223 -1196 119 -2184 220
+                   -2196 225 -15 6 -62 111 -199 446 -98 242 -412 1013 -697 1714 -285 701 -564
+                   1388 -620 1525 -56 138 -104 253 -108 258 -3 4 -278 -610 -610 -1365z"/>
+                   </g>
+                   </svg>
+                   `
+                }
+                else if (favoriteFlag == 0) {
+                    return `<svg class="link-content__favorite_add" data-favorite="add" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                    width="1280.000000pt" height="1216.000000pt" viewBox="0 0 1280.000000 1216.000000"
+                    preserveAspectRatio="xMidYMid meet">
+                   <g transform="translate(0.000000,1216.000000) scale(0.100000,-0.100000)"
+                   fill="none" stroke="#fff">
+                   <path d="M5890 10598 c-332 -755 -736 -1674 -898 -2043 -161 -368 -295 -671
+                   -297 -673 -2 -2 -308 -25 -682 -52 -373 -27 -1054 -76 -1513 -109 -459 -34
+                   -1087 -79 -1395 -101 -308 -22 -585 -43 -615 -46 l-54 -6 49 -47 c28 -25 336
+                   -300 684 -611 349 -311 806 -718 1016 -905 1267 -1130 1560 -1391 1572 -1400
+                   17 -13 74 228 -542 -2265 -256 -1036 -464 -1887 -463 -1890 2 -4 869 499 1928
+                   1117 1058 618 1931 1122 1940 1120 8 -2 398 -242 865 -532 468 -291 1165 -724
+                   1550 -963 385 -239 811 -504 947 -588 135 -85 249 -154 253 -154 4 0 4 17 0
+                   38 -6 34 -411 1897 -776 3568 -87 402 -159 738 -159 747 0 13 649 563 2997
+                   2542 258 217 261 220 230 227 -18 4 -1011 104 -2207 223 -1196 119 -2184 220
+                   -2196 225 -15 6 -62 111 -199 446 -98 242 -412 1013 -697 1714 -285 701 -564
+                   1388 -620 1525 -56 138 -104 253 -108 258 -3 4 -278 -610 -610 -1365z"/>
+                   </g>
+                   </svg>
+                `
+                }
+            }
+
+
+            if (localStorage.getItem('crossmarket_favorite')) {
+
+                const favoriteArr = JSON.parse(localStorage.getItem('crossmarket_favorite'))
+
+                if (favoriteArr.find((localHash) => {
+                    return localHash == element.hash
+                })) {
+                    favoriteFlag = 1
+                }
+                // if (
+                //     (filterArr.find((element) => {
+                //         return element.dataset.firstcoun == item['0'].ad_get_first.abbr
+                //     })) && (filterArr.find((element) => {
+                //         return element.dataset.secondcoun == item['0'].ad_give_second.abbr
+                //     }))
+                // ) {
+                // } 
+                else {
+                    if (document.querySelector('.sidebar__favorite_nocard input').checked) {
+                        continue
+                    }
+                }
+            }
+
+            //*************************************************
+
             let tableRow = document.createElement('div');
             tableRow.classList.add('link-content__item-block');
+            tableRow.dataset.hash = element.hash;
             tableRow.innerHTML = `
         <div class="link-content__item link-content__item_buy">
             <div class="card__top">Покупка</div>
             <div class="card__visible-info">
                   <div class="card__payments">
-                     <img src="${exchangeInfo.setSrc(element.exchange_first)}" alt="">
-                     <p>${element.exchange_first}</p>
+                     <img src="${exchangeInfo.setSrc(element.first.exchange)}" alt="">
+                     <p>${element.first.exchange}</p>
                   </div>
-                  <div class="card__token">${element.give_first} / ${element.give_second}</div>
+                  <div class="card__token">${element.first.quote} / ${element.first.base}</div>
                   <div class="card__price card__price_crossmarket">
-                    <span class = "${checkDeposit('first', element.full_price_first, element.ask_qty_first, element.bid_qty_first)}">${element.price_first}</span>
-                    <p>${element.full_price_first}</p>
+                    <span class = "${checkDeposit('first', element.first.full_price, element.first.ask_qty, element.first.bid_qty)}">${element.first.price}</span>
+                    <p>${element.first.full_price}</p>
                   </div>
-                <a href="${exchangeInfo.createConvertLink(element.exchange_first, element.give_first, element.give_second)}" target="_blank" class="btn btn_purple btn_crossmarket">Открыть</a>
+                <a href="${exchangeInfo.createConvertLink(element.first.exchange, element.first.quote, element.first.base)}" target="_blank" class="btn btn_purple btn_crossmarket">Открыть</a>
             </div>
         </div>
 
@@ -401,15 +480,15 @@ function renderData(dataObject) {
             <div class="card__top">Продажа</div>
          <div class="card__visible-info">
                <div class="card__payments">
-               <img src="${exchangeInfo.setSrc(element.exchange_second)}" alt="">
-               <p>${element.exchange_second}</p>
+               <img src="${exchangeInfo.setSrc(element.second.exchange)}" alt="">
+               <p>${element.second.exchange}</p>
                </div>
-               <div class="card__token">${element.get_first} / ${element.get_second}</div>
+               <div class="card__token">${element.second.base} / ${element.second.quote}</div>
                <div class="card__price card__price_crossmarket">
-                    <span class = "${checkDeposit('second', element.full_price_second, element.ask_qty_second, element.bid_qty_second)}">${element.price_second}</span>
-                    <p>${element.full_price_second}</p>
+                    <span class = "${checkDeposit('second', element.second.full_price, element.second.ask_qty, element.second.bid_qty)}">${element.second.price}</span>
+                    <p>${element.second.full_price}</p>
                </div>
-                <a href="${exchangeInfo.createConvertLink(element.exchange_second, element.get_second, element.get_first)}" target="_blank" class="btn btn_purple btn_crossmarket">Открыть</a>
+                <a href="${exchangeInfo.createConvertLink(element.second.exchange, element.second.quote, element.second.base)}" target="_blank" class="btn btn_purple btn_crossmarket">Открыть</a>
          </div>
         </div>
         <div class="link-content__item link-content__item_spred">
@@ -421,7 +500,7 @@ function renderData(dataObject) {
 
             ${((Number(summ) + (element.spread * Number(summ)) / 100) - Number(summ)).toFixed(1)} $
         </div>
-        <a class='link-content__favorite_add'>В избранное</a>
+        ${changeFavoriteBtn()}
         `
             contentBlock.insertAdjacentElement('beforeend', tableRow)
             pairCounter++;
@@ -481,3 +560,123 @@ function renderError(errorData) {
 // })
 
 // })
+
+
+//favorite
+let favoriteNodeBlock = document.querySelector('.sidebar__favorite-block')
+
+document.querySelector('.link-content').addEventListener('click', (event) => {
+    console.log(event.target);
+    if (event.target.dataset.favorite == 'add') {
+        addToFavorite(event.target)
+    }
+    else if (event.target.parentNode.parentNode.dataset.favorite == 'add') {
+        addToFavorite(event.target.parentNode.parentNode)
+    }
+    else if (event.target.dataset.favorite == 'delete') {
+        deleteFavoriteItem(event.target)
+    }
+    else if (event.target.parentNode.parentNode.dataset.favorite == 'delete') {
+        deleteFavoriteItem(event.target.parentNode.parentNode)
+    }
+})
+
+function addToFavorite(element) {
+    console.log(element);
+    let data
+    if (localStorage.getItem('crossmarket_favorite')) {
+        data = JSON.parse(localStorage.getItem('crossmarket_favorite'))
+    } else {
+        data = []
+    }
+    if (data.find((dataElement) => {
+        return dataElement == element.parentNode.dataset.hash
+    }) == undefined) {
+        data.push(
+            element.parentNode.dataset.hash
+            // {
+            // secondCoin: element.parentNode.querySelector('span[data-tokencount="second_token"]').textContent,
+            // firstCoin: element.parentNode.querySelector('span[data-tokencount="first_token"]').textContent,
+            // isChecked: 'on'
+            // }
+        )
+        element.classList.add('link-content__favorite_delete')
+        element.dataset.favorite = 'delete'
+        localStorage.setItem('crossmarket_favorite', JSON.stringify(data))
+        // refreshFavorite()
+    }
+}
+
+// function refreshFavorite() {
+//     if (localStorage.getItem('nocard_favorite')) {
+
+//         favoriteNodeBlock.innerHTML = ''
+//         let favoriteArr = JSON.parse(localStorage.getItem('nocard_favorite'))
+//         favoriteArr.forEach((element) => {
+
+//             let checked = ''
+//             if (element.isChecked == 'on') {
+//                 checked = 'checked'
+//             }
+//             let node = document.createElement('div')
+//             node.classList.add('favorite__item')
+//             node.dataset.secondcoun = element.secondCoin
+//             node.dataset.firstcoun = element.firstCoin
+//             node.innerHTML = `
+//         <input id="checkbox-favorite-${element.secondCoin}-${element.firstCoin}" type="checkbox" name="favorite-item" ${checked}>
+//         <label for="checkbox-favorite-${element.secondCoin}-${element.firstCoin}">USDT-${element.secondCoin}-${element.firstCoin}-USDT</label>
+//         <div class="favorite__del-btn">
+//         <div></div>
+//         <div></div>
+//         </div>
+//         `
+//             favoriteNodeBlock.insertAdjacentElement("beforeend", node)
+//         })
+//     }
+// }
+// function changeFavoriteFilter(input) {
+//     let value = ''
+//     if (input.checked) {
+//         value = 'on'
+//     } else {
+//         value = 'off'
+//     }
+//     let favoriteArr = JSON.parse(localStorage.getItem('nocard_favorite'))
+//     favoriteArr[favoriteArr.findIndex((element) => {
+//         return (element.secondCoun == input.dataset.secondcoun) && (element.firstCoun == input.dataset.firstcoun)
+//     })].isChecked = value
+//     localStorage.setItem('nocard_favorite', JSON.stringify(favoriteArr))
+// }
+
+// function favoriteBlockCheck() {
+//     if (document.querySelector('#checkbox-favorite:checked')) {
+//         if (!document.querySelector('.sidebar__favorite-block').classList.contains('show')) {
+//             document.querySelector('.sidebar__favorite-block').classList.add('show')
+//         }
+//     } else {
+//         if (document.querySelector('.sidebar__favorite-block').classList.contains('show')) {
+//             document.querySelector('.sidebar__favorite-block').classList.remove('show')
+//         }
+//     }
+// }
+
+function deleteFavoriteItem(input) {
+    let favoriteArr = JSON.parse(localStorage.getItem('crossmarket_favorite'))
+
+    let indexDelElement = favoriteArr.findIndex((element) => {
+        return (element == input.parentNode.dataset.hash)
+    })
+
+    if (indexDelElement != -1) {
+        favoriteArr.splice(indexDelElement, 1)
+        localStorage.setItem('crossmarket_favorite', JSON.stringify(favoriteArr))
+    }
+    input.classList.remove('link-content__favorite_delete')
+    input.dataset.favorite = 'add'
+    if (document.querySelector('.sidebar__favorite_nocard input').checked) {
+        sendData(formNode);
+    }
+    // document.querySelector('.link-content__content-block').removeChild(input.parentNode)
+    // document.querySelector('.sidebar__favorite-block').removeChild(input.parentNode)
+}
+// refreshFavorite()

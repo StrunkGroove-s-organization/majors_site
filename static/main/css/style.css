@@ -256,7 +256,7 @@ body {
   position: relative;
   height: 16px;
   aspect-ratio: 1.5/1;
-  z-index: 200;
+  z-index: 1001;
 }
 
 .burger__btn > div {
@@ -1020,6 +1020,7 @@ body {
 }
 
 .about__img {
+  display: block;
   position: relative;
   width: fit-content;
   height: 190px;
@@ -2693,7 +2694,7 @@ body {
   margin-top: 20px;
   text-align: center;
 }
-
+.sidebar__favorite_nocard input,
 .sidebar__refresh input {
   position: relative;
   z-index: -1;
@@ -2752,6 +2753,92 @@ body {
   top: 50%;
   left: 0;
   transform: translate(-23px, -50%);
+}
+.sidebar__favorite label {
+  height: 45px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+.sidebar__favorite input:checked + label {
+  background: #fff;
+  color: #a54be3;
+}
+.sidebar__favorite-block {
+  display: none;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.sidebar__favorite-block.show {
+  display: flex;
+}
+
+.favorite__del-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translate(120%, 0%);
+  background: #fff;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition-delay: 2s;
+}
+.favorite__del-btn:hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.favorite__item label:hover + .favorite__del-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.favorite__del-btn div {
+  width: 70%;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #a54be3;
+}
+.favorite__del-btn div:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.favorite__del-btn div:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.favorite__item {
+  position: relative;
+}
+
+.favorite__item label {
+  color: #fff;
+  font-weight: 500;
+  height: 30px;
+  padding: 0 5px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.favorite__item input:checked + label {
+  background: #fff;
+  color: #a54be3;
 }
 
 .input-section {
@@ -3453,14 +3540,37 @@ table tbody {
 }
 .link-content__favorite_add {
   position: absolute;
+  width: 10px;
+  height: 10px;
   top: 0;
   left: 0;
-  transform: translate(10px, -150%);
+  /* transform: translate(10px, -150%); */
+  transform: translate(4px, 4px);
   color: #fff;
   font-weight: 300;
   font-size: 10px;
   opacity: 0.6;
   cursor: pointer;
+}
+.link-content__favorite_add svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  z-index: -1;
+}
+
+.link-content__favorite_add path {
+  stroke: #fff;
+  stroke-width: 1500;
+  fill: none !important;
+}
+
+.link-content__favorite_delete path {
+  stroke: none;
+  fill: #fff200 !important;
 }
 
 .card__top {
@@ -4037,6 +4147,7 @@ table tbody {
 .premium__pay-select {
   margin-top: 8px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 18px;
@@ -4059,14 +4170,17 @@ table tbody {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ececec;
+  /* background: #ececec; */
+  background: #a54be3;
   border-radius: 8px;
   cursor: pointer;
+  color: #fff;
 }
 
 .premium__btn:hover {
   /* text-decoration: underline; */
-  background: #999;
+  /* background: #999; */
+  filter: invert(1);
 }
 
 .copy-message {
@@ -4663,12 +4777,15 @@ table tbody {
 .token-links__token-pair p:hover span {
   display: inline-block;
 }
+.token-links__price span.red,
 .card__price_crossmarket span.red {
   color: rgb(160, 4, 4);
 }
+.token-links__price span.yellow,
 .card__price_crossmarket span.yellow {
   color: rgb(194, 176, 18);
 }
+.token-links__price span.green,
 .card__price_crossmarket span.green {
   color: rgb(46, 148, 6);
 }
@@ -5466,6 +5583,14 @@ table tbody {
     /* border-bottom: 1px dotted #ffffff73; */
     border-radius: 0;
     font-size: 20px;
+  }
+  .link-content__favorite_add {
+    width: 20px;
+    height: 20px;
+    top: 0;
+    right: 0;
+    left: auto;
+    transform: translate(0, 0%);
   }
 
   .link-content__item {

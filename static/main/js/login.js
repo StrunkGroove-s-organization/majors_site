@@ -291,7 +291,7 @@ function backToLogin() {
 function refreshToken(newPage) {
    const parser = new DOMParser();
    const token = parser.parseFromString(newPage, "text/html").querySelector('input[name="csrfmiddlewaretoken"]').value;
-   console.log(token);
+   // console.log(token);
    document.querySelector('input[name="csrfmiddlewaretoken"]').value = token;
 
    sendData(formNode); //отправка формы из spreadtable.js
@@ -321,8 +321,7 @@ const modalNoPay = {
                         </div>
                        <div class="screener__block">
                            <div class="screener__title">Начать пользоваться P2P скринером ARBITOOLS</div>
-                           <div class="screener__subtitle">Экономьте время и повышайте свою эффективность вместе с ARBI
-                               TOOLS. Начните использовать уже сегодня!
+                           <div class="screener__subtitle">Экономьте время и повышайте свою эффективность вместе с ARBITOOLS. Начните использовать уже сегодня!
                            </div>
                            <div class="screener__btn-block">
                                <a href="/profile/#premium" ${onclickEvent} class="screener__btn btn btn_white">Начать</a>

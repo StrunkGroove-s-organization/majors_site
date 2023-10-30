@@ -176,7 +176,7 @@
             </p>
             <div class="screener__btn-block">
                 {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Начать</a>
+                <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Выбрать тариф</a>
                 {% else %}
                 <a class="screener__btn btn btn_white" data-screener='noauth'>Начать</a>
                 {% endif %}

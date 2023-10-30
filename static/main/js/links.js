@@ -74,7 +74,7 @@ const exchangeInfo = {
          return `${this.baseUrl}ru/p2p-trade/user/${id}`
       },
       generateConvertLink(firstToken, secondToken) {
-         return `${this.baseUrl}ru/spot/${firstToken}${secondToken}?type=spot`
+         return `${this.baseUrl}ru/spot/${secondToken}${firstToken}?type=spot`
       }
    },
    garantex: {
@@ -173,7 +173,7 @@ const exchangeInfo = {
          return `${this.baseUrl}ru/c2c/user/${id}`
       },
       generateConvertLink(firstToken, secondToken) {
-         return `${this.baseUrl}ru/trade/${firstToken}_${secondToken}`
+         return `${this.baseUrl}ru/trade/${secondToken}_${firstToken}`
       }
    },
    totalcoin: {
@@ -219,8 +219,8 @@ const exchangeInfo = {
          return this[exchange.toLowerCase()].generateLink(buy_sell.toLowerCase(), token, fiat)
       }
    },
-   createConvertLink(exchange, firstToken, secondToken) {
-      return this[exchange.toLowerCase()].generateConvertLink(firstToken, secondToken)
+   createConvertLink(exchange, quoteToken, baseToken) {
+      return this[exchange.toLowerCase()].generateConvertLink(quoteToken, baseToken)
    }
 }
 

@@ -4,7 +4,7 @@ from .serializers import (
     FavouriteTwoAllSerializer, FavouriteThreeAllSerializer, 
     PriceTwoSerializer, GetInfoBestChangeSerializer
 )
-
+import requests
 from .models import FavouriteTwoModel, FavouriteThreeModel
 from base.views import BaseFormView, BaseAPIView
 
@@ -35,69 +35,27 @@ class PriceViewThree(BaseAPIView):
         return PriceThreeSerializer(data=data)
 
     def process_request(self, request, validated_data):
-        def get_favorites(request):
-            user = self.request.user
-            favorites = FavouriteTwoModel.objects.filter(user=user)
-            serializer = FavouriteTwoAllSerializer(favorites, many=True)
-            return serializer.data
-
         market = validated_data.get('market')
         token = validated_data.get('token')
 
-        key = f'{market}--{token}'
-        data = caches['links_without_cards'].get(key)
-
-        return {
-            'data': data,
-            'favourite': get_favorites(request),
-        }
+        payload = {"market": market, "token": token}
+        url = 'http://188.120.226.254:8001/api/v1/triangular-arbitrage/'
+        response = requests.post(url, data=payload)
+        return response.json()
 
 class PriceViewTwo(BaseAPIView):
     def get_serializer(self, data):
         return PriceTwoSerializer(data=data)
 
     def process_request(self, request, validated_data):
-        def get_favorites(request):
-            user = self.request.user
-            favorites = FavouriteTwoModel.objects.filter(user=user)
-            serializer = FavouriteTwoAllSerializer(favorites, many=True)
-            return serializer.data
+        exs_buy = validated_data.get('exchanges_buy', [])
+        exs_sell = validated_data.get('exchanges_sell', [])
+        trade_type = validated_data.get('trade_type')
 
-        def filter_exchanges(exs):
-            return [ex for ex in ALL_EX if ex not in exs] if exs else ALL_EX
-
-        def get_data(fil_ex_buy, fil_ex_sell, trade_type):
-            def key(trade_type, ex_buy, ex_sell):
-                return f'{trade_type}--{ex_buy}--{ex_sell}'
-
-            cache = caches['links_without_cards']
-
-            pairs = [(a, b) for a in fil_ex_buy for b in fil_ex_sell if a != b]
-            values = [cache.get(key(trade_type, a, b)) for a, b in pairs]
-
-            total_value = []
-            for sublist in values:
-                if sublist:
-                    total_value.extend(sublist)
-                    
-            sorted_data = sorted(total_value, key=lambda item: item['spread'], reverse=True)
-            return sorted_data
-
-        exs_buy = validated_data.get('exchanges_buy')
-        exs_sell = validated_data.get('exchanges_sell')
-        trade_type = validated_data.get('trade_type') \
-            .split('_')[1]
-
-        fil_ex_buy = filter_exchanges(exs_buy)
-        fil_ex_sell = filter_exchanges(exs_sell)
-
-        data = get_data(fil_ex_buy, fil_ex_sell, trade_type)
-        favourite = get_favorites(request)
-
-        return {
-            'data': data,
-            'favourite': favourite,
-        }
+        payload = {"exchanges_buy": exs_buy, "exchanges_sell": exs_sell, "trade_type": trade_type}
+        url = 'http://188.120.226.254:8001/api/v1/inter-arbitrage/'
+        response = requests.post(url, data=payload)
+        return response.json()
 
 
 class FavouriteThreeView(APIView):
