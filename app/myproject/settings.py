@@ -2,64 +2,37 @@ import os
 
 from pathlib import Path
 
-from .secrets import (
-    DEFAULT_PG_NAME, DEFAULT_PG_USER, DEFAULT_PG_PASSWORD, 
-    DEFAULT_PG_HOST, DEFAULT_PG_PORT
-)
 
-from .secrets import (
-    WITHOUT_PG_NAME, WITHOUT_PG_USER, WITHOUT_PG_PASSWORD, 
-    WITHOUT_PG_HOST, WITHOUT_PG_PORT
-)
-
-from .secrets import (
-    DEFAULT_REDIS_HOST, DEFAULT_REDIS_PORT, DEFAULT_REDIS_NUMBER
-)
-
-from .secrets import (
-    WITHOUT_REDIS_PASSWORD, WITHOUT_REDIS_HOST, 
-    WITHOUT_REDIS_PORT, WITHOUT_REDIS_NUMBER
-)
-
-from .secrets import (
-    P2P_REDIS_PASSWORD, P2P_REDIS_HOST, P2P_REDIS_PORT, P2P_REDIS_NUMBER
-)
-
-from .secrets import (
-    EMAIL_BACKEND, EMAIL_HOST, EMAIL_PORT, EMAIL_USE_TLS, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
-)
-
-from .secrets import SECRET_KEY
-
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['arbitools.ru']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-INSTALLED_APPS = [
+EXTENSIONS_APP = [
     'main',
     'price',
     'p2plinks',
     'accounts',
     'user_profile',
     'blog',
-    'cookies',
-    'block_spreadtable',
-    'payment',
+    # 'payment',
     'register',
     'links_without_cards',
 
     'rest_framework',
+]
 
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+] + EXTENSIONS_APP
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -96,49 +69,33 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DEFAULT_PG_NAME,
-        'USER': DEFAULT_PG_USER,
-        'PASSWORD': DEFAULT_PG_PASSWORD,
-        'HOST': DEFAULT_PG_HOST,
-        'PORT': DEFAULT_PG_PORT
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': 'db',
+        'PORT': os.getenv('POSTGRES_PORT'),
     },
     'links_without_cards': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': WITHOUT_PG_NAME,
-        'USER': WITHOUT_PG_USER,
-        'PASSWORD': WITHOUT_PG_PASSWORD,
-        'HOST': WITHOUT_PG_HOST,
-        'PORT': WITHOUT_PG_PORT,
+        'NAME': os.getenv('WITHOUT_PG_NAME'),
+        'USER': os.getenv('WITHOUT_PG_USER'),
+        'PASSWORD': os.getenv('WITHOUT_PG_PASSWORD'),
+        'HOST': os.getenv('WITHOUT_PG_HOST'),
+        'PORT': os.getenv('WITHOUT_PG_PORT'),
     },
 }
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": (
-            f'redis://{DEFAULT_REDIS_HOST}'
-            f':{DEFAULT_REDIS_PORT}/{DEFAULT_REDIS_NUMBER}'
-        ),
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    },
-    "links_without_cards": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": (
-            f'redis://:{WITHOUT_REDIS_PASSWORD}@{WITHOUT_REDIS_HOST}'
-            f':{WITHOUT_REDIS_PORT}/{WITHOUT_REDIS_NUMBER}'
-        ),
+        "LOCATION": f"redis://redis:{os.getenv('DEFAULT_REDIS_PORT')}/{os.getenv('DEFAULT_REDIS_NUMBER')}",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
     "p2p_server": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": (
-            f'redis://:{P2P_REDIS_PASSWORD}@{P2P_REDIS_HOST}'
-            f':{P2P_REDIS_PORT}/{P2P_REDIS_NUMBER}'
-        ),
+        "LOCATION": f"redis://:{os.getenv('P2P_REDIS_PASSWORD')}@{os.getenv('P2P_REDIS_HOST')}:{os.getenv('P2P_REDIS_PORT')}/{os.getenv('P2P_REDIS_NUMBER')}",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -175,8 +132,8 @@ AUTH_USER_MODEL = 'accounts.User'
 
 ### STATIC FILE configuration ###
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
@@ -224,12 +181,17 @@ REST_FRAMEWORK = {
 
 ### REDIS configuration ###
 
-CELERY_BROKER_URL = (
-    f'redis://{DEFAULT_REDIS_HOST}:{DEFAULT_REDIS_PORT}/{DEFAULT_REDIS_NUMBER}'
-)
-CELERY_RESULT_BACKEND = (
-    f'redis://{DEFAULT_REDIS_HOST}:{DEFAULT_REDIS_PORT}/{DEFAULT_REDIS_NUMBER}'
-)
+CELERY_BROKER_URL = f"redis://redis:{os.getenv('DEFAULT_REDIS_PORT')}/{os.getenv('DEFAULT_REDIS_NUMBER')}"
+CELERY_RESULT_BACKEND = f"redis://redis:{os.getenv('DEFAULT_REDIS_PORT')}/{os.getenv('DEFAULT_REDIS_NUMBER')}"
 CELERY_TIMEZONE = 'UTC'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASKSERILIZER =  'json'
+
+### Email ###
+
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')

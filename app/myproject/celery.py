@@ -6,10 +6,3 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')
 app = Celery('myproject')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
-
-app.conf.beat_schedule = {
-    'count-2-task': {
-        'task': 'p2plinks.tasks.main',
-        'schedule': 20,
-    }, 
-}

@@ -10,8 +10,7 @@ from base.views import BaseFormView, BaseAPIView
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.core.cache import caches
-from django.db import connections
+# from django.db import connections
 from rest_framework import status
 
 

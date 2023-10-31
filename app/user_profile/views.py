@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from django.contrib.auth.decorators import login_required
-from payment.forms import Subscription
+# from payment.forms import Subscription
 
 @login_required(login_url='/')
 def profile_view(request):
@@ -13,7 +13,7 @@ def profile_view(request):
         'email': user_profile.email,
         'subscription_end': user_profile.subscription_end,
         'type_subscription': user_profile.type_subscription,
-        'subscription': Subscription,
+        # 'subscription': Subscription,
     }
 
     return render(request, 'user_profile/profile.html', context)

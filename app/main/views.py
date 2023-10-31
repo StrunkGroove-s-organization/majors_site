@@ -11,3 +11,7 @@ class IndexView(BaseFormView):
 class EmptyView(BaseFormView):
     url = APP_NAME_URL
     template_name = 'empty.html'
+
+class Cookies(BaseFormView):
+    url = APP_NAME_URL
+    template_name = 'cookies.html'
