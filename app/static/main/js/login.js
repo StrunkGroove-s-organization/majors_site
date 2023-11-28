@@ -167,6 +167,7 @@ function regisrationSend(event) {
    return fetch(url,
       {
          method: "POST",
+         headers: { "X-CSRFToken": `${document.querySelector('input[name = "csrfmiddlewaretoken"]').value}` },
          body: new FormData(regForm),
       }).then((response) => {
          if (response.status == 400) {
@@ -242,7 +243,7 @@ function loginSend(event) {
          } else if (typeof (data) == 'string') {
             changeHeader(data)
             changeLinks()
-            if (document.querySelector('[data-page="spreadtable"]')) {
+            if (document.querySelector('input[name="csrfmiddlewaretoken"]')) {
                refreshToken(data);
             }
          }
@@ -293,8 +294,20 @@ function refreshToken(newPage) {
    const token = parser.parseFromString(newPage, "text/html").querySelector('input[name="csrfmiddlewaretoken"]').value;
    // console.log(token);
    document.querySelector('input[name="csrfmiddlewaretoken"]').value = token;
-
-   sendData(formNode); //отправка формы из spreadtable.js
+   try {
+      createFormObject()
+   } catch (error) {
+      try {
+         sendData(document.querySelector('input[name="csrfmiddlewaretoken"]').parentNode);
+      } catch (error) {
+         console.log(error);
+      }
+   }
+   try {
+      postForm();
+   } catch (error) {
+      console.log(error);
+   }
 }
 
 

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="Получите доступ ко всем p2p связкам с положительным спредом и торгуй только в плюс. Широкий выбор p2p бирж и ликвидных платежек. ">
+        content="Получите доступ ко всем p2p связкам с положительным спредом и торгуй только в плюс. Только ликвидные платежки...">
     <title>{% block title %}{% endblock %}</title>
     <link rel="icon" href="{% static 'main/img/favicon.svg' %}">
     <link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
@@ -71,7 +71,7 @@
                         <div class="sidebar__select_item sidebar__select_system hidden">
                             <span class="select-title"></span>
                             <div class="sidebar__select-list hidden">
-                                {{ filters.payment_methods }}
+                                <div class="sidebar__select-list-wrapper">{{ filters.payment_methods }}</div>
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                         <div class="sidebar__select_item sidebar__title_market hidden"><span></span>
                             <span class="select-title"></span>
                             <div class="sidebar__select-list hidden">
-                                {{ filters.exchanges }}
+                                <div class="sidebar__select-list-wrapper">{{ filters.exchanges }}</div>
                             </div>
                         </div>
                     </div>
@@ -176,9 +176,9 @@
             </p>
             <div class="screener__btn-block">
                 {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Выбрать тариф</a>
+                <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Купить подписку</a>
                 {% else %}
-                <a class="screener__btn btn btn_white" data-screener='noauth'>Начать</a>
+                <a class="screener__btn btn btn_white" onclick="openRegBlock()" data-screener='noauth'>Регистрация</a>
                 {% endif %}
             </div>
             <!-- <section class="screener">

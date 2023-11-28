@@ -24,7 +24,10 @@ class SidebarList {
             this.listWrapper = this.listBlock.querySelector('.sidebar__list-wrapper.p2p2');
         } else if (forPage == 'p2p3') {
             this.listWrapper = this.listBlock.querySelector('.sidebar__list-wrapper.p2p3');
+        } else if (forPage == 'all') {
+            this.listWrapper = this.listBlock.querySelector('.sidebar__select-list-wrapper');
         }
+
         if (forPage == 'p2p2' || forPage == 'p2p3') {
             this.arrayElements = Array.from(this.listWrapper.querySelectorAll(`label`));
         } else {
@@ -324,6 +327,8 @@ function sendData(dataPost) {
             else {
                 renderData(responseData)
             }
+        }).catch((error) => {
+            console.log(error);
         });
 }
 function checkDetail(detail) {
@@ -454,11 +459,28 @@ function renderData(dataObject) {
                 }
             }
 
-            //*************************************************
+            //******************** /temp Favorite*****************************
+
 
             let tableRow = document.createElement('div');
             tableRow.classList.add('link-content__item-block');
             tableRow.dataset.hash = element.hash;
+            function createHiddenText(object) {
+                let hiddenNode = ''
+
+                if (Object.entries(object).length != 0) {
+                    Object.entries(object).forEach((item) => {
+                        let text = `<p>${item[0]}: ${item[1]}</p>`
+                        hiddenNode += text
+                    })
+                    return hiddenNode
+                } else {
+                    hiddenNode = 'Закрыт'
+                    return hiddenNode
+                }
+
+            }
+            createHiddenText(element.first.networks)
             tableRow.innerHTML = `
         <div class="link-content__item link-content__item_buy">
             <div class="card__top">Покупка</div>
@@ -467,7 +489,7 @@ function renderData(dataObject) {
                      <img src="${exchangeInfo.setSrc(element.first.exchange)}" alt="">
                      <p>${element.first.exchange}</p>
                   </div>
-                  <div class="card__token">${element.first.quote} / ${element.first.base}</div>
+                  <div class="card__token"> ${element.first.quote}/ ${element.first.base} <div class="card__token-hidden-info">${createHiddenText(element.first.networks)}</div></div>
                   <div class="card__price card__price_crossmarket">
                     <span class = "${checkDeposit('first', element.first.full_price, element.first.ask_qty, element.first.bid_qty)}">${element.first.price}</span>
                     <p>${element.first.full_price}</p>
@@ -483,7 +505,7 @@ function renderData(dataObject) {
                <img src="${exchangeInfo.setSrc(element.second.exchange)}" alt="">
                <p>${element.second.exchange}</p>
                </div>
-               <div class="card__token">${element.second.base} / ${element.second.quote}</div>
+               <div class="card__token">${element.second.base} / ${element.second.quote}<div class="card__token-hidden-info">${createHiddenText(element.second.networks)}</div></div>
                <div class="card__price card__price_crossmarket">
                     <span class = "${checkDeposit('second', element.second.full_price, element.second.ask_qty, element.second.bid_qty)}">${element.second.price}</span>
                     <p>${element.second.full_price}</p>
@@ -497,14 +519,12 @@ function renderData(dataObject) {
         </div>
         <div class="link-content__item link-content__item_profit">
             <div class="card__top">Прибыль, $</div>
-
             ${((Number(summ) + (element.spread * Number(summ)) / 100) - Number(summ)).toFixed(1)} $
         </div>
         ${changeFavoriteBtn()}
         `
             contentBlock.insertAdjacentElement('beforeend', tableRow)
             pairCounter++;
-
             // if (pageSection == 'p2p3') {
             //     let changeBlock = document.createElement('div');
             //     changeBlock.classList.add('link-content__item')
@@ -562,7 +582,7 @@ function renderError(errorData) {
 // })
 
 
-//favorite
+//temp favorite
 let favoriteNodeBlock = document.querySelector('.sidebar__favorite-block')
 
 document.querySelector('.link-content').addEventListener('click', (event) => {

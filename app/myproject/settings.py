@@ -2,14 +2,17 @@ import os
 
 from pathlib import Path
 
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG').upper() == 'TRUE'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+
+CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('ALLOWED_HOSTS')}"]
+CSRF_ALLOWED_ORIGINS = [f"https://{os.getenv('ALLOWED_HOSTS')}"]
+CORS_ORIGINS_WHITELIST = [f"https://{os.getenv('ALLOWED_HOSTS')}"]
 
 EXTENSIONS_APP = [
     'main',
@@ -18,7 +21,7 @@ EXTENSIONS_APP = [
     'accounts',
     'user_profile',
     'blog',
-    # 'payment',
+    'payment',
     'register',
     'links_without_cards',
 
@@ -174,8 +177,8 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '20/minute',
-        'user': '20/minute',
+        'anon': '60/minute',
+        'user': '60/minute',
     }
 }
 
@@ -191,7 +194,17 @@ CELERY_TASKSERILIZER =  'json'
 
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS').upper() == 'TRUE'
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+
+# Settings for self
+if DEBUG is False: 
+    HOST_P2P = os.getenv('HOST_P2P_PROD')
+    HOST_SPOT = os.getenv('HOST_SPOT_PROD')
+
+elif DEBUG is True:
+    HOST_P2P = os.getenv('HOST_P2P_TEST')
+    HOST_SPOT = os.getenv('HOST_SPOT_TEST')

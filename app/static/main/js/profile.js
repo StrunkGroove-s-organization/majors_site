@@ -10,22 +10,22 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     function changeDescription(element) {
-        if (element == document.querySelector('#radio-1_test_2-subscription')) {
+        if (element == document.querySelector('#radio-test-subscription')) {
             description.innerHTML = ''
-            description.insertAdjacentText("afterbegin", '5$ - доступ на 1 день')
+            description.insertAdjacentText("afterbegin", '10$ - доступ на 2 дня')
         }
-        else if (element == document.querySelector('#radio-30_profi_20-subscription')) {
+        else if (element == document.querySelector('#radio-profi-subscription')) {
             description.innerHTML = ''
-            description.insertAdjacentText("afterbegin", '20$ - доступ на 1 месяц')
+            description.insertAdjacentText("afterbegin", '28$ - доступ на 1 месяц')
         }
-        else if (element == document.querySelector('#radio-1000_infinity_500-subscription')) {
+        else if (element == document.querySelector('#radio-infinity-subscription')) {
             description.innerHTML = ''
             description.insertAdjacentText("afterbegin", '500$ - доступ без ограничений')
         }
-        else if (element == document.querySelector('#radio-1000_infinity_500-subscription')) {
-            description.innerHTML = ''
-            description.insertAdjacentText("afterbegin", 'unset')
-        }
+        // else if (element == document.querySelector('#radio-1000_infinity_500-subscription')) {
+        //     description.innerHTML = ''
+        //     description.insertAdjacentText("afterbegin", 'unset')
+        // }
     }
 })
 
@@ -113,7 +113,7 @@ function copySumm() {
 }
 
 function copyWallet() {
-    navigator.clipboard.writeText(document.querySelector('.pay-block__summ').textContent)
+    navigator.clipboard.writeText(document.querySelector('.pay-block__hash').textContent)
         .then(() => {
             // console.log('Text copied to clipboard');
         })

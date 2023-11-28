@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Связки для арбитража без карт</title>
     <meta name="description"
-        content="Здесь ты найдёшь те связки, которые ищут многие арбитражники. Выбирай пару и крути связку Binance – BestChange не используя банковских кар">
+        content="Здесь ты найдёшь те связки, которые ищут многие арбитражники. Выбирай пару и крути связку Binance – BestChange не используя банковских карт.">
     <link rel="icon" href="{% static 'main/img/favicon.svg' %}">
     <link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
@@ -178,9 +178,9 @@
             </p>
             <div class="screener__btn-block">
                 {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Выбрать тариф</a>
+                <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Купить подписку</a>
                 {% else %}
-                <a class="screener__btn btn btn_white" data-screener='noauth'>Регистрация</a>
+                <a class="screener__btn btn btn_white" onclick="openRegBlock()" data-screener='noauth'>Регистрация</a>
                 {% endif %}
             </div>
         </div>

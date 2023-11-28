@@ -54,20 +54,14 @@
 					</div>
 
 					<div class="user__info-item user__info-item_rate">
-						<div class="user__info-title">Мой тариф:</div>
-						{% if has_subscription %}
-						<div class="user__info-value">--название тарифа--</div>
+						<div class="user__info-title">Подписка:</div>
+						{% if subscription_end != '01.01.2000' %}
+						<div class="user__info-value">до {{ subscription_end }}</div>
 						{% else %}
-						<div class="user__info-value">Не активен</div>
+						<div class="user__info-value">Не активна</div>
 						{% endif %}
-
 					</div>
 				</div>
-				{% if has_subscription %}
-				<div class="user__rate-time">Осталось {{ subscription_end }} дней</div>
-				{% endif %}
-
-
 			</div>
 		</section>
 
@@ -99,7 +93,8 @@
 								<div class="premium__btn" data-pay='cripto'>Оплатить</div>
 							</div>
 							<div class="premium__pay-item">
-								<a href="https://t.me/ArbiToolsS" class="premium__btn">Оплатить рублями</a>
+								<a href="https://t.me/ArbiToolsS" target="_blank" class="premium__btn">Оплатить
+									рублями</a>
 							</div>
 							<!-- <div class="premium__pay-item">
 								<div class="premium__btn" data-pay='fiat'>Binance</div>

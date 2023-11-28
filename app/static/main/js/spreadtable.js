@@ -20,6 +20,10 @@ class SidebarList {
       } else if (forPage == 'p2p3') {
          this.listWrapper = this.listBlock.querySelector('.sidebar__list-wrapper.p2p3');
       }
+      else if (forPage == 'all') {
+         this.listWrapper = this.listBlock.querySelector('.sidebar__select-list-wrapper');
+      }
+
       if (forPage == 'p2p2' || forPage == 'p2p3') {
          this.arrayElements = Array.from(this.listWrapper.querySelectorAll(`label`));
       } else {

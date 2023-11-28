@@ -5,6 +5,20 @@ from .tasks import send_password_reset_email
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
+from django.http import HttpResponseRedirect
+
+from django.contrib.auth.views import PasswordResetDoneView
+from django.contrib.auth.views import PasswordResetConfirmView
+
+
+class CustomPasswordResetView(PasswordResetConfirmView):
+    template_name = 'registration/custom_reset_password_form.html'
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'main/index.html'
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponseRedirect('/')
 
 def password_reset_request(request):
     if request.method == 'POST':

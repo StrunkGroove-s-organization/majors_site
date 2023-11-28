@@ -173,6 +173,7 @@ body {
   display: flex;
   justify-content: center;
 }
+.calc-p2p__title,
 .link-nocard__title,
 .best-price__title,
 .price__title,
@@ -947,7 +948,6 @@ body {
 .about {
   margin-top: 176px;
 }
-
 .about__title {
   display: flex;
   justify-content: center;
@@ -2053,6 +2053,10 @@ body {
   -ms-flex: 0 0 50%;
   flex: 0 0 50%;
 }
+.modal__form .error__list {
+  margin-top: 10px;
+  color: red;
+}
 
 .modal__select-block {
   display: -webkit-box;
@@ -2792,7 +2796,7 @@ body {
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
-  transition-delay: 2s;
+  transition-delay: 0.7s;
 }
 .favorite__del-btn:hover {
   opacity: 1;
@@ -3540,8 +3544,8 @@ table tbody {
 }
 .link-content__favorite_add {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   top: 0;
   left: 0;
   /* transform: translate(10px, -150%); */
@@ -3551,6 +3555,10 @@ table tbody {
   font-size: 10px;
   opacity: 0.6;
   cursor: pointer;
+}
+.link-content_crossmarket .link-content__favorite_add {
+  width: 10px;
+  height: 10px;
 }
 .link-content__favorite_add svg {
   position: absolute;
@@ -3726,12 +3734,36 @@ table tbody {
 }
 
 .card__token {
+  position: relative;
+  display: flex;
   /* margin-bottom: 5px; */
   text-align: center;
   /* color: #FFA500; */
   /* font-size: 20px; */
   /* font-weight: 700; */
 }
+.card__token:hover .card__token-hidden-info{
+  display: inline-block;
+
+}
+.card__token-hidden-info{
+  display: none;
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  color: #000;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #000;
+  white-space: nowrap;
+  font-weight: 400;
+}
+.card__token-hidden-info p:not(:first-child){
+  margin-top: 5px;
+}
+
 .link-content_crossmarket .card__visible-info {
   font-size: 16px;
 }
@@ -3813,6 +3845,7 @@ table tbody {
 }
 
 .bottom-text {
+  margin-top: 40px;
   margin-bottom: 40px;
   padding: 40px 35px;
   background: #a54be3;
@@ -5061,6 +5094,139 @@ table tbody {
   font-size: 40px !important;
 }
 
+.calc-p2p {
+  margin-top: 79px;
+  position: relative;
+}
+.calc-p2p__img {
+  width: 207px;
+  height: 207px;
+  position: absolute;
+  top: 0px;
+  right: 48px;
+}
+.calc-p2p__img svg {
+  height: 150%;
+  width: 150%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.calc-p2p__img img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 90%;
+}
+
+.calc-p2p__title {
+  text-transform: uppercase;
+}
+
+.calc-p2p__form {
+  margin-top: 55px;
+}
+.calc-p2p__item input {
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 400;
+  background: transparent;
+  outline: 2px solid #fff;
+  border-radius: 8px;
+}
+.calc-p2p2__item_profit {
+  grid-column: 4;
+  grid-row: 1;
+}
+.calc-p2p3__item_profit {
+  grid-column: 5;
+  grid-row: 1;
+}
+.calc-p2p__item_commission {
+  max-width: 200px;
+  opacity: 0.6;
+}
+.calc-p2p__item_commission input{
+height: 35px;
+font-size: 16px;
+}
+
+.calc-p2p__deposit {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: fit-content;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  height: 40px;
+}
+
+.calc-p2p__deposit-title {
+  padding-left: 17px;
+  font-size: 24px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.calc-p2p__subtitle {
+  margin-top: 50px;
+  text-align: center;
+  color: #ae39f2;
+  font-size: 25px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.calc-p2p__deposit-value {
+  height: 100%;
+  max-width: 200px;
+  background: transparent;
+  outline: 2px solid #fff;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.calc-p2p__p2p2 {
+}
+
+.calc-p2p__input-block {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-auto-flow: column;
+  margin-top: 47px;
+  gap: 37px;
+}
+.calc-p2p__input-block_p2p2 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.calc-p2p__input-block_p2p3 {
+  grid-template-columns: 1fr 200px 1fr 200px 1fr;
+}
+
+.calc-p2p__item {
+}
+
+.calc-p2p__item-title {
+  margin-bottom: 11px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.calc-p2p__input {
+}
+
+.calc-p2p__p2p3 {
+}
+
 @media (max-width: 1400px) {
   .content-block {
     gap: 5px;
@@ -5250,6 +5416,11 @@ table tbody {
   }
   .about__text {
     font-size: 23px;
+  }
+  .calc-p2p__img {
+    width: 150px;
+    height: 150px;
+    top: 80px;
   }
 }
 
@@ -5584,13 +5755,14 @@ table tbody {
     border-radius: 0;
     font-size: 20px;
   }
-  .link-content__favorite_add {
+  .link-content__favorite_add,
+  .link-content_crossmarket .link-content__favorite_add {
     width: 20px;
     height: 20px;
     top: 0;
     right: 0;
     left: auto;
-    transform: translate(0, 0%);
+    transform: translate(-4px, 4px);
   }
 
   .link-content__item {
@@ -5762,6 +5934,29 @@ table tbody {
   .calculator__profit {
     gap: 30px;
   }
+  .calc-p2p{
+    margin-top: 0px;
+  }
+  .calc-p2p__input-block {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-auto-flow: row;
+  }
+  .calc-p2p2__item_profit {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .calc-p2p3__item_profit {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .calc-p2p__item_commission {
+    max-width: none;
+  }
+  .calc-p2p__item_commission input {
+    height: 50px;
+  }
+
 }
 
 @media (max-width: 850px) {
@@ -6115,6 +6310,12 @@ table tbody {
   .btn_contacts {
     width: 90%;
     /* font-size: 8px; */
+  }
+  .calc-p2p__img {
+    width: 100px;
+    height: 100px;
+    top: 120px;
+    right: 0;
   }
 }
 
@@ -6829,6 +7030,32 @@ table tbody {
   }
   .bonus {
     display: none;
+  }
+  .calc-p2p__input-block {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-auto-flow: row;
+    gap: 20px;
+  }
+  .calc-p2p__deposit {
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+    gap: 0;
+  }
+  .calc-p2p__deposit-value {
+    height: 50px;
+  }
+  .calc-p2p__deposit-title {
+    margin-top: 10px;
+  }
+  .calc-p2p__img {
+    display: none;
+  }
+  .calc-p2p__item_commission input {
+    height: 35px;
+    width: 50%;
   }
 }
 

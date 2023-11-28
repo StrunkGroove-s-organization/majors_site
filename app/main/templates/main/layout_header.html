@@ -34,11 +34,18 @@
                   <li class="menu_item" data-menu="price">
                      <a href="{% url 'index' %}#rates" class="menu__link">Тарифы</a>
                   </li>
-                  <li class="menu_item" data-menu="blog">
-                     <a href="{% url 'empty' %}" class="menu__link">Блог</a>
+                  <li class="menu_item" data-menu="calc">
+                     <a href="{% url 'calculator_spread' %}" class="menu__link">Калькулятор</a>
                   </li>
-                  <li class="menu_item" data-menu="manual">
-                     <a href="{% url 'empty' %}" class="menu__link">Инструкции</a>
+                  <li class="menu_item drop-menu__btn"> Академия
+                     <div class="drop-menu__item">
+                        <p class="menu_item" data-menu="blog">
+                           <a href="{% url 'empty' %}" class="menu__link">Блог</a>
+                        </p>
+                        <p class="menu_item" data-menu="manual">
+                           <a href="{% url 'empty' %}" class="menu__link">Инструкции</a>
+                        </p>
+                     </div>
                   </li>
                </ul>
             </div>

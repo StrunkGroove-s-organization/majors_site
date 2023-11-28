@@ -1,8 +1,9 @@
-from .serializers import PriceSerializer
-# from .services import get_best_prices_objects
-from base.views import BaseFormView, BaseAPIView
-
 from django.core.cache import caches
+
+from rest_framework import permissions
+
+from .serializers import PriceSerializer
+from base.views import BaseFormView, BaseAPIView
 
 
 APP_NAME_URL = __package__ + '/'
@@ -12,12 +13,15 @@ class P2PPricesView(BaseFormView):
     url = APP_NAME_URL
     template_name = 'p2pprices.html'
 
+
 class BestPricesView(BaseFormView):
     url = APP_NAME_URL
     template_name = 'best_prices.html'
 
 
 class PriceView(BaseAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get_serializer(self, data):
         return PriceSerializer(data=data)
 

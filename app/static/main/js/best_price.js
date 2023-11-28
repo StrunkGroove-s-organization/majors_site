@@ -4,7 +4,7 @@ const navLinkArr = document.querySelectorAll('.nav-link');
 const buyBtn = document.querySelector('[data-page="buy"]')
 const sellBtn = document.querySelector('[data-page="sell"]')
 changeSectionMark(buyBtn)
-refreshAsideForm()
+// refreshAsideForm()
 
 buyBtn.addEventListener('click', () => {
    changeSectionMark(buyBtn);
@@ -25,11 +25,12 @@ function changeSectionMark(btn) {
 function changePageSection(section) {
    pageSection = section;
    postForm();
-   refreshAsideForm()
+   // refreshAsideForm()   
 }
 
 function refreshAsideForm() {
-   const tokenBtn = document.querySelector('#token_btn_usdd')
+   // const tokenBtn = document.querySelector('#token_btn_usdd')
+   const tokenBtn = document.querySelector('.sidebar__item_price-table input')
    tokenBtn.parentElement.classList.remove('hide')
    if (pageSection == 'buy') {
       tokenBtn.parentElement.classList.add('hide')

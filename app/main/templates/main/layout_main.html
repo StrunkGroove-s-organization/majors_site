@@ -7,7 +7,7 @@
 	</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description"
-		content="Повысьте эффективность арбитража криптовалют с нашим P2P сканером. Найдите выгодные сделки мгновенно. Оптимизируйте вашу стратегию арбитража уже сегодня.">
+		content="Повысьте эффективность арбитража криптовалют с нашим сканером. Найдите выгодные сделки мгновенно. Оптимизируйте вашу стратегию арбитража уже сегодня.">
 	<meta http-equiv="Content-type" content="text/html" charset="utf-8" />
 	<link rel="icon" href="{% static 'main/img/favicon.svg' %}">
 	<link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
@@ -300,17 +300,13 @@
 							останется выбрать связку, купить дешевле и продать дороже. Испытать все возможности нашего
 							инструмента ты сможешь прямо сейчас!
 						</div>
-						<!-- <div class="screener__subtitle">Вам не нужны большие инвестиции или специальные навыки.
-							Просто подключите наш P2P скринер, выберите
-							криптовалюту и начните зарабатывать.
-						</div> -->
+
 
 						{% if user.is_authenticated %}
 						<a href="{% url 'profile' %}#premium" class="btn btn_white">Попробовать ArbiTools</a>
 						{% else %}
 						<a class="btn btn_white" onclick="openRegBlock()">Попробовать ArbiTools</a>
 						{% endif %}
-						<!-- <a href="#" class="btn btn_white">Попробовать ArbiTools</a> -->
 					</div>
 					<img src="{% static 'main/img/main/screener_first.png' %}" alt="">
 				</div>
@@ -452,149 +448,13 @@
 				</div>
 			</form>
 		</div>
-		<!-- <div class="container">
-			<div class="call__content">
-				<div class="call__title label">Калькулятор дохода</div>
-			</div>
-			<form class="calculator">
-				<div class="calculator__profit">
-					<div class="calculator__input-line">
-						<div class="calculator__value-block">
-							<label for="calculator-profit_deposit">Депозит</label>
-							<input type="number" id="calculator-profit_deposit" value="10000" max="1000000" min="500">
-							<input type="range" step="500" value="10000" min="500" max="1000000">
-						</div>
-						<div class="calculator__value-block">
-							<label for="calculator-profit_range">Круги в день</label>
-							<input type="number" id="calculator-profit_range" value="1" max="20" min="1">
-							<input type="range" value="1" min="1" max="20">
-						</div>
-						<div class="calculator__value-block">
-							<label for="calculator-profit_spred">Спред</label>
-							<input type="number" id="calculator-profit_spred" value="1" max="10" min="0.5">
-							<input type="range" value="1" min="0.5" max="10" step="0.1">
-						</div>
-						<div class="calculator__value-block">
-							<label for="calculator-profit_target">Цель депозита</label>
-							<input type="number" id="calculator-profit_target" value="50000">
-						</div>
-					</div>
-					<div class="calculator__total">
-						<div class="calculator__total-block">
-							<label for="calculator-profit_total">Дней до цели</label>
-							<input type="number" id="calculator-profit_total" readonly>
-						</div>
-					</div>
-				</div>
-
-				<div class="calculator__day-profit">
-					<div class="calculator__input-line">
-						<div class="calculator__value-block">
-							<label for="calculator-profit_deposit">Депозит</label>
-							<input type="number" id="calculator-day-profit_deposit" value="10000" max="1000000"
-								min="500">
-							<input type="range" step="500" value="10000" min="500" max="1000000">
-						</div>
-						<div class="calculator__value-block">
-							<label for="calculator-day-profit_range">Круги в день</label>
-							<input type="number" id="calculator-day-profit_range" value="1" max="20" min="1">
-							<input type="range" value="1" min="1" max="20">
-						</div>
-						<div class="calculator__value-block">
-							<label for="calculator-day-profit_spred">Спред</label>
-							<input type="number" id="calculator-day-profit_spred" value="1" max="10" min="0.5">
-							<input type="range" value="1" min="0.5" max="10" step="0.1">
-						</div>
-						<div class="calculator__value-block">
-							<label for="calculator-day-profit_target">Цель дохода в день </label>
-							<input type="number" id="calculator-day-profit_target" value="50000">
-						</div>
-					</div>
-					<div class="calculator__total">
-						<div class="calculator__total-block">
-							<label for="calculator-day-profit_total">Дней до цели</label>
-							<input type="number" id="calculator-day-profit_total" readonly>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div> -->
-
-		<!-- <section class="call">
-			<div class="container">
-				<div class="call__content">
-					<div class="call__title label">ИСКАТЬ СВЯЗКИ ПРОСТО</div>
-				</div>
-			</div>
-		</section> -->
-
-		<!-- <section class="description">
-			<div class="container">
-				<ul class="description__table">
-					<li class="description__card">
-						<div class="description__title">
-							<p class="label">Работа в реальном</p>
-							<p class="label">времени</p>
-						</div>
-						<div class="description__img"><img src="{% static 'main/img/main/description_work.png' %}"
-								alt="">
-						</div>
-					</li>
-					<li class="description__card">
-						<div class="description__title">
-							<p class="label">Гибкая настройка</p>
-							<p class="label">фильтров</p>
-						</div>
-						<div class="description__img"><img src="{% static 'main/img/main/description_filter.png' %}"
-								alt="">
-						</div>
-					</li>
-					<li class="description__card">
-						<div class="description__title">
-							<p class="label">Широкий выбор</p>
-							<p class="label">P2P площадок</p>
-						</div>
-						<div class="description__img"><img src="{% static 'main/img/main/description_select.png' %}"
-								alt="">
-						</div>
-					</li>
-					<li class="description__card">
-						<div class="description__title">
-							<p class="label">Ликвидные</p>
-							<p class="label">платёжки</p>
-						</div>
-						<div class="description__img"><img src="{% static 'main/img/main/description_pay.png' %}"
-								alt="">
-						</div>
-					</li>
-					<li class="description__card">
-						<div class="description__title">
-							<p class="label">Биржевые и межбирживые связки</p>
-						</div>
-						<div class="description__img"><img src="{% static 'main/img/main/description_link.png' %}"
-								alt="">
-						</div>
-					</li>
-					<li class="description__card">
-						<div class="description__title">
-							<p class="label">Большой выбор</p>
-							<p class="label">криптовалют</p>
-						</div>
-						<div class="description__img"><img src="{% static 'main/img/main/description_coins.png' %}"
-								alt="">
-						</div>
-					</li>
-				</ul>
-			</div>
-		</section> -->
 
 		<section class="screener screener_main">
 			<div class="container">
 				<div class="screener__content">
 					<div class="screener__block">
 						<div class="screener__title">Начни зарабатывать со скринером ARBITOOLS уже сегодня</div>
-						<!-- <div class="screener__subtitle">Не знаешь как искать связи? ArbiTools все сделает за тебя!
-						</div> -->
+
 						<a href="#rates" class="btn btn_white">Выбрать тариф</a>
 					</div>
 					<img src="{% static 'main/img/main/screener.png' %}" alt="">
@@ -685,7 +545,6 @@
 						за собой фиксированную цену навсегда.
 					</div>
 					<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-					<!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 					<svg version="1.1" id="svg1" xml:space="preserve" width="100%" height="100%" <defs id="defs1">
 						<linearGradient inkscape:collect="always" xlink:href="#linearGradient1" id="linearGradient2"
@@ -710,9 +569,9 @@
 					<div class="rates__slide">
 						<div class="rates__item">
 							<h3 class="rates__item-title">ТАРИФ “ПРОБНЫЙ”</h3>
-							<div class="rates__item-price">5$</div>
+							<div class="rates__item-price">10$</div>
 							<div class="rates__item-subtitle">Тариф для исследования всего функционала ArbiTools. Оцени
-								возможности нашего инструмента. <p>Получи доступ на 1 день к Таблицам спреда.</p>
+								возможности нашего инструмента. <p>Получи доступ на 2 дня к Таблицам спреда.</p>
 							</div>
 							<ul class="rates__item-description">
 								<li>для P2Pшников</li>
@@ -734,7 +593,7 @@
 					<div class="rates__slide">
 						<div class="rates__item">
 							<h3 class="rates__item-title">Тариф "Стандарт"</h3>
-							<div class="rates__item-price">20$ - <span class="rates__item-old-price">55$</span></div>
+							<div class="rates__item-price">28$ - <span class="rates__item-old-price">55$</span></div>
 							<div class="rates__item-subtitle">Тариф для тех кто серьезно настроен на становление
 								профессиональным арбитражником. <p>Получи доступ на 1 месяц к Таблицам спреда.</p>
 							</div>
@@ -781,66 +640,6 @@
 				</div>
 		</section>
 
-
-		<!-- <section class="manual">
-			<div class="container">
-				<div class="manual__title">
-					<p>Как искать связки</p>
-				</div>
-				<div class="manual__table">
-					<div class="manual__step manual__step1">
-						<div class="manual__arrow"><img src="{% static 'main/img/main/arrow.svg' %}" alt=""></div>
-						<div class="manual__text-block">
-							<div class="manual__step-text">
-								<p class="manual__text">Выбираешь способ торговли</p>
-								<p class="manual__number">1</p>
-							</div>
-						</div>
-						<div class="manual__img"><img src="{% static 'main/img/main/step1.png' %}" alt=""></div>
-					</div>
-					<div class="manual__step manual__step2">
-						<div class="manual__arrow"><img src="{% static 'main/img/main/arrow.svg' %}" alt=""></div>
-						<div class="manual__text-block">
-							<div class="manual__step-text">
-								<p class="manual__text">Нужные тебе платёжки</p>
-								<p class="manual__number">2</p>
-							</div>
-						</div>
-						<div class="manual__img"><img src="{% static 'main/img/main/step2.png' %}" alt=""></div>
-					</div>
-					<div class="manual__step manual__step3">
-						<div class="manual__arrow"><img src="{% static 'main/img/main/arrow.svg' %}" alt=""></div>
-						<div class="manual__text-block">
-							<div class="manual__step-text">
-								<p class="manual__text">Биржи, на которых собираешься торговать</p>
-								<p class="manual__number">3</p>
-							</div>
-						</div>
-						<div class="manual__img"><img src="{% static 'main/img/main/step3.png' %}" alt=""></div>
-					</div>
-					<div class="manual__step manual__step4">
-						<div class="manual__arrow"><img src="{% static 'main/img/main/arrow.svg' %}" alt=""></div>
-						<div class="manual__text-block">
-							<div class="manual__step-text">
-								<p class="manual__text">Криптовалюты</p>
-								<p class="manual__number">4</p>
-							</div>
-						</div>
-						<div class="manual__img"><img src="{% static 'main/img/main/step4.png' %}" alt=""></div>
-					</div>
-					<div class="manual__step manual__step5">
-						<div class="manual__text-block">
-							<div class="manual__step-text">
-								<p class="manual__text">Указываешь лимиты и депозит</p>
-								<p class="manual__number">5</p>
-							</div>
-						</div>
-						<div class="manual__img"><img src="{% static 'main/img/main/step5.png' %}" alt=""></div>
-					</div>
-				</div>
-			</div>
-		</section> -->
-
 		<div class="container">
 			<section class="main-contacts">
 				<div class="main-contacts__title label">
@@ -848,16 +647,14 @@
 				</div>
 				<div class="main-contacts__content">
 					<div class="main-contacts__item">
-						<div class="main-contacts__ring">
+						<a href="https://www.youtube.com/@majorsS/videos" target="_blank" class="main-contacts__ring">
 							<img src="{% static 'main/img/main/youtube.png' %}" alt="">
-						</div>
-						<a href="https://www.youtube.com/@majorsS/videos" class="btn btn_contacts">Переходи на наш ютуб
-							канал</a>
+						</a>
 					</div>
 					<div class="main-contacts__item">
-						<div class="main-contacts__ring">
+						<a href="https://t.me/arbi_tools" target="_blank" class="main-contacts__ring">
 							<img src="{% static 'main/img/main/telegram.png' %}" alt="">
-						</div>
+						</a>
 						<svg class="border-left" xmlns="http://www.w3.org/2000/svg" width="4" height="153"
 							viewBox="0 0 4 153" fill="none">
 							<path d="M2 151.014L2 2.00024" stroke="white" stroke-width="3" stroke-linecap="round"
@@ -868,13 +665,10 @@
 							<path d="M2 151.014L2 2.00024" stroke="white" stroke-width="3" stroke-linecap="round"
 								stroke-dasharray="20 20" />
 						</svg>
-						<a href="https://t.me/arbitmajors" class="btn btn_contacts">Подписывайся на наш телеграм
-							канал</a>
 					</div>
 					<div class="main-contacts__item">
-						<div class="main-contacts__ring"><img src="{% static 'main/img/main/telegram_grad.png' %}"
-								alt=""></div>
-						<a href="https://t.me/ArbiToolsS" class="btn btn_contacts">По всем вопросам</a>
+						<a href="https://t.me/ArbiToolsS" target="_blank" class="main-contacts__ring"><img
+								src="{% static 'main/img/main/telegram_grad.png' %}" alt=""></a>
 					</div>
 				</div>
 			</section>

@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-type" content="text/html" charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}" type="text/css">
+    <link rel="icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/montserrat/stylesheet.css' %}">
+</head>
+
+
+<body>
+    {% include 'main/layout_header.html' %}
+    <div class="container">
+        <div class="calc-p2p">
+            <div class="title__wrapper">
+                <h1 class="calc-p2p__title">КАЛЬКУЛЯТОР СПРЕДА для АРБИТРАЖa</h1>
+            </div>
+            <div class="calc-p2p__img">
+                <svg xmlns="http://www.w3.org/2000/svg" width="307" height="307" viewBox="0 0 307 307" fill="none">
+                    <g filter="url(#filter0_f_1625_574)">
+                        <circle cx="153.5" cy="153.5" r="103.5" fill="#AE39F2" fill-opacity="0.5" />
+                    </g>
+                    <defs>
+                        <filter id="filter0_f_1625_574" x="0" y="0" width="307" height="307"
+                            filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                            <feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur_1625_574" />
+                        </filter>
+                    </defs>
+                </svg>
+                <img src="{% static 'main/img/calc.png' %}" alt="">
+            </div>
+
+            <form class="calc-p2p__form">
+                <div class="calc-p2p__deposit">
+                    <span class="calc-p2p__deposit-title">ДЕПОЗИТ:</span>
+                    <input type="number" class="calc-p2p__deposit-value" data-input="p2p_deposit" value="100">
+                </div>
+                <div class="calc-p2p__p2p2">
+                    <div class="calc-p2p__subtitle">СПРЕД В 2 ДЕЙСТВИЯ</div>
+                    <div class="calc-p2p__input-block calc-p2p__input-block_p2p2">
+                        <div class="calc-p2p__item">
+                            <div class="calc-p2p__item-title">Цена покупки</div>
+                            <input type="number" class="calc-p2p__input" value="95.3" data-input="p2p2_price_buy">
+                        </div>
+                        <div class="calc-p2p__item calc-p2p__item_commission">
+                            <div class="calc-p2p__item-title">Комиссия покупки</div>
+                            <input type="number" class="calc-p2p__input" value="0.1" data-input="p2p2_commission">
+                        </div>
+                        <div class="calc-p2p__item">
+                            <div class="calc-p2p__item-title">Цена продажи</div>
+                            <input type="number" class="calc-p2p__input" value="96.3" data-input="p2p2_price_sell">
+                        </div>
+                        <div class="calc-p2p__item calc-p2p__item_commission">
+                            <div class="calc-p2p__item-title">Комиссия продажи</div>
+                            <input type="number" class="calc-p2p__input" value="0.1" data-input="p2p2_commission">
+                        </div>
+                        <div class="calc-p2p__item">
+                            <div class="calc-p2p__item-title">Спред %</div>
+                            <input type="number" class="calc-p2p__input" value="0" data-input="p2p2_spred" readonly>
+                        </div>
+                        <div class="calc-p2p__item calc-p2p2__item_profit">
+                            <div class="calc-p2p__item-title">Прибыль</div>
+                            <input type="number" class="calc-p2p__input" value="0" data-input="p2p2_profit" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="calc-p2p__p2p3">
+                    <div class="calc-p2p__subtitle">СПРЕД В 3 ДЕЙСТВИЯ</div>
+                    <div class="calc-p2p__input-block calc-p2p__input-block_p2p3">
+                        <div class="calc-p2p__item">
+                            <div class="calc-p2p__item-title">Цена покупки</div>
+                            <input type="number" class="calc-p2p__input" value="95.3" data-input="p2p3_price_buy">
+                        </div>
+                        <div class="calc-p2p__item calc-p2p__item_commission">
+                            <div class="calc-p2p__item-title">Комиссия покупки</div>
+                            <input type="number" class="calc-p2p__input" value="0.1" data-input="p2p3_commission">
+                        </div>
+                        <div class="calc-p2p__item">
+                            <div class="calc-p2p__item-title">Курс обмена</div>
+                            <input type="number" class="calc-p2p__input" value="36279" data-input="p2p3_price_change">
+                        </div>
+                        <div class="calc-p2p__item calc-p2p__item_commission">
+                            <div class="calc-p2p__item-title">Комиссия обмена</div>
+                            <input type="number" class="calc-p2p__input" value="0.1" data-input="p2p3_commission">
+                        </div>
+                        <div class="calc-p2p__item">
+                            <div class="calc-p2p__item-title">Цена продажи</div>
+                            <input type="number" class="calc-p2p__input" value="3521000" data-input="p2p3_price_sell">
+                        </div>
+                        <div class="calc-p2p__item calc-p2p__item_commission">
+                            <div class="calc-p2p__item-title">Комиссия продажи</div>
+                            <input type="number" class="calc-p2p__input" value="0" data-input="p2p3_commission">
+                        </div>
+                        <div class="calc-p2p__item">
+                            <div class="calc-p2p__item-title">Спред %</div>
+                            <input type="number" class="calc-p2p__input" value="0" data-input="p2p3_spred" readonly>
+                        </div>
+                        <div class="calc-p2p__item calc-p2p3__item_profit">
+                            <div class="calc-p2p__item-title">Прибыль</div>
+                            <input type="number" class="calc-p2p__input" value="0" data-input="p2p3_profit" readonly>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+{% include 'main/layout_footer.html' %}
+{% include 'main/layout_modal.html' %}
+
+<script src="{% static 'main/js/login.js' %}"></script>
+<script src="{% static 'main/js/calc_p2p.js' %}"></script>
+
+</html>

@@ -11,11 +11,11 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('user_profile.urls')),
     path('', include('blog.urls')),
-    # path('', include('payment.urls')),
+    path('', include('payment.urls')),
     path('', include('register.urls')),
     path('', include('links_without_cards.urls')),
 
-    # path('api/', include('payment.api.urls')),
+    path('api/', include('payment.api.urls')),
 
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),

@@ -407,7 +407,6 @@ function sendData(formData) {
                                                 <p>Мин. лимиты <span>${element.best.lim_min}</span></p>
                                                 <p>Резервы <span>${element.best.available}</span></p>
                                                 <p>Отзывы <span>${element.best.positive_reviews}/${element.best.negative_reviews}</span></p>
-                                                <p>Рейтинг <span>${element.best.exchange_info.info_star}</span></p>
                                                 <p>Доп. проверка<span>${checkValue(element.best.exchange_info.info_verification)}</span></p>
                                                 <p>Юр. регистрация<span>${checkValue(element.best.exchange_info.info_registration)}</span></p>
                                             </div>

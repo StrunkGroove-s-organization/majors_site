@@ -15,3 +15,7 @@ class EmptyView(BaseFormView):
 class Cookies(BaseFormView):
     url = APP_NAME_URL
     template_name = 'cookies.html'
+
+class СalculatorSpread(BaseFormView):
+    url = APP_NAME_URL
+    template_name = 'calculator_spread.html'

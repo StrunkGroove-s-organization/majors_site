@@ -1,11 +1,13 @@
-from accounts.forms import CustomUserRegistrationForm, LoginForm
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import permissions
-from rest_framework import status
+from datetime import datetime, timezone
+
 from django.shortcuts import render
 from django.views import View
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import permissions, status
+
+from accounts.forms import CustomUserRegistrationForm, LoginForm
 
 
 class BaseFormView(View):    
@@ -22,12 +24,14 @@ class BaseFormView(View):
 
 
 class HasSubscriptionPermission(permissions.BasePermission):
-    def has_permission(self, request, view):
+    def has_permission(self, request, view) -> bool:
         status = request.user.is_staff
         if status: return True
 
         status = request.user.has_infinity_subscription
         if status: return True
+
+        if request.user.subscription_end >= datetime.now(timezone.utc): return True
 
         return False
 
@@ -38,8 +42,9 @@ class BaseAPIView(APIView):
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         
-        if serializer.is_valid():
-            response_data = self.process_request(request, serializer.validated_data)
-            return Response(response_data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        response_data = self.process_request(request, serializer.validated_data)
+        return Response(response_data)
         
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Межбиржевые связки</title>
     <meta name="description"
-        content="Ищешь межбиржевые связки? Наш инструмент уже все сделал за тебя, выбирай связки и торгуй.">
+        content="Ищешь межбиржевые связки? Наш инструмент уже все сделал за тебя, выбирай связки и торгуй, анализ ликвидности, проверка сетей…">
     <link rel="icon" href="{% static 'main/img/favicon.svg' %}">
     <link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
@@ -55,48 +55,50 @@
                         <div class="sidebar__select_item sidebar__title_market-buy hidden"><span></span>
                             <span class="select-title"></span>
                             <div class="sidebar__select-list hidden">
-                                <input id="checkbox-exchange-buy_bybit-crossmarket" name="exchanges_buy" type="checkbox"
-                                    value="bybit">
-                                <label for="checkbox-exchange-buy_bybit-crossmarket">Bybit</label>
-                                <input id="checkbox-exchange-buy_binance-crossmarket" name="exchanges_buy"
-                                    type="checkbox" value="binance">
-                                <label for="checkbox-exchange-buy_binance-crossmarket">Binance</label>
-                                <input id="checkbox-exchange-buy_huobi-crossmarket" name="exchanges_buy" type="checkbox"
-                                    value="huobi">
-                                <label for="checkbox-exchange-buy_huobi-crossmarket">Huobi</label>
-                                <input id="checkbox-exchange-buy_okx-crossmarket" type="checkbox" name="exchanges_buy"
-                                    value="okx">
-                                <label for="checkbox-exchange-buy_okx-crossmarket">Okx</label>
-                                <input id="checkbox-exchange-buy_bitget-crossmarket" type="checkbox"
-                                    name="exchanges_buy" value="bitget">
-                                <label for="checkbox-exchange-buy_bitget-crossmarket">BitGet</label>
-                                <!-- <input id="checkbox-exchange-buy_garantex-crossmarket" name="exchanges_buy"
-                                    type="checkbox" value="garantex">
-                                <label for="checkbox-exchange-buy_garantex-crossmarket">Garantex</label> -->
-                                <!-- <input id="checkbox-exchange-buy_bitpapa-crossmarket" name="exchanges_buy"
-                                    type="checkbox" value="bitpapa">
-                                <label for="checkbox-exchange-buy_bitpapa-crossmarket">Bitpapa</label> -->
-                                <!-- <input id="checkbox-exchange-buy_beribit-crossmarket" name="exchanges_buy"
-                                    type="checkbox" value="beribit">
-                                <label for="checkbox-exchange-buy_beribit-crossmarket">Beribit</label> -->
-                                <!-- <input id="checkbox-exchange-buy_hodlhodl-crossmarket" name="exchanges_buy"
-                                    type="checkbox" value="hodlhodl">
-                                <label for="checkbox-exchange-buy_hodlhodl-crossmarket">Hodl Hodl</label> -->
-                                <!-- <input id="checkbox-exchange-buy_mexc-crossmarket" name="exchanges_buy" type="checkbox"
-                                    value="mexc">
-                                <label for="checkbox-exchange-buy_mexc-crossmarket">Mexc</label> -->
-                                <input id="checkbox-exchange-buy_kucoin-crossmarket" name="exchanges_buy"
-                                    type="checkbox" value="kucoin">
-                                <label for="checkbox-exchange-buy_kucoin-crossmarket">Kucoin</label>
-                                <!-- <input id="checkbox-exchange-buy_pancake-crossmarket" name="exchanges_buy"
-                                    type="checkbox" value="pancake">
-                                <label for="checkbox-exchange-buy_pancake-crossmarket">Pancake</label> -->
-                                <input id="checkbox-exchange-buy_gateio-crossmarket" name="exchanges_buy"
-                                    type="checkbox" value="gateio">
-                                <label for="checkbox-exchange-buy_gateio-crossmarket">Gate.io</label>
-                                <!-- <input id="checkbox-exchange-buy_totalcoin-crossmarket" name="exchanges_buy"
-                                    type="checkbox" value="totalcoin">
-                                <label for="checkbox-exchange-buy_totalcoin-crossmarket">Totalcoin</label> -->
+                                <div class="sidebar__select-list-wrapper">
+                                    <input id="checkbox-exchange-buy_bybit-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="bybit">
+                                    <label for="checkbox-exchange-buy_bybit-crossmarket">Bybit</label>
+                                    <input id="checkbox-exchange-buy_binance-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="binance">
+                                    <label for="checkbox-exchange-buy_binance-crossmarket">Binance</label>
+                                    <input id="checkbox-exchange-buy_huobi-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="huobi">
+                                    <label for="checkbox-exchange-buy_huobi-crossmarket">Huobi</label>
+                                    <input id="checkbox-exchange-buy_okx-crossmarket" type="checkbox"
+                                        name="exchanges_buy" value="okx">
+                                    <label for="checkbox-exchange-buy_okx-crossmarket">Okx</label>
+                                    <input id="checkbox-exchange-buy_bitget-crossmarket" type="checkbox"
+                                        name="exchanges_buy" value="bitget">
+                                    <label for="checkbox-exchange-buy_bitget-crossmarket">BitGet</label>
+                                    <!-- <input id="checkbox-exchange-buy_garantex-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="garantex">
+                                    <label for="checkbox-exchange-buy_garantex-crossmarket">Garantex</label> -->
+                                    <!-- <input id="checkbox-exchange-buy_bitpapa-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="bitpapa">
+                                    <label for="checkbox-exchange-buy_bitpapa-crossmarket">Bitpapa</label> -->
+                                    <!-- <input id="checkbox-exchange-buy_beribit-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="beribit">
+                                    <label for="checkbox-exchange-buy_beribit-crossmarket">Beribit</label> -->
+                                    <!-- <input id="checkbox-exchange-buy_hodlhodl-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="hodlhodl">
+                                    <label for="checkbox-exchange-buy_hodlhodl-crossmarket">Hodl Hodl</label> -->
+                                    <!-- <input id="checkbox-exchange-buy_mexc-crossmarket" name="exchanges_buy" type="checkbox"
+                                        value="mexc">
+                                    <label for="checkbox-exchange-buy_mexc-crossmarket">Mexc</label> -->
+                                    <input id="checkbox-exchange-buy_kucoin-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="kucoin">
+                                    <label for="checkbox-exchange-buy_kucoin-crossmarket">Kucoin</label>
+                                    <!-- <input id="checkbox-exchange-buy_pancake-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="pancake">
+                                    <label for="checkbox-exchange-buy_pancake-crossmarket">Pancake</label> -->
+                                    <input id="checkbox-exchange-buy_gateio-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="gateio">
+                                    <label for="checkbox-exchange-buy_gateio-crossmarket">Gate.io</label>
+                                    <!-- <input id="checkbox-exchange-buy_totalcoin-crossmarket" name="exchanges_buy"
+                                        type="checkbox" value="totalcoin">
+                                    <label for="checkbox-exchange-buy_totalcoin-crossmarket">Totalcoin</label> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,48 +107,50 @@
                         <div class="sidebar__select_item sidebar__title_market-sell hidden"><span></span>
                             <span class="select-title"></span>
                             <div class="sidebar__select-list hidden">
-                                <input id="checkbox-exchange-sell_bybit-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="bybit">
-                                <label for="checkbox-exchange-sell_bybit-crossmarket">Bybit</label>
-                                <input id="checkbox-exchange-sell_binance-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="binance">
-                                <label for="checkbox-exchange-sell_binance-crossmarket">Binance</label>
-                                <input id="checkbox-exchange-sell_huobi-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="huobi">
-                                <label for="checkbox-exchange-sell_huobi-crossmarket">Huobi</label>
-                                <input id="checkbox-exchange-sell_okx-crossmarket" type="checkbox" name="exchanges_sell"
-                                    value="okx">
-                                <label for="checkbox-exchange-sell_okx-crossmarket">Okx</label>
-                                <input id="checkbox-exchange-sell_bitget-crossmarket" type="checkbox"
-                                    name="exchanges_sell" value="bitget">
-                                <label for="checkbox-exchange-sell_bitget-crossmarket">BitGet</label>
-                                <!-- <input id="checkbox-exchange-sell_garantex-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="garantex">
-                                <label for="checkbox-exchange-sell_garantex-crossmarket">Garantex</label>
-                                <input id="checkbox-exchange-sell_bitpapa-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="bitpapa">
-                                <label for="checkbox-exchange-sell_bitpapa-crossmarket">Bitpapa</label>
-                                <input id="checkbox-exchange-sell_beribit-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="beribit">
-                                <label for="checkbox-exchange-sell_beribit-crossmarket">Beribit</label>
-                                <input id="checkbox-exchange-sell_hodlhodl-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="hodlhodl">
-                                <label for="checkbox-exchange-sell_hodlhodl-crossmarket">Hodl Hodl</label> -->
-                                <!-- <input id="checkbox-exchange-sell_mexc-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="mexc">
-                                <label for="checkbox-exchange-sell_mexc-crossmarket">Mexc</label> -->
-                                <input id="checkbox-exchange-sell_kucoin-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="kucoin">
-                                <label for="checkbox-exchange-sell_kucoin-crossmarket">Kucoin</label>
-                                <!-- <input id="checkbox-exchange-sell_pancake-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="pancake">
-                                <label for="checkbox-exchange-sell_pancake-crossmarket">Pancake</label> -->
-                                <input id="checkbox-exchange-sell_gateio-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="gateio">
-                                <label for="checkbox-exchange-sell_gateio-crossmarket">Gate.io</label>
-                                <!-- <input id="checkbox-exchange-sell_totalcoin-crossmarket" name="exchanges_sell"
-                                    type="checkbox" value="totalcoin">
-                                <label for="checkbox-exchange-sell_totalcoin-crossmarket">Totalcoin</label> -->
+                                <div class="sidebar__select-list-wrapper">
+                                    <input id="checkbox-exchange-sell_bybit-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="bybit">
+                                    <label for="checkbox-exchange-sell_bybit-crossmarket">Bybit</label>
+                                    <input id="checkbox-exchange-sell_binance-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="binance">
+                                    <label for="checkbox-exchange-sell_binance-crossmarket">Binance</label>
+                                    <input id="checkbox-exchange-sell_huobi-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="huobi">
+                                    <label for="checkbox-exchange-sell_huobi-crossmarket">Huobi</label>
+                                    <input id="checkbox-exchange-sell_okx-crossmarket" type="checkbox"
+                                        name="exchanges_sell" value="okx">
+                                    <label for="checkbox-exchange-sell_okx-crossmarket">Okx</label>
+                                    <input id="checkbox-exchange-sell_bitget-crossmarket" type="checkbox"
+                                        name="exchanges_sell" value="bitget">
+                                    <label for="checkbox-exchange-sell_bitget-crossmarket">BitGet</label>
+                                    <!-- <input id="checkbox-exchange-sell_garantex-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="garantex">
+                                    <label for="checkbox-exchange-sell_garantex-crossmarket">Garantex</label>
+                                    <input id="checkbox-exchange-sell_bitpapa-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="bitpapa">
+                                    <label for="checkbox-exchange-sell_bitpapa-crossmarket">Bitpapa</label>
+                                    <input id="checkbox-exchange-sell_beribit-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="beribit">
+                                    <label for="checkbox-exchange-sell_beribit-crossmarket">Beribit</label>
+                                    <input id="checkbox-exchange-sell_hodlhodl-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="hodlhodl">
+                                    <label for="checkbox-exchange-sell_hodlhodl-crossmarket">Hodl Hodl</label> -->
+                                    <!-- <input id="checkbox-exchange-sell_mexc-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="mexc">
+                                    <label for="checkbox-exchange-sell_mexc-crossmarket">Mexc</label> -->
+                                    <input id="checkbox-exchange-sell_kucoin-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="kucoin">
+                                    <label for="checkbox-exchange-sell_kucoin-crossmarket">Kucoin</label>
+                                    <!-- <input id="checkbox-exchange-sell_pancake-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="pancake">
+                                    <label for="checkbox-exchange-sell_pancake-crossmarket">Pancake</label> -->
+                                    <input id="checkbox-exchange-sell_gateio-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="gateio">
+                                    <label for="checkbox-exchange-sell_gateio-crossmarket">Gate.io</label>
+                                    <!-- <input id="checkbox-exchange-sell_totalcoin-crossmarket" name="exchanges_sell"
+                                        type="checkbox" value="totalcoin">
+                                    <label for="checkbox-exchange-sell_totalcoin-crossmarket">Totalcoin</label> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -221,9 +225,9 @@
             </p>
             <div class="screener__btn-block">
                 {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Начать</a>
+                <a href="{% url 'profile' %}#premium" class="screener__btn btn btn_white">Купить подписку</a>
                 {% else %}
-                <a class="screener__btn btn btn_white" data-screener='noauth'>Начать</a>
+                <a class="screener__btn btn btn_white" onclick="openRegBlock()" data-screener='noauth'>Регистрация</a>
                 {% endif %}
             </div>
             <h3>Как искать межбиржевые связки </h3>

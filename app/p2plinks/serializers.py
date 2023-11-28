@@ -25,6 +25,7 @@ class P2PLinksSerializer(serializers.Serializer):
         'exchange_beribit',
         'exchange_totalcoin',
         'exchange_bitpapa',
+        'exchange_bitget',
     ]
 
     CRYPTO_CHOICES = [

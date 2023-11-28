@@ -1,20 +1,23 @@
+import requests
+
+from django.conf import settings
+# from django.db import connections
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+
+from .models import FavouriteTwoModel, FavouriteThreeModel
+from base.views import BaseFormView, BaseAPIView
 from .serializers import (
     PriceThreeSerializer, FavouriteThreeModelSerializer, 
     FavouriteTwoModelSerializer, FavouriteDeleteSerializer,
     FavouriteTwoAllSerializer, FavouriteThreeAllSerializer, 
     PriceTwoSerializer, GetInfoBestChangeSerializer
 )
-import requests
-from .models import FavouriteTwoModel, FavouriteThreeModel
-from base.views import BaseFormView, BaseAPIView
-
-from rest_framework.response import Response
-from rest_framework.views import APIView
-# from django.db import connections
-from rest_framework import status
-
 
 APP_NAME_URL = __package__ + '/'
+
 ALL_EX = [
     'binance', 'bybit', 'huobi', 'kucoin', 'okx', 'bitget', 'pancake',
     'gateio'
@@ -38,9 +41,10 @@ class PriceViewThree(BaseAPIView):
         token = validated_data.get('token')
 
         payload = {"market": market, "token": token}
-        url = 'http://188.120.226.254:8001/api/v1/triangular-arbitrage/'
+        url = 'http://' + settings.HOST_P2P + '/api/v1/triangular-arbitrage/'
         response = requests.post(url, data=payload)
         return response.json()
+
 
 class PriceViewTwo(BaseAPIView):
     def get_serializer(self, data):
@@ -51,8 +55,9 @@ class PriceViewTwo(BaseAPIView):
         exs_sell = validated_data.get('exchanges_sell', [])
         trade_type = validated_data.get('trade_type')
 
-        payload = {"exchanges_buy": exs_buy, "exchanges_sell": exs_sell, "trade_type": trade_type}
-        url = 'http://188.120.226.254:8001/api/v1/inter-arbitrage/'
+        payload = {"exchanges_buy": exs_buy,
+                   "exchanges_sell": exs_sell, "trade_type": trade_type}
+        url = 'http://' + settings.HOST_P2P + '/api/v1/inter-arbitrage/'
         response = requests.post(url, data=payload)
         return response.json()
 

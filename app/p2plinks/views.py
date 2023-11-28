@@ -1,5 +1,6 @@
+import requests
+
 from .forms import Filters
-from .services import p2plinks_3, p2plinks_2
 from .serializers import P2PLinksSerializer
 from base.views import BaseFormView, BaseAPIView
 
@@ -25,8 +26,9 @@ class P2PLinks3View(BaseAPIView):
         return P2PLinksSerializer(data=data)
 
     def process_request(self, request, validated_data):
-        exchange_ads = p2plinks_3(validated_data)
-        return {'data': exchange_ads}
+        url = 'http://188.120.227.131:8002/api/v1/triangular-arbitrage/'
+        response = requests.post(url, json = validated_data)
+        return {'data': response.json()}
 
 
 class P2PLinks2View(BaseAPIView):
@@ -34,5 +36,7 @@ class P2PLinks2View(BaseAPIView):
         return P2PLinksSerializer(data=data)
 
     def process_request(self, request, validated_data):
-        exchange_ads = p2plinks_2(validated_data)
-        return {'data': exchange_ads}
+        url = 'http://188.120.227.131:8002/api/v1/binary-arbitrage/'
+        response = requests.post(url, json = validated_data)
+        return {'data': response.json()}
+
