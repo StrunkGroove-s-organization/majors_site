@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subscription Payment</title>
+</head>
+<body>
+    <h1>Choose Your Subscription Plan</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Subscribe</button>
+    </form>
+
+    {% if url %}
+    <div class="success-message">
+        <p>Link: <a href="{{ url }}">{{ url }}</a></p>
+        <p>{{ order_id }}</p>
+    </div>
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+from django.shortcuts import render
+from .forms import Subscription
+from django.contrib.auth.decorators import login_required
+from django.utils.crypto import get_random_string
+
+API = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiTVRVd01qWT0iLCJ0eXBlIjoicHJvamVjdCIsInYiOiJhMjQxOThiMmZhNGE5YjhjMTQ1OGRhZmE0MzBjMDEyMzRmMWNlMTcyNDVlZGJkZmUzZTg4ZThlODJmOGZhMjUwIiwiZXhwIjo4ODA5MjAxNTE3NX0.df-nMSeM1nnQWa3b-IfkHkUEJQHRztRr0fzmgXCaG4Q'
+ASHOP_ID = 'FtYNjJkHiXKY4rHJ'
+ALLOWED_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+URL = "https://api.cryptocloud.plus/v1/invoice/create"
+
+@login_required(login_url='/')
+def payment(request):
+    if request.method == 'POST':
+        user_profile = request.user
+        user_email = request.email
+        order_id = get_random_string(length=10, allowed_chars=allowed_chars)
+
+
+        filters = Subscription(request.POST)
+        if filters.is_valid():
+            selected_subscription = filters.cleaned_data['subscription'].split('_')
+
+
+
+
+data = {
+    "amount": amount,
+    "shop_id": SHOP_ID,
+    "email": email,
+    "order_id": order_id,
+}
+            response = requests.post(url, headers=headers, data=data)
+
+            day = selected_subscription[0]
+            type = selected_subscription[1]
+            amount = selected_subscription[2]
+
+            return render(request, 'payment/payment.html', {
+                'form': filters,
+                'subscription_selected': selected_subscription,
+            })
+
+    filters = Subscription()
+    return render(request, 'payment/payment.html', {
+        'form': filters,
+    })
+
+@login_required(login_url='/')
+def paymenterror(request):
+    register_form = CustomUserRegistrationForm()
+    login_form = LoginForm()
+    return render(request, 'main/index.html', {
+        'login_form': login_form,
+        'register_form': register_form,
+    })
+
+
+def payment_notifications(request):
+    register_form = CustomUserRegistrationForm()
+    login_form = LoginForm()
+    return render(request, 'main/index.html', {
+        'login_form': login_form,
+        'register_form': register_form,
+    })
+
+

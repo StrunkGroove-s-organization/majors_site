@@ -1,0 +1,14 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'payment/css/gratitude_email.css' %}">
+</head>
+<body>
+    <div class="email-container">
+        <p>Дорогой {{ user.username }},</p>
+        <p>Благодарим вас за оплату на нашем сайте {{ current_site }}. Мы ценим вашу поддержку и надеемся, что вы останетесь с нами долгое время!</p>
+        <p>С уважением,<br>Команда ArbiTools</p>
+    </div>
+</body>
+</html>
