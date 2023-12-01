@@ -8,7 +8,7 @@ services:
         ports:
             - 5432:5432
         env_file:
-            - .env.prod
+            - .env
         networks:
             - network
 
@@ -30,7 +30,7 @@ services:
         ports:
             - 8000:8000
         env_file:
-            - .env.prod
+            - .env
         volumes:
             - ./app:/app
         depends_on:
@@ -45,10 +45,6 @@ services:
         build: ./nginx
         ports:
             - 80:80
-            - 443:443
-        volumes:
-            - /etc/letsencrypt/ssl/fullchain.pem:/etc/nginx/ssl/fullchain.pem
-            - /etc/letsencrypt/ssl/privkey.pem:/etc/nginx/ssl/privkey.pem
         depends_on:
             - web
         networks:
@@ -62,25 +58,24 @@ services:
         volumes:
             - ./app:/app
         env_file:
-            - .env.prod
+            - .env
         depends_on:
             - web
             - redis
         networks:
             - network
 
-    flower:
-        container_name: majors-flower
-        build:
-            context: .
-        volumes:
-            - ./app:/app
-        ports:
-            - 5555:5555
-        command: sh -c "sleep 2 && celery -A main flower"
-        depends_on:
-            - celery
-            - celery-beat
+    # flower:
+    #     container_name: majors-flower
+    #     build:
+    #         context: .
+    #     volumes:
+    #         - ./app:/app
+    #     ports:
+    #         - 5555:5555
+    #     command: sh -c "sleep 4 && celery -A myproject flower"
+    #     depends_on:
+    #         - celery
 
 networks:
   network:

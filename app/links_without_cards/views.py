@@ -1,8 +1,5 @@
 import requests
 
-from django.conf import settings
-# from django.db import connections
-
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -41,7 +38,7 @@ class PriceViewThree(BaseAPIView):
         token = validated_data.get('token')
 
         payload = {"market": market, "token": token}
-        url = 'http://' + settings.HOST_P2P + '/api/v1/triangular-arbitrage/'
+        url = 'http://188.120.227.131:8002/api/v1/triangular-arbitrage/'
         response = requests.post(url, data=payload)
         return response.json()
 
@@ -57,7 +54,7 @@ class PriceViewTwo(BaseAPIView):
 
         payload = {"exchanges_buy": exs_buy,
                    "exchanges_sell": exs_sell, "trade_type": trade_type}
-        url = 'http://' + settings.HOST_P2P + '/api/v1/inter-arbitrage/'
+        url = 'http://188.120.227.131:8002/api/v1/inter-arbitrage/'
         response = requests.post(url, data=payload)
         return response.json()
 

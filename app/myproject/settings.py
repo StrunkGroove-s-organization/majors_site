@@ -201,10 +201,10 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 
 # Settings for self
-if DEBUG is False: 
-    HOST_P2P = os.getenv('HOST_P2P_PROD')
-    HOST_SPOT = os.getenv('HOST_SPOT_PROD')
+# if DEBUG is False: 
+#     HOST_P2P = os.getenv('HOST_P2P_PROD')
+#     HOST_SPOT = os.getenv('HOST_SPOT_PROD')
 
-elif DEBUG is True:
-    HOST_P2P = os.getenv('HOST_P2P_TEST')
-    HOST_SPOT = os.getenv('HOST_SPOT_TEST')
+# elif DEBUG is True:
+#     HOST_P2P = os.getenv('HOST_P2P_TEST')
+#     HOST_SPOT = os.getenv('HOST_SPOT_TEST')
