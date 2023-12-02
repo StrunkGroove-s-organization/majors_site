@@ -95,7 +95,6 @@ class CustomRadioSelect(forms.RadioSelect):
         self.custom_param = custom_param
         super().__init__(*args, **kwargs)
 
-
     def render(self, name, value, attrs=None, renderer=None):
         if value is None:
             value = ''
@@ -108,7 +107,7 @@ class CustomRadioSelect(forms.RadioSelect):
             option_attrs['id'] = f"radio-{self.custom_param}-{option_value}"
             output.append(format_html(
                 '<input {}> <label for="radio-{}-{}">{}</label>',
-                flatatt(option_attrs), option_value, self.custom_param, option_label)
+                flatatt(option_attrs), self.custom_param, option_value, option_label)
             )
         return mark_safe('\n'.join(output))
 
@@ -129,8 +128,8 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
                 option_attrs['checked'] = 'checked'
             option_attrs['id'] = f"checkbox-{self.custom_param}-{option_value}"
             output.append(format_html(
-                '<input {}> <label for="checkbox-{}">{}</label>',
-                flatatt(option_attrs), option_value, option_label)
+                '<input {}> <label for="checkbox-{}-{}">{}</label>',
+                flatatt(option_attrs), self.custom_param, option_value, option_label)
             )
         return mark_safe('\n'.join(output))
     
