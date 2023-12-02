@@ -105,7 +105,7 @@ class CustomRadioSelect(forms.RadioSelect):
             option_attrs = {'type': 'radio', 'name': name, 'value': option_value}
             if option_value == value:
                 option_attrs['checked'] = 'checked'
-            option_attrs['id'] = f"radio-{option_value}-{self.custom_param}"
+            option_attrs['id'] = f"radio-{self.custom_param}-{option_value}"
             output.append(format_html(
                 '<input {}> <label for="radio-{}-{}">{}</label>',
                 flatatt(option_attrs), option_value, self.custom_param, option_label)
@@ -127,7 +127,7 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
             option_attrs = {'type': 'checkbox', 'name': name, 'value': option_value}
             if option_value in value:
                 option_attrs['checked'] = 'checked'
-            option_attrs['id'] = f"checkbox-{option_value}-{self.custom_param}"
+            option_attrs['id'] = f"checkbox-{self.custom_param}-{option_value}"
             output.append(format_html(
                 '<input {}> <label for="checkbox-{}">{}</label>',
                 flatatt(option_attrs), option_value, option_label)
@@ -141,12 +141,12 @@ class P2PFilters(forms.Form):
         widget=CustomRadioSelect(custom_param='crypto-filter'),
         queryset=CryptoFilterModel.objects.filter(active=True)
     )
-    exchange = forms.ModelMultipleChoiceField(
+    exchanges = forms.ModelMultipleChoiceField(
         initial={"name": ["Bybit", "Huobi"]},
         widget=CustomCheckboxSelectMultiple(custom_param='exchange-filter'),
         queryset=ExchangeFilterModel.objects.filter(active=True)
     )
-    payments = forms.ModelMultipleChoiceField(
+    payment_methods = forms.ModelMultipleChoiceField(
         initial={"name": ["Tinkoff", "Sber"]},
         widget=CustomCheckboxSelectMultiple(custom_param='payments-filter'),
         queryset=PaymentsFilterModel.objects.filter(active=True)
