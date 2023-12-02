@@ -6,7 +6,7 @@ from .models import (
 
 
 class BaseFilterAdmin(admin.ModelAdmin):
-    list_display = ('name', 'active')
+    list_display = ('id', 'name', 'active')
     list_filter = ('active',)
     search_fields = ('name',)
 

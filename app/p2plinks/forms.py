@@ -91,8 +91,9 @@ EXCHANGES_CHOICES = [
 
 
 class CustomRadioSelect(forms.RadioSelect):
-    def __init__(self, custom_param=None, *args, **kwargs):
+    def __init__(self, custom_param=None, custom_initial=-1, *args, **kwargs):
         self.custom_param = custom_param
+        self.custom_initial = custom_initial
         super().__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None, renderer=None):
@@ -102,19 +103,20 @@ class CustomRadioSelect(forms.RadioSelect):
         options = self.choices
         for option_value, option_label in options:
             option_attrs = {'type': 'radio', 'name': name, 'value': option_value}
-            if option_value == value:
+            if option_value == self.custom_initial:
                 option_attrs['checked'] = 'checked'
-            option_attrs['id'] = f"radio-{self.custom_param}-{option_value}"
+            option_attrs['id'] = f"radio-{self.custom_param}-{option_value}-{value}"
             output.append(format_html(
-                '<input {}> <label for="radio-{}-{}">{}</label>',
-                flatatt(option_attrs), self.custom_param, option_value, option_label)
+                '<input {}> <label for="radio-{}-{}-{}">{}</label>',
+                flatatt(option_attrs), self.custom_param, option_value, value, option_label)
             )
         return mark_safe('\n'.join(output))
 
 
 class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    def __init__(self, custom_param=None, *args, **kwargs):
+    def __init__(self, custom_param=None, custom_initial=-1, *args, **kwargs):
         self.custom_param = custom_param
+        self.custom_initial = custom_initial
         super().__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None, renderer=None):
@@ -124,7 +126,7 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
         options = self.choices
         for option_value, option_label in options:
             option_attrs = {'type': 'checkbox', 'name': name, 'value': option_value}
-            if option_value in value:
+            if option_value in self.custom_initial:
                 option_attrs['checked'] = 'checked'
             option_attrs['id'] = f"checkbox-{self.custom_param}-{option_value}"
             output.append(format_html(
@@ -136,23 +138,28 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
 
 class P2PFilters(forms.Form):
     crypto = forms.ModelChoiceField(
-        initial={"name": "USDT"},
-        widget=CustomRadioSelect(custom_param='crypto-filter'),
+        widget=CustomRadioSelect(
+            custom_param='crypto-filter', custom_initial=1
+        ),
         queryset=CryptoFilterModel.objects.filter(active=True)
     )
     exchanges = forms.ModelMultipleChoiceField(
         initial={"name": ["Bybit", "Huobi"]},
-        widget=CustomCheckboxSelectMultiple(custom_param='exchange-filter'),
+        widget=CustomCheckboxSelectMultiple(
+            custom_param='exchange-filter', custom_initial=[1,2]
+        ),
         queryset=ExchangeFilterModel.objects.filter(active=True)
     )
     payment_methods = forms.ModelMultipleChoiceField(
-        initial={"name": ["Tinkoff", "Sber"]},
-        widget=CustomCheckboxSelectMultiple(custom_param='payments-filter'),
+        widget=CustomCheckboxSelectMultiple(
+            custom_param='payments-filter', custom_initial=[1,2,3]
+        ),
         queryset=PaymentsFilterModel.objects.filter(active=True)
     )
     trade_type = forms.ModelChoiceField(
-        initial={"name": "Taker - Maker"},
-        widget=CustomRadioSelect(custom_param='trade-type-filter'),
+        widget=CustomRadioSelect(
+            custom_param='trade-type-filter', custom_initial=1
+        ),
         queryset=TradeTypeFilterModel.objects.filter(active=True)
     )
     lim_first = forms.IntegerField(initial=50000)
