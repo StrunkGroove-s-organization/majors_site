@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+
+        <form action="filters" method="get">
+            {% csrf_token %}
+            {{ filters }}
+            <input type="submit" value="Submit">
+        </form>
+        
+    </body>
+</html>
