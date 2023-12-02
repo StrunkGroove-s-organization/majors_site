@@ -8,20 +8,20 @@ class AbstractFilterModel(models.Model):
     class Meta: 
         abstract = True
 
-
-class CryptoFilterModel(AbstractFilterModel):
     def __str__(self):
         return self.name
+
+
+class CryptoFilterModel(AbstractFilterModel):
+    pass
     
 
 class ExchangeFilterModel(AbstractFilterModel):
-    def __str__(self):
-        return self.name
+    pass
 
 
 class PaymentsFilterModel(AbstractFilterModel):
-    def __str__(self):
-        return self.name
+    pass
     
 
 class TradeTypeFilterModel(AbstractFilterModel):
@@ -33,6 +33,3 @@ class TradeTypeFilterModel(AbstractFilterModel):
     ]
 
     name = models.CharField(max_length=20, unique=True, choices=CHOICES)
-
-    def __str__(self):
-        return self.name

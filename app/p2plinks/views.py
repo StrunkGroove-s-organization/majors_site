@@ -1,6 +1,7 @@
 import requests
 
 from .forms import Filters
+from .forms import P2PFilters
 from .serializers import P2PLinksSerializer
 from base.views import BaseFormView, BaseAPIView
 
@@ -15,9 +16,8 @@ class SpreadTableView(BaseFormView):
     url = APP_NAME_URL
 
     def get(self, request):
-        filters = Filters()
         context = self.get_context_data()
-        context['filters'] = filters
+        context['filters'] = P2PFilters()
         return render(request, self.url + self.template_name, context)
     
 

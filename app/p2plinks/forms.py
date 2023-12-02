@@ -100,7 +100,7 @@ class CustomRadioSelect(forms.RadioSelect):
         if value is None:
             value = ''
         output = []
-        options = self.choices.copy()
+        options = self.choices
         for option_value, option_label in options:
             option_attrs = {'type': 'radio', 'name': name, 'value': option_value}
             if option_value == value:
@@ -118,7 +118,7 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
         if value is None:
             value = []
         output = []
-        options = self.choices.copy()
+        options = self.choices
         for option_value, option_label in options:
             option_attrs = {'type': 'checkbox', 'name': name, 'value': option_value}
             if option_value in value:
@@ -134,22 +134,22 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
 class P2PFilters(forms.Form):
     crypto = forms.ModelChoiceField(
         initial={"name": "USDT"},
-        widget=forms.RadioSelect(attrs={'id': 'crypto-filter'}),
+        widget=CustomRadioSelect(custom_param='crypto-filter'),
         queryset=CryptoFilterModel.objects.filter(active=True)
     )
     exchange = forms.ModelMultipleChoiceField(
         initial={"name": ["Bybit", "Huobi"]},
-        widget=forms.CheckboxSelectMultiple,
+        widget=CustomCheckboxSelectMultiple,
         queryset=ExchangeFilterModel.objects.filter(active=True)
     )
     payments = forms.ModelMultipleChoiceField(
         initial={"name": ["Tinkoff", "Sber"]},
-        widget=forms.CheckboxSelectMultiple,
+        widget=CustomCheckboxSelectMultiple,
         queryset=PaymentsFilterModel.objects.filter(active=True)
     )
     trade_type = forms.ModelChoiceField(
         initial={"name": "Taker - Maker"},
-        widget=forms.RadioSelect(attrs={'id': 'trade-type-filter'}),
+        widget=CustomRadioSelect(custom_param='trade-type-filter'),
         queryset=TradeTypeFilterModel.objects.filter(active=True)
     )
     lim_first = forms.IntegerField(initial=50000)
