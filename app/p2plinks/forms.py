@@ -1,4 +1,3 @@
-
 from django import forms
 from django.utils.html import format_html
 from django.forms.utils import flatatt
@@ -8,13 +7,6 @@ from .models import (
     CryptoFilterModel, ExchangeFilterModel, PaymentsFilterModel,
     TradeTypeFilterModel,
 )
-
-TRADE_TYPE_CHOICES = [
-    ('M-M_SELL-BUY', 'Maker - Maker'),
-    ('M-T_SELL-SELL', 'Maker - Taker'),
-    ('T-M_BUY-BUY', 'Taker - Maker'),
-    ('T-T_BUY-SELL', 'Taker - Taker'),
-]
 
 CRYPTO_CHOICES = [
     ('USDT', 'USDT'),
@@ -37,57 +29,6 @@ CRYPTO_CHOICES = [
     ('DAI', 'DAI'),
     # ('TUSD', 'TUSD'),
 ]
-
-CRYPTO_CHOICES_V2 = [
-    ('BTC', 'BTC'),
-    ('ETH', 'ETH'),
-    # ('BUSD', 'BUSD'),
-    # ('BNB', 'BNB'),
-    # ('DOGE', 'DOGE'),
-    # ('TRX', 'TRX'),
-    # ('USDD', 'USDD'),
-    ('USDC', 'USDC'),
-    # ('RUB', 'RUB'),
-    # ('HT', 'HT'),
-    # ('EOS', 'EOS'),
-    # ('XRP', 'XRP'),
-    # ('LTC', 'LTC'),
-    # ('GMT', 'GMT'),
-    ('TON', 'TON'),
-    ('XMR', 'XMR'),
-    ('DAI', 'DAI'),
-    # ('TUSD', 'TUSD'),
-]
-
-PAYMENT_METHOD_CHOICES = [
-    ('Tinkoff', 'Тинькофф'),
-    ('Sber', 'Сбербанк'),
-    ('Raiffeisenbank', 'Райффайзенбанк'),
-    # ('MTS-Bank', 'МТС-Банк'),
-    # ('QIWI', 'QIWI'),
-    # ('Post-Bank', 'Почта Банк'),
-    ('SBP', 'SBP'),
-    ('BANK', 'BANK'),
-    # ('Russia-Standart-Bank', 'Русский Стандарт'),
-    # ('ЮMmoney', 'ЮMoney'),
-]
-
-EXCHANGES_CHOICES = [
-    # ('binance', 'Binance'),
-    # ('okx', 'Okx'),
-    # ('bitget', 'Bitget'),
-    ('exchange_bybit', 'Bybit'),
-    ('exchange_huobi', 'Huobi'),
-    ('exchange_garantex', 'Garantex'),
-    ('exchange_bitpapa', 'Bitpapa'),
-    ('exchange_beribit', 'Beribit'),
-    ('exchange_hodlhodl', 'Hodl Hodl'),
-    ('exchange_mexc', 'Mexc'),
-    ('exchange_kucoin', 'Kucoin'),
-    ('exchange_gateio', 'gateio'),
-    ('exchange_totalcoin', 'Totalcoin'),
-]
-
 
 class CustomRadioSelect(forms.RadioSelect):
     def __init__(self, custom_param=None, custom_initial=0, *args, **kwargs):
@@ -136,11 +77,12 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     
 
 class P2PFilters(forms.Form):
+    crypto_obj = CryptoFilterModel.objects.filter(default=True).first()
+    crypto_initial = crypto_obj.id if crypto_obj else None
     crypto = forms.ModelChoiceField(
         widget=CustomRadioSelect(
             custom_param='crypto-filter',
-            custom_initial=CryptoFilterModel.objects \
-                .filter(default=True).first().id
+            custom_initial=crypto_initial
         ),
         queryset=CryptoFilterModel.objects.filter(active=True)
     )
@@ -163,11 +105,12 @@ class P2PFilters(forms.Form):
         ),
         queryset=PaymentsFilterModel.objects.filter(active=True)
     )
+    trade_type_obj = TradeTypeFilterModel.objects.filter(default=True).first()
+    trade_type_initial = trade_type_obj.id if trade_type_obj else None
     trade_type = forms.ModelChoiceField(
         widget=CustomRadioSelect(
             custom_param='trade-type-filter', 
-            custom_initial=TradeTypeFilterModel.objects \
-                .filter(default=True).first().id
+            custom_initial=trade_type_initial
         ),
         queryset=TradeTypeFilterModel.objects.filter(active=True)
     )
