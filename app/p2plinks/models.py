@@ -4,6 +4,7 @@ from django.db import models
 class AbstractFilterModel(models.Model):
     name = models.CharField(max_length=10, unique=True)
     active = models.BooleanField(default=False)
+    default = models.BooleanField(default=False)
   
     class Meta: 
         abstract = True

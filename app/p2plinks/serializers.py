@@ -1,66 +1,77 @@
 from rest_framework import serializers
+from .models import (
+    CryptoFilterModel, ExchangeFilterModel, PaymentsFilterModel, 
+    TradeTypeFilterModel
+)
 
 
-class P2PLinksSerializer(serializers.Serializer):
-    PAYMENT_METHODS_CHOICES = [
-        'Tinkoff',
-        'Sber',
-        'Raiffeisenbank',
-        'MTS-Bank',
-        'QIWI',
-        'ЮMmoney',
-        'Post-Bank',
-        'SBP',
-        'Russia-Standart-Bank',
-    ]
+class P2PCryptoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CryptoFilterModel
+        fields = ('name',)
 
-    EXCHANGES_CHOICES = [
-        'exchange_huobi',
-        'exchange_mexc',
-        'exchange_gateio',
-        'exchange_hodlhodl',
-        'exchange_bybit',
-        'exchange_kucoin',
-        'exchange_garantex',
-        'exchange_beribit',
-        'exchange_totalcoin',
-        'exchange_bitpapa',
-        'exchange_bitget',
-    ]
+class P2PExchangesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExchangeFilterModel
+        fields = ('pk',)
 
-    CRYPTO_CHOICES = [
-        'USDT', 'BTC', 'ETH', 'BUSD', 'BNB', 'DOGE', 'TRX', 'USDD', 'USDC',
-        'RUB', 'HT', 'EOS', 'XRP', 'LTC', 'GMT', 'TON', 'XMR', 'DAI', 'TUSD'
-    ]
+class P2PPaymentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentsFilterModel
+        fields = ('pk',)
 
-    TRADE_TYPE_CHOICES = [
-        'M-M_SELL-BUY',
-        'M-T_SELL-SELL',
-        'T-M_BUY-BUY',
-        'T-T_BUY-SELL',
-    ]
+class P2PTradeTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TradeTypeFilterModel
+        fields = ('pk',)
 
-    payment_methods = serializers.ListField(
-        child=serializers.ChoiceField(choices=PAYMENT_METHODS_CHOICES),
-        required=True,
-    )
-    exchanges = serializers.ListField(
-        child=serializers.ChoiceField(choices=EXCHANGES_CHOICES),
-        required=True
-    )
-    crypto = serializers.ChoiceField(
-        choices=CRYPTO_CHOICES,
-        required=True,
-    )
-    trade_type = serializers.ChoiceField(
-        choices=TRADE_TYPE_CHOICES,
-        required=True,
-    )
+class P2PFilterSerializer(serializers.Serializer):
+    # crypto = P2PCryptoSerializer()
+    # exchanges = P2PExchangesSerializer(many=True)
+    # payment_methods = P2PPaymentsSerializer(many=True)
+
+    crypto = serializers.CharField()
+    exchanges = serializers.ListField(child=serializers.CharField())
+    payment_methods = serializers.ListField(child=serializers.CharField())
+    trade_type = serializers.CharField()
+
+    def validate_trade_type(self, value):
+        try:
+            crypto_obj = TradeTypeFilterModel.objects.get(pk=value)
+            return crypto_obj.name
+        except TradeTypeFilterModel.DoesNotExist:
+            raise serializers.ValidationError("Record doesn't exist.")
+
+    def validate_crypto(self, value):
+        try:
+            crypto_obj = CryptoFilterModel.objects.get(pk=value)
+            return crypto_obj.name
+        except CryptoFilterModel.DoesNotExist:
+            raise serializers.ValidationError("Record doesn't exist.")
+
+    def validate_exchanges(self, value):
+        names = ExchangeFilterModel.objects \
+            .filter(pk__in=value) \
+            .values_list('name', flat=True)
+
+        if not names.exists():
+            raise serializers.ValidationError("Records doesnt exist.")
+        return list(names)
+
+    def validate_payment_methods(self, value):
+        names = PaymentsFilterModel.objects \
+            .filter(pk__in=value) \
+            .values_list('name', flat=True)
+
+        if not names.exists():
+            raise serializers.ValidationError("Records doesnt exist.")
+        return list(names)
+
     ord_q = serializers.FloatField(required=False)
     ord_p = serializers.FloatField(required=False)
-    user_spread = serializers.FloatField(required=False)
     lim_first = serializers.FloatField(required=False)
     lim_second = serializers.FloatField(required=False)
+    user_spread = serializers.FloatField(required=False)
     available_first = serializers.FloatField(required=False)
     available_second = serializers.FloatField(required=False)
     only_stable_coin = serializers.BooleanField(required=False)

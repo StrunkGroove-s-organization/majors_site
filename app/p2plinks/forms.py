@@ -3,7 +3,6 @@ from django import forms
 from django.utils.html import format_html
 from django.forms.utils import flatatt
 from django.utils.safestring import mark_safe
-from django.forms import ModelForm
 
 from .models import (
     CryptoFilterModel, ExchangeFilterModel, PaymentsFilterModel,
@@ -91,7 +90,7 @@ EXCHANGES_CHOICES = [
 
 
 class CustomRadioSelect(forms.RadioSelect):
-    def __init__(self, custom_param=None, custom_initial=-1, *args, **kwargs):
+    def __init__(self, custom_param=None, custom_initial=0, *args, **kwargs):
         self.custom_param = custom_param
         self.custom_initial = custom_initial
         super().__init__(*args, **kwargs)
@@ -114,7 +113,7 @@ class CustomRadioSelect(forms.RadioSelect):
 
 
 class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    def __init__(self, custom_param=None, custom_initial=-1, *args, **kwargs):
+    def __init__(self, custom_param=None, custom_initial=[], *args, **kwargs):
         self.custom_param = custom_param
         self.custom_initial = custom_initial
         super().__init__(*args, **kwargs)
@@ -139,26 +138,36 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
 class P2PFilters(forms.Form):
     crypto = forms.ModelChoiceField(
         widget=CustomRadioSelect(
-            custom_param='crypto-filter', custom_initial=1
+            custom_param='crypto-filter',
+            custom_initial=CryptoFilterModel.objects \
+                .filter(default=True).first().id
         ),
         queryset=CryptoFilterModel.objects.filter(active=True)
     )
     exchanges = forms.ModelMultipleChoiceField(
         initial={"name": ["Bybit", "Huobi"]},
         widget=CustomCheckboxSelectMultiple(
-            custom_param='exchange-filter', custom_initial=[1,2]
+            custom_param='exchange-filter', 
+            custom_initial=list(
+                ExchangeFilterModel.objects \
+                    .filter(default=True).values_list('id', flat=True))
         ),
         queryset=ExchangeFilterModel.objects.filter(active=True)
     )
     payment_methods = forms.ModelMultipleChoiceField(
         widget=CustomCheckboxSelectMultiple(
-            custom_param='payments-filter', custom_initial=[1,2,3]
+            custom_param='payments-filter', 
+            custom_initial=list(
+                PaymentsFilterModel.objects \
+                    .filter(default=True).values_list('id', flat=True))
         ),
         queryset=PaymentsFilterModel.objects.filter(active=True)
     )
     trade_type = forms.ModelChoiceField(
         widget=CustomRadioSelect(
-            custom_param='trade-type-filter', custom_initial=1
+            custom_param='trade-type-filter', 
+            custom_initial=TradeTypeFilterModel.objects \
+                .filter(default=True).first().id
         ),
         queryset=TradeTypeFilterModel.objects.filter(active=True)
     )
@@ -188,60 +197,4 @@ class P2PFilters(forms.Form):
         required=False, 
         initial=True,
         widget=forms.CheckboxInput(attrs={'value': 'boolenField'})
-    )
-
-class Filters(forms.Form):
-    payment_methods = forms.MultipleChoiceField(
-        choices=PAYMENT_METHOD_CHOICES,
-        widget=CustomCheckboxSelectMultiple(),
-        initial=['Tinkoff', 'Sber'],
-    )
-    exchanges = forms.MultipleChoiceField(
-        choices=EXCHANGES_CHOICES,
-        widget=CustomCheckboxSelectMultiple(),
-        initial=['exchange_bybit', 'exchange_totalcoin'],
-    )
-    crypto = forms.ChoiceField(
-        choices = CRYPTO_CHOICES,
-        widget = CustomRadioSelect(custom_param='p2p2'),
-        initial = 'USDT',
-    )
-    crypto_multi = forms.ChoiceField(
-        choices = CRYPTO_CHOICES_V2,
-        widget = CustomRadioSelect(custom_param='p2p3'),
-        initial = 'BTC',
-    )
-    trade_type = forms.ChoiceField(
-        choices = TRADE_TYPE_CHOICES,
-        widget = CustomRadioSelect(),
-        initial = 'T-M_BUY-BUY',
-    )
-    lim_first = forms.IntegerField(initial=50000)
-    lim_second = forms.IntegerField(initial=5000)
-    ord_q = forms.IntegerField(
-        initial=90,
-        widget=forms.NumberInput(attrs={
-            'class': 'sidebar__select_item sidebar__select_spred hidden'
-        }),
-    )
-    ord_p = forms.IntegerField(
-        initial=90,
-        widget=forms.NumberInput(attrs={
-            'class': 'sidebar__select_item sidebar__select_spred hidden'}),
-    )
-    user_spread = forms.IntegerField(
-        initial=10,
-        widget=forms.NumberInput(attrs={
-            'class': 'sidebar__select_item sidebar__select_spred hidden'}),
-    )
-    available_first = forms.IntegerField(
-        required=False,
-    )
-    available_second = forms.IntegerField(
-        required=False,
-    )
-    only_stable_coin = forms.BooleanField(
-        required=False,
-        initial=True,
-        widget=forms.CheckboxInput(attrs={'value': 'boolenField'}),
     )

@@ -6,8 +6,8 @@ from .models import (
 
 
 class BaseFilterAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'active')
-    list_filter = ('active',)
+    list_display = ('id', 'name', 'active', 'default')
+    list_filter = ('active', 'default')
     search_fields = ('name',)
 
 admin.site.register(CryptoFilterModel, BaseFilterAdmin)
