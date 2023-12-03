@@ -128,7 +128,7 @@ class P2PFilters(forms.Form):
         trade_type_initial = TradeTypeFilterModel.objects.filter(default=True).first().id
         trade_type_queryset = TradeTypeFilterModel.objects.filter(active=True)
     except:
-        trade_type_initial = trade_type_queryset = None
+        trade_type_initial = trade_type_queryset = 0
 
     trade_type = forms.ModelChoiceField(
         widget=CustomRadioSelect(

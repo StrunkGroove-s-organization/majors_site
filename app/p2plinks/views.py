@@ -44,7 +44,6 @@ class P2PLinks2View(BaseAPIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        # url = 'http://188.120.227.131:8001/api/v1/binary-arbitrage/'
-        url = 'http://172.27.0.5:8000/api/v1/binary-arbitrage/'
-        # response = requests.post(url, json=serializer.validated_data)
-        return Response(serializer.validated_data)
+        url = 'http://188.120.227.131:8001/api/v1/binary-arbitrage/'
+        response = requests.post(url, json=serializer.validated_data)
+        return Response({'data': response.json()})
