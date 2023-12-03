@@ -77,42 +77,65 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     
 
 class P2PFilters(forms.Form):
-    crypto_obj = CryptoFilterModel.objects.filter(default=True).first()
-    crypto_initial = crypto_obj.id if crypto_obj else None
+    try:
+        crypto_initial = CryptoFilterModel.objects.filter(default=True).first().id
+        crypto_queryset = CryptoFilterModel.objects.filter(active=True)
+    except:
+        crypto_initial = crypto_queryset = None
+
     crypto = forms.ModelChoiceField(
         widget=CustomRadioSelect(
             custom_param='crypto-filter',
             custom_initial=crypto_initial
         ),
-        queryset=CryptoFilterModel.objects.filter(active=True)
+        queryset=crypto_queryset
     )
+
+    try:
+        exchanges_initial = list(ExchangeFilterModel.objects \
+                                .filter(default=True) \
+                                .values_list('id', flat=True))
+        exchanges_queryset = ExchangeFilterModel.objects.filter(active=True)
+    except:
+        exchanges_initial = exchanges_queryset = None
+
     exchanges = forms.ModelMultipleChoiceField(
         initial={"name": ["Bybit", "Huobi"]},
         widget=CustomCheckboxSelectMultiple(
             custom_param='exchange-filter', 
-            custom_initial=list(
-                ExchangeFilterModel.objects \
-                    .filter(default=True).values_list('id', flat=True))
+            custom_initial=exchanges_initial
         ),
-        queryset=ExchangeFilterModel.objects.filter(active=True)
+        queryset=exchanges_queryset
     )
+
+    try:
+        payment_methods_initial = list(PaymentsFilterModel.objects \
+                                    .filter(default=True) \
+                                    .values_list('id', flat=True))
+        payment_methods_queryset = PaymentsFilterModel.objects.filter(active=True)
+    except:
+        payment_methods_initial = payment_methods_queryset = None
+
     payment_methods = forms.ModelMultipleChoiceField(
         widget=CustomCheckboxSelectMultiple(
             custom_param='payments-filter', 
-            custom_initial=list(
-                PaymentsFilterModel.objects \
-                    .filter(default=True).values_list('id', flat=True))
+            custom_initial=payment_methods_initial
         ),
-        queryset=PaymentsFilterModel.objects.filter(active=True)
+        queryset=payment_methods_queryset
     )
-    trade_type_obj = TradeTypeFilterModel.objects.filter(default=True).first()
-    trade_type_initial = trade_type_obj.id if trade_type_obj else None
+
+    try:
+        trade_type_initial = TradeTypeFilterModel.objects.filter(default=True).first().id
+        trade_type_queryset = TradeTypeFilterModel.objects.filter(active=True)
+    except:
+        trade_type_initial = trade_type_queryset = None
+
     trade_type = forms.ModelChoiceField(
         widget=CustomRadioSelect(
             custom_param='trade-type-filter', 
             custom_initial=trade_type_initial
         ),
-        queryset=TradeTypeFilterModel.objects.filter(active=True)
+        queryset=trade_type_queryset
     )
     lim_first = forms.IntegerField(initial=50000)
     lim_second = forms.IntegerField(initial=5000)
