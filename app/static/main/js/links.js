@@ -119,7 +119,7 @@ const exchangeInfo = {
          return `${this.baseUrl}exchange/spots/${firstToken}_${secondToken}`
       }
    },
-   'hodl hodl': {
+   'hodlhodl': {
       img: '/static/main/img/exchange/hodl.png',
       baseUrl: "https://hodlhodl.com/",
 
@@ -131,7 +131,6 @@ const exchangeInfo = {
       },
       generateConvertLink(firstToken, secondToken) {
          return `${this.baseUrl}`
-
       }
    },
    mexc: {
@@ -213,14 +212,14 @@ const exchangeInfo = {
 
    createLink(exchange, id, buy_sell, token, fiat) {
       if (id !== '#') {
-         return this[exchange.toLowerCase()].generateExchangeLink(id, buy_sell.toLowerCase(), token, fiat)
+         return this[exchange.replaceAll(' ', '').toLowerCase()].generateExchangeLink(id, buy_sell.toLowerCase(), token, fiat)
       }
       else {
-         return this[exchange.toLowerCase()].generateLink(buy_sell.toLowerCase(), token, fiat)
+         return this[exchange.replaceAll(' ', '').toLowerCase()].generateLink(buy_sell.toLowerCase(), token, fiat)
       }
    },
    createConvertLink(exchange, quoteToken, baseToken) {
-      return this[exchange.toLowerCase()].generateConvertLink(quoteToken, baseToken)
+      return this[exchange.replaceAll(' ', '').toLowerCase()].generateConvertLink(quoteToken, baseToken)
    }
 }
 
