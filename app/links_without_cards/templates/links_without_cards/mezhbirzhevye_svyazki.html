@@ -198,8 +198,6 @@
                             <label for="checkbox-favorite">Избранное</label>
                         </div>
                     </div>
-
-
                 </div>
                 <div class="sidebar__favorite-block"></div>
             </div>
@@ -230,6 +228,14 @@
                 <a class="screener__btn btn btn_white" onclick="openRegBlock()" data-screener='noauth'>Регистрация</a>
                 {% endif %}
             </div>
+            <div class="video-manual">
+                <div class="video-manual__wrapper">
+                    <iframe src="https://www.youtube.com/embed/DcAqdJbfsUQ?si=LAYh0nIyAItwDbgF"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
             <h3>Как искать межбиржевые связки </h3>
             <img class="bottom-text__img" src="{% static 'main/img/crossmarket1.png' %}" alt="">
             <p>Для поиска связок в таблице предусмотрены фильтры для настройки выдачи нужных вам связок:
@@ -242,11 +248,6 @@
                 <li><span>Исключение биржи на продажу:</span>
                     здесь вы исключаете биржи, которые вам не интересны для торговли из за ликвидности или у вас нет на
                     ней готового аккаунта для торговли.
-                </li>
-                <li><span>Биржи:</span>Binance, Bybit, Huobi, OKX, BitPapa, Garantex, BeriBit, BitGet, Gate io, Kucoin,
-                    Totalcoin, Mexc, HodlHodl. Здесь также предусмотрен одиночный выбор - торговля на одной бирже и
-                    мультивыбор - поиск межбиржевых P2P связок. Работа с различными P2P платформами увеличивает риск
-                    нарваться на скам и поэтому к выбору бирж стоит относиться ответственно.
                 </li>
                 <li><span>Способ торговли:</span>
                     здесь выбираем способ Тейкер или Мейкер. Кратко объясню в чем отличия: Тейкер покупает или продает
