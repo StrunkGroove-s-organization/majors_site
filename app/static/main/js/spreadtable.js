@@ -165,15 +165,15 @@ function loadForm() {
 
 const menuPaymentChekbox = new SidebarCheckboxList('.sidebar__select_system', 'all');
 const menuMarketChekbox = new SidebarCheckboxList('.sidebar__title_market', 'all');
-const menuTokenRadio2 = new SidebarRadioList('.sidebar__select_token', 'p2p2');
-const menuTokenRadio3 = new SidebarRadioList('.sidebar__select_token', 'p2p3');
+const menuTokenRadio2 = new SidebarRadioList('.sidebar__select_token', 'all');
+// const menuTokenRadio3 = new SidebarRadioList('.sidebar__select_token', 'all');
 const menuTradeRadio = new SidebarRadioList('.sidebar__select_trade', 'all');
 
 const menuArray = [
    menuPaymentChekbox,
    menuMarketChekbox,
    menuTokenRadio2,
-   menuTokenRadio3,
+   // menuTokenRadio3,
    menuTradeRadio
 ]
 
