@@ -6,3 +6,4 @@ secrets.py
 myprojectenv/
 db/
 .env
+migrations/

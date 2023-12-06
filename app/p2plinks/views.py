@@ -1,4 +1,3 @@
-from json import JSONDecodeError
 import requests
 
 from .forms import P2PFilters
