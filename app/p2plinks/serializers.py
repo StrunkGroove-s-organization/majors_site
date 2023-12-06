@@ -124,3 +124,10 @@ class P2PFilterSerializer(serializers.Serializer):
                 "Available rub sell must be a non-negative number."
             )
         return value
+
+    def validate_only_stable_coin(self, value):
+        if value not in [True, False]:
+            raise serializers.ValidationError(
+                "Only stable coin in True or False"
+            )
+        return value
