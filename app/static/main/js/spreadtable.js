@@ -85,30 +85,6 @@ class SidebarCheckboxList extends SidebarList {
 }
 
 
-document.querySelector('.sidebar').addEventListener('click', (event) => {
-   menuArray.forEach(element => {
-
-      if (event.target == element.btn || (event.target.parentNode == element.btn && event.target != element.listBlock)) {
-         if (element.forPage == 'all' || element.forPage == pageSection) {
-            element.toggle()
-         }
-      }
-      else if (event.target == element.listBlock || event.target.parentNode == element.listBlock || event.target == element.listWrapper || event.target.parentNode == element.listWrapper) {
-         if (element.forPage == 'all' || element.forPage == pageSection) {
-            element.changeTitle()
-         }
-      }
-      else {
-         element.hide()
-      }
-   })
-})
-
-function refreshSidebarTitle() {
-   menuArray.forEach(element => {
-      element.changeTitle()
-   })
-}
 let refreshInterval;
 const asideForm = document.querySelector('.sidebar__form')
 function checkAsideForm() {
@@ -187,6 +163,34 @@ const formNode = document.querySelector(".sidebar__form")
 const onlyUsdtCheckbox = document.querySelector('#id_only_stable_coin+label')
 let lastFormData = {};
 let lastLimitData = {};
+
+
+
+
+document.querySelector('.sidebar').addEventListener('click', (event) => {
+   menuArray.forEach(element => {
+
+      if (event.target == element.btn || (event.target.parentNode == element.btn && event.target != element.listBlock)) {
+         if (element.forPage == 'all' || element.forPage == pageSection) {
+            element.toggle()
+         }
+      }
+      else if (event.target == element.listBlock || event.target.parentNode == element.listBlock || event.target == element.listWrapper || event.target.parentNode == element.listWrapper) {
+         if (element.forPage == 'all' || element.forPage == pageSection) {
+            element.changeTitle()
+         }
+      }
+      else {
+         element.hide()
+      }
+   })
+})
+
+function refreshSidebarTitle() {
+   menuArray.forEach(element => {
+      element.changeTitle()
+   })
+}
 
 changeSectionMark(p2p2Btn)
 refreshSidebarTitle()
