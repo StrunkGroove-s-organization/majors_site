@@ -80,7 +80,7 @@ class P2PFilters(forms.Form):
     try:
         crypto_initial = CryptoFilterModel.objects.filter(default=True).first().id
         crypto_queryset = CryptoFilterModel.objects.filter(active=True)
-    except:
+    except Exception as e:
         crypto_initial = crypto_queryset = None
 
     crypto = forms.ModelChoiceField(
@@ -96,7 +96,7 @@ class P2PFilters(forms.Form):
                                 .filter(default=True) \
                                 .values_list('id', flat=True))
         exchanges_queryset = ExchangeFilterModel.objects.filter(active=True)
-    except:
+    except Exception as e:
         exchanges_initial = exchanges_queryset = None
 
     exchanges = forms.ModelMultipleChoiceField(
@@ -113,7 +113,7 @@ class P2PFilters(forms.Form):
                                     .filter(default=True) \
                                     .values_list('id', flat=True))
         payment_methods_queryset = PaymentsFilterModel.objects.filter(active=True)
-    except:
+    except Exception as e:
         payment_methods_initial = payment_methods_queryset = None
 
     payment_methods = forms.ModelMultipleChoiceField(
@@ -127,40 +127,35 @@ class P2PFilters(forms.Form):
     try:
         trade_type_initial = TradeTypeFilterModel.objects.filter(default=True).first().id
         trade_type_queryset = TradeTypeFilterModel.objects.filter(active=True)
-    except:
+    except Exception as e:
         trade_type_initial = trade_type_queryset = None
 
-    trade_type = forms.ModelChoiceField(
-        widget=CustomRadioSelect(
-            custom_param='trade-type-filter', 
-            custom_initial=trade_type_initial
-        ),
-        queryset=trade_type_queryset
-    )
-    lim_first = forms.IntegerField(initial=50000)
-    lim_second = forms.IntegerField(initial=5000)
-    ord_q = forms.IntegerField(
-        initial=90, 
-        widget=forms.NumberInput(attrs={
-            'class': 'sidebar__select_item sidebar__select_spred hidden'
-        })
-    )
-    ord_p = forms.IntegerField(        
-        initial=90, 
-        widget=forms.NumberInput(attrs={
-            'class': 'sidebar__select_item sidebar__select_spred hidden'
-        })
-    )
-    user_spread = forms.IntegerField(
-        initial=10, 
-        widget=forms.NumberInput(attrs={
-            'class': 'sidebar__select_item sidebar__select_spred hidden'
-        })
-    )
-    available_first = forms.IntegerField(required=False,)
+    trade_type = forms.ModelChoiceField(widget=CustomRadioSelect(
+                                            custom_param='trade-type-filter', 
+                                            custom_initial=trade_type_initial
+                                        ), 
+                                        queryset=trade_type_queryset)
+    
+    lim_first = forms.IntegerField(initial=50000, required=False)
+    lim_second = forms.IntegerField(initial=5000, required=False)
+    ord_q = forms.IntegerField(required=False,
+                               initial=90, 
+                               widget=forms.NumberInput(attrs={
+                                   'class': 'sidebar__select_item sidebar__select_spred hidden'}))
+    
+    ord_p = forms.IntegerField(required=False, 
+                               initial=90, 
+                               widget=forms.NumberInput(attrs={
+                                   'class': 'sidebar__select_item sidebar__select_spred hidden'}))
+    
+    user_spread = forms.IntegerField(required=False,
+                                     initial=10, 
+                                     widget=forms.NumberInput(attrs={
+                                         'class': 'sidebar__select_item sidebar__select_spred hidden'}))
+    
+    available_first = forms.IntegerField(required=False)
     available_second = forms.IntegerField(required=False)
-    only_stable_coin = forms.BooleanField(
-        required=False, 
-        initial=True,
-        widget=forms.CheckboxInput(attrs={'value': 'boolenField'})
-    )
+    only_stable_coin = forms.BooleanField(required=False, 
+                                          initial=True,
+                                          widget=forms.CheckboxInput(attrs={
+                                              'value': 'boolenField'}))
