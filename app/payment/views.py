@@ -1,34 +1,25 @@
-import json
 import cgi
 import io
 import secrets
 import logging
-import base64
-
 import requests
-import base64
-from PIL import Image
-from io import BytesIO
-from datetime import timedelta
-from datetime import datetime, timezone
+
+from datetime import timedelta, datetime, timezone
 
 from .models import Order, CompleteOrder
 from .forms import Subscription
 from .tasks import send_gratitude_for_payment
 from accounts.forms import User
 
-from django.http import HttpResponse, JsonResponse, QueryDict
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from django.utils.crypto import get_random_string
 from django.views.decorators.csrf import csrf_exempt
 
 # API_KEY = "LnFZ4XHmg4lgUbPCrLfnTir--tcJh0EAYQjfMJnD8m0LlxkSn2MMYv4-3qp0YXvx"
 API_KEY = "JupTf7vo8MMWBWbyO4LA4ALzbinbQTaU28LdJjsd4zzKS9KCqUVRPoEEuUXlNPyJ"
-
 URL = "https://plisio.net/api/v1/invoices/new"
-
 ALLOWED_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
 
 logger = logging.getLogger(__name__)
 
@@ -36,62 +27,6 @@ logger = logging.getLogger(__name__)
 def generate_token(length=15):
     allowed_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     return ''.join(secrets.choice(allowed_chars) for _ in range(length))
-
-
-# class PaymentPlisioView(View):
-#     def post(self, request):
-#         filters = Subscription(request.POST)
-#         if filters.is_valid():
-#             user_profile = request.user
-
-#             selected_subscription = filters.cleaned_data['subscription'].split('_')
-#             currency = filters.cleaned_data['currency']
-
-#             days = int(selected_subscription[0])
-#             type_sub = selected_subscription[1]
-#             amount = int(selected_subscription[2])
-#             email = user_profile.email
-#             token = generate_token()
-
-#             params = {
-#                 "source_currency": 'USD',
-#                 "source_amount": amount,
-#                 "order_number": token,
-#                 "currency": currency,
-#                 "email": email,
-#                 "order_name": type_sub,
-#                 "api_key": API_KEY,
-#                 "json": True,
-#             }
-
-#             Order.objects.create(
-#                 email=email,
-#                 type=type_sub,
-#                 days=days,
-#                 token=token,
-#                 amount=amount
-#             )
-
-#             response = requests.get(URL, params=params)
-#             data = response.json()
-            
-#             if data.get("status") == 'success':
-#                 data = data.get("data")
-#                 response_data = {
-#                     'pay_url': data.get('invoice_url'),
-#                     'currency': data.get('currency'),
-#                     'wallet_hash': data.get('wallet_hash'),
-#                     'image': data.get("qr_code"),
-#                     'sum': data.get('invoice_total_sum'),
-#                 }
-#                 return JsonResponse(response_data)
-#         error_data = {
-#             'error': 'An error occurred',
-#             'message': 'Error method',
-#         }
-#         return JsonResponse(error_data, status=400)
-
-
 
 @login_required(login_url='/')
 def create_payment_plisio(request):
@@ -106,6 +41,8 @@ def create_payment_plisio(request):
             days = int(selected_subscription[0])
             type_sub = selected_subscription[1]
             amount = int(selected_subscription[2])
+            if type_sub == 'test' and currency == 'USDT_BSC':
+                amount = 3
             email = user_profile.email
             token = generate_token()
 
