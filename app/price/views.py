@@ -1,7 +1,5 @@
 import requests
 
-from django.core.cache import caches
-
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -36,12 +34,3 @@ class PriceView(BaseAPIView):
         response = requests.post(url, json=serializer.validated_data)
         return Response({'data': response.json()})
     
-
-    def process_request(self, request, validated_data):
-        token = validated_data.get('token')
-        site = validated_data.get('buy_sell')
-
-        key = f'{site}--{token}'
-        value = caches['p2p_server'].get(key)
-
-        return value
