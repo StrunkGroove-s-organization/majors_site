@@ -38,7 +38,7 @@ class PriceViewThree(BaseAPIView):
         token = validated_data.get('token')
 
         payload = {"market": market, "token": token}
-        url = 'http://188.120.227.131:8000/api/v1/triangular-arbitrage/'
+        url = 'http://188.120.227.131:8001/api/v1/triangular-arbitrage/'
         response = requests.post(url, data=payload)
         return response.json()
 
@@ -54,7 +54,7 @@ class PriceViewTwo(BaseAPIView):
 
         payload = {"exchanges_buy": exs_buy,
                    "exchanges_sell": exs_sell, "trade_type": trade_type}
-        url = 'http://188.120.227.131:8000/api/v1/inter-arbitrage/'
+        url = 'http://188.120.227.131:8001/api/v1/inter-arbitrage/'
         response = requests.post(url, data=payload)
         return response.json()
 
