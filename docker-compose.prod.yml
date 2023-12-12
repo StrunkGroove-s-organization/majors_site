@@ -3,6 +3,7 @@ services:
     db:
         image: postgres:16
         container_name: majors-db
+        restart: always
         volumes:
             - ./db/postgres:/var/lib/postgresql/data/
         ports:
@@ -15,6 +16,7 @@ services:
 
     pgadmin:
         image: dpage/pgadmin4
+        restart: always
         ports:
             - 800:80
         env_file:
@@ -26,6 +28,7 @@ services:
 
     redis:
         container_name: majors-redis
+        restart: always
         ports:
             - 6379:6379
         volumes:
@@ -64,6 +67,7 @@ services:
 
     celery:
         container_name: majors-celery
+        restart: always
         build:
             context: .
         command: sh -c "celery -A myproject worker --loglevel=info"
@@ -77,17 +81,18 @@ services:
         networks:
             - network
 
-    # flower:
-    #     container_name: majors-flower
-    #     build:
-    #         context: .
-    #     volumes:
-    #         - ./app:/app
-    #     ports:
-    #         - 5555:5555
-    #     command: sh -c "sleep 4 && celery -A myproject flower"
-    #     depends_on:
-    #         - celery
+    flower:
+        container_name: majors-flower
+        restart: always
+        build:
+            context: .
+        volumes:
+            - ./app:/app
+        ports:
+            - 5555:5555
+        command: sh -c "sleep 4 && celery -A myproject flower"
+        depends_on:
+            - celery
 
 networks:
   network:
