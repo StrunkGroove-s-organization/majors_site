@@ -2539,6 +2539,9 @@ body {
   overflow: hidden;
   transition: max-width 5s ease;
 }
+.sidebar__select-list label.hide {
+  display: none;
+}
 
 .sidebar__list-wrapper {
   display: flex;

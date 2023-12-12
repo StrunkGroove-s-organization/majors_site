@@ -4,6 +4,21 @@ Array.from(document.querySelectorAll('.menu_item')).forEach(element => element.c
 document.querySelector('[data-menu="links"]').classList.add('active')
 
 // sidebar
+let isUsdtChecked = false;
+
+function checkUsdtSelect() {
+   if (pageSection == 'p2p2') {
+
+
+      if (usdtInput.checked) {
+         isUsdtChecked = true;
+      }
+      else {
+         isUsdtChecked = false;
+      }
+   }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
    checkAsideForm()
 }, { once: true })
@@ -94,6 +109,8 @@ function checkAsideForm() {
    else {
       saveForm()
    }
+   checkUsdtSelect()
+
 }
 function saveForm() {
    let checkedInputs = {}
@@ -153,6 +170,10 @@ const menuArray = [
    menuTradeRadio
 ]
 
+const usdtLabel = menuTokenRadio2.arrayElements.find((element) => {
+   return element.textContent == 'USDT'
+})
+const usdtInput = document.querySelector(`#${usdtLabel.getAttribute('for')}`)
 
 // Переключение p2p2/p2p3
 const navLinkArr = document.querySelectorAll('.nav-link');
@@ -218,7 +239,7 @@ function changePageSection(section) {
    pageSection = section;
    generateTitleBlock()
    onlyUsdtCheckboxHide()
-
+   usdtHide()
    menuArray.forEach(element => {
       element.changeActiveList();
       element.changeTitle();
@@ -241,8 +262,29 @@ function onlyUsdtCheckboxHide() {
       onlyUsdtCheckbox.classList.remove('hidden')
    }
 }
+function usdtHide() {
+   // Скрытие/отображение пункта USDT
+   if (pageSection == 'p2p3') {
+      if (isUsdtChecked) {
+         usdtInput.checked = false;
+         const num = menuTokenRadio2.arrayElements.findIndex((element) => { return element == usdtLabel })
+         document.querySelector(`#${menuTokenRadio2.arrayElements[num + 1].getAttribute('for')}`).checked = true
+      }
+      usdtLabel.classList.add('hide')
+   }
+   else {
+      if (isUsdtChecked) {
+         menuTokenRadio2.arrayElements.forEach((element) => {
+            document.querySelector(`#${element.getAttribute('for')}`).checked = false;
+         })
+         usdtInput.checked = true;
+      }
+      usdtLabel.classList.remove('hide')
+   }
+}
 
 formNode.addEventListener('change', () => {
+   checkUsdtSelect()
    saveForm()
    checkForm()
    reloadRefresh()

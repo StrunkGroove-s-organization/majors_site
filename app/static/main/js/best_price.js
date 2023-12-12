@@ -73,7 +73,7 @@ function postForm() {
          return response.json()
       }).then((dataTable) => {
          table.innerHTML = '';
-         dataTable.forEach((element) => {
+         dataTable.data.forEach((element) => {
             let tableRow = document.createElement('div')
             tableRow.classList.add('price-table__row')
             tableRow.innerHTML = `
