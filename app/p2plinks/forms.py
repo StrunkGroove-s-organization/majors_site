@@ -8,27 +8,6 @@ from .models import (
     TradeTypeFilterModel,
 )
 
-CRYPTO_CHOICES = [
-    ('USDT', 'USDT'),
-    ('BTC', 'BTC'),
-    ('ETH', 'ETH'),
-    # ('BUSD', 'BUSD'),
-    # ('BNB', 'BNB'),
-    # ('DOGE', 'DOGE'),
-    # ('TRX', 'TRX'),
-    # ('USDD', 'USDD'),
-    ('USDC', 'USDC'),
-    # ('RUB', 'RUB'),
-    # ('HT', 'HT'),
-    # ('EOS', 'EOS'),
-    # ('XRP', 'XRP'),
-    # ('LTC', 'LTC'),
-    # ('GMT', 'GMT'),
-    ('TON', 'TON'),
-    ('XMR', 'XMR'),
-    ('DAI', 'DAI'),
-    # ('TUSD', 'TUSD'),
-]
 
 class CustomRadioSelect(forms.RadioSelect):
     def __init__(self, custom_param=None, custom_initial=0, *args, **kwargs):
@@ -81,7 +60,7 @@ class P2PFilters(forms.Form):
         crypto_initial = CryptoFilterModel.objects.filter(default=True).first().id
         crypto_queryset = CryptoFilterModel.objects.filter(active=True)
     except Exception as e:
-        crypto_initial = crypto_queryset = None
+        crypto_initial = crypto_queryset = 1
 
     crypto = forms.ModelChoiceField(
         widget=CustomRadioSelect(
@@ -128,7 +107,7 @@ class P2PFilters(forms.Form):
         trade_type_initial = TradeTypeFilterModel.objects.filter(default=True).first().id
         trade_type_queryset = TradeTypeFilterModel.objects.filter(active=True)
     except Exception as e:
-        trade_type_initial = trade_type_queryset = None
+        trade_type_initial = trade_type_queryset = 1
 
     trade_type = forms.ModelChoiceField(widget=CustomRadioSelect(
                                             custom_param='trade-type-filter', 
