@@ -7,4 +7,3 @@ myprojectenv/
 db/
 .env
 migrations/
-letsencrypt/
