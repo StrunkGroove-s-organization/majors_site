@@ -10,7 +10,7 @@ from .models import (
 
 
 class CustomRadioSelect(forms.RadioSelect):
-    def __init__(self, custom_param=None, custom_initial=0, *args, **kwargs):
+    def __init__(self, custom_param=None, custom_initial=1, *args, **kwargs):
         self.custom_param = custom_param
         self.custom_initial = custom_initial
         super().__init__(*args, **kwargs)
@@ -33,7 +33,7 @@ class CustomRadioSelect(forms.RadioSelect):
 
 
 class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    def __init__(self, custom_param=None, custom_initial=[], *args, **kwargs):
+    def __init__(self, custom_param=None, custom_initial=[1, 2], *args, **kwargs):
         self.custom_param = custom_param
         self.custom_initial = custom_initial
         super().__init__(*args, **kwargs)
@@ -76,7 +76,7 @@ class P2PFilters(forms.Form):
                                 .values_list('id', flat=True))
         exchanges_queryset = ExchangeFilterModel.objects.filter(active=True)
     except Exception as e:
-        exchanges_initial = exchanges_queryset = None
+        exchanges_initial = exchanges_queryset = [1, 2]
 
     exchanges = forms.ModelMultipleChoiceField(
         initial={"name": ["Bybit", "Huobi"]},
@@ -93,7 +93,7 @@ class P2PFilters(forms.Form):
                                     .values_list('id', flat=True))
         payment_methods_queryset = PaymentsFilterModel.objects.filter(active=True)
     except Exception as e:
-        payment_methods_initial = payment_methods_queryset = None
+        payment_methods_initial = payment_methods_queryset = [1, 2]
 
     payment_methods = forms.ModelMultipleChoiceField(
         widget=CustomCheckboxSelectMultiple(
