@@ -5,7 +5,7 @@ from payment.models import Order
 
 class Referral(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    referral_code = models.CharField(max_length=10, unique=True)
+    referral_code = models.CharField(max_length=20, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     clicks = models.PositiveIntegerField(default=0)
     invited_users = models.ManyToManyField(User, blank=True, related_name="invited_by")
