@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Order(models.Model):
-
     email = models.EmailField()
     timestamp = models.DateTimeField(auto_now_add=True)
     type = models.CharField(max_length=50)
@@ -15,7 +14,6 @@ class Order(models.Model):
 
 
 class CompleteOrder(models.Model):
-
     email = models.EmailField()
     timestamp = models.DateTimeField(auto_now_add=True)
     type = models.CharField(max_length=50)

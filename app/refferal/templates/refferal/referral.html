@@ -7,8 +7,7 @@
 </head>
 <body>
     <h1>Your Referral Details</h1>
-    <p>Your referral link: https://arbitools.ru/?ref={{ referral.referral_code }}</p>
-    <p>Your referral link: http://0.0.0.0/?ref={{ referral.referral_code }}</p>
+    <p>Your referral link: {{ request.scheme }}://{{ request.get_host }}/?ref={{ referral.referral_code }}</p>
     <p>Created At: {{ referral.created_at }}</p>
     <p>Clicks: {{ referral.clicks }}</p>
 
@@ -34,6 +33,21 @@
         </ul>
     {% else %}
         <p>No payments yet.</p>
+    {% endif %}
+
+    {% if complete_payments %}
+        <h2>Complete payments:</h2>
+        <ul>
+            {% for complete_payment in complete_payments %}
+                <li>{{ complete_payment.email }}</li>
+                <li>{{ complete_payment.timestamp }}</li>
+                <li>{{ complete_payment.token }}</li>
+                <li>{{ complete_payment.currency }}</li>
+                <li>{{ complete_payment.amount_crypto }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No complete payments yet.</p>
     {% endif %}
 </body>
 </html>
