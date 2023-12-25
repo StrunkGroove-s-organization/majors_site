@@ -70,7 +70,7 @@ def create_payment_plisio(request):
             if res_data.get("status") == 'success':
                 # Refferal system
                 try:
-                    referral_instance = Referral.objects.get(invited_by=user_profile)
+                    referral_instance = Referral.objects.get(invited_users=user_profile)
                     referral_instance.payments.add(order)
                 except Referral.DoesNotExist:
                     referral_instance = None
