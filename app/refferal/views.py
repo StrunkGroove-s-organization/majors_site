@@ -35,10 +35,12 @@ class ReferralView(View):
         if referral:
             invited_users = referral.invited_users.all()
             payments = referral.payments.all()
+            complete_payments = referral.complete_payments.all()
             return render(request, f'{APP_NAME}/{self.template_name}', {
                 'referral': referral, 
                 'invited_users': invited_users, 
-                'payments': payments
+                'payments': payments,
+                'complete_payments': complete_payments,
             })
         referral = self.create_referral(user)
         return render(request, f'{APP_NAME}/{self.template_name}', {

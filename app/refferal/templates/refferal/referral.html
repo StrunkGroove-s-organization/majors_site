@@ -34,5 +34,20 @@
     {% else %}
         <p>No payments yet.</p>
     {% endif %}
+
+    {% if complete_payments %}
+        <h2>Complete payments:</h2>
+        <ul>
+            {% for complete_payment in complete_payments %}
+                <li>{{ complete_payment.email }}</li>
+                <li>{{ complete_payment.timestamp }}</li>
+                <li>{{ complete_payment.token }}</li>
+                <li>{{ complete_payment.currency }}</li>
+                <li>{{ complete_payment.amount_crypto }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No complete payments yet.</p>
+    {% endif %}
 </body>
 </html>
