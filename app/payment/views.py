@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import os
-=======
->>>>>>> origin/master
 import cgi
 import io
 import secrets
