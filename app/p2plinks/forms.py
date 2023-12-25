@@ -68,7 +68,7 @@ class P2PFilters(forms.Form):
             custom_param='crypto-filter',
             custom_initial=crypto_initial
         ),
-        queryset=crypto_queryset
+        # queryset=crypto_queryset
     )
 
     try:
@@ -86,7 +86,7 @@ class P2PFilters(forms.Form):
             custom_param='exchange-filter', 
             custom_initial=exchanges_initial
         ),
-        queryset=exchanges_queryset
+        # queryset=exchanges_queryset
     )
 
     try:
@@ -103,7 +103,7 @@ class P2PFilters(forms.Form):
             custom_param='payments-filter', 
             custom_initial=payment_methods_initial
         ),
-        queryset=payment_methods_queryset
+        # queryset=payment_methods_queryset
     )
 
     try:
@@ -117,7 +117,8 @@ class P2PFilters(forms.Form):
                                             custom_param='trade-type-filter', 
                                             custom_initial=trade_type_initial
                                         ), 
-                                        queryset=trade_type_queryset)
+                                        # queryset=trade_type_queryset
+                                        )
     
     lim_first = forms.IntegerField(initial=50000, required=False)
     lim_second = forms.IntegerField(initial=5000, required=False)
