@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+import os
+=======
+>>>>>>> origin/master
 import cgi
 import io
 import secrets
@@ -9,17 +13,16 @@ from datetime import timedelta, datetime, timezone
 from .models import Order, CompleteOrder
 from .forms import Subscription
 from .tasks import send_gratitude_for_payment
+from refferal.models import Referral
 from accounts.forms import User
 
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-# API_KEY = "LnFZ4XHmg4lgUbPCrLfnTir--tcJh0EAYQjfMJnD8m0LlxkSn2MMYv4-3qp0YXvx"
-API_KEY = "JupTf7vo8MMWBWbyO4LA4ALzbinbQTaU28LdJjsd4zzKS9KCqUVRPoEEuUXlNPyJ"
-URL = "https://plisio.net/api/v1/invoices/new"
-ALLOWED_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
+API_KEY = os.getenv('API_ADM')
+URL = os.getenv('URL_PLISIO')
 
 logger = logging.getLogger(__name__)
 
@@ -57,14 +60,26 @@ def create_payment_plisio(request):
                 "json": True,
             }
 
-            Order.objects.create(email=email, type=type_sub, days=days, token=token, amount=amount)
+            order = Order.objects.create(email=email,
+                                         type=type_sub,
+                                         days=days,
+                                         token=token,
+                                         amount=amount
+                                         )
 
             response = requests.get(URL, params=params)
-            data = response.json()
-            print(data)
+            res_data = response.json()
             
-            if data.get("status") == 'success':
-                data = data.get("data")
+            if res_data.get("status") == 'success':
+                # Refferal system
+                try:
+                    referral_instance = Referral.objects.get(invited_by=user_profile)
+                    referral_instance.payments.add(order)
+                except Referral.DoesNotExist:
+                    referral_instance = None
+
+                # Payment
+                data = res_data.get("data")
 
                 image_data = data.get("qr_code")
                 pay_url = data.get('invoice_url')
@@ -137,8 +152,8 @@ def payment_success(request):
 
             try:
                 order = Order.objects.get(token=token)
-            except:
-                return JsonResponse({})
+            except Order.DoesNotExist as e:
+                return JsonResponse({'error': e})
 
             email = order.email
             days = order.days

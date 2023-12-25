@@ -14,6 +14,7 @@ urlpatterns = [
     path('', include('payment.urls')),
     path('', include('register.urls')),
     path('', include('links_without_cards.urls')),
+    path('refferal/', include('refferal.urls')),
 
     path('api/', include('payment.api.urls')),
 
