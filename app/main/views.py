@@ -22,6 +22,22 @@ class Cookies(BaseFormView):
     url = APP_NAME_URL
     template_name = 'cookies.html'
 
+class PrivacyPolicy(BaseFormView):
+    url = APP_NAME_URL
+    template_name = 'privacy_policy.html'
+
+class DenialOfResponsibility(BaseFormView):
+    url = APP_NAME_URL
+    template_name = 'denial_of_responsibility.html'
+
+class TermsOfUse(BaseFormView):
+    url = APP_NAME_URL
+    template_name = 'terms_of_use.html'
+
+class DenialOfResponsibility(BaseFormView):
+    url = APP_NAME_URL
+    template_name = 'denial_of_responsibility.html'
+
 class CalculatorSpread(BaseFormView):
     url = APP_NAME_URL
     template_name = 'calculator_spread.html'
