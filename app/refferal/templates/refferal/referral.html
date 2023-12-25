@@ -7,8 +7,7 @@
 </head>
 <body>
     <h1>Your Referral Details</h1>
-    <p>Your referral link: https://arbitools.ru/?ref={{ referral.referral_code }}</p>
-    <p>Your referral link: http://0.0.0.0/?ref={{ referral.referral_code }}</p>
+    <p>Your referral link: {{ request.scheme }}://{{ request.get_host }}/?ref={{ referral.referral_code }}</p>
     <p>Created At: {{ referral.created_at }}</p>
     <p>Clicks: {{ referral.clicks }}</p>
 
