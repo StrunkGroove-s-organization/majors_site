@@ -1,10 +1,14 @@
 import requests
 
-from .forms import Filters
-from .serializers import P2PLinksSerializer
+from .forms import P2PFilters
+from .serializers import P2PFilterSerializer
 from base.views import BaseFormView, BaseAPIView
 
 from django.shortcuts import render
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
 
 
 APP_NAME_URL = __package__ + '/'
@@ -15,28 +19,30 @@ class SpreadTableView(BaseFormView):
     url = APP_NAME_URL
 
     def get(self, request):
-        filters = Filters()
         context = self.get_context_data()
-        context['filters'] = filters
+        context['filters'] = P2PFilters()
         return render(request, self.url + self.template_name, context)
     
 
-class P2PLinks3View(BaseAPIView):
-    def get_serializer(self, data):
-        return P2PLinksSerializer(data=data)
+class P2PLinks3View(APIView):
+    def post(self, request):
+        serializer = P2PFilterSerializer(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def process_request(self, request, validated_data):
-        url = 'http://188.120.227.131:8002/api/v1/triangular-arbitrage/'
-        response = requests.post(url, json = validated_data)
-        return {'data': response.json()}
-
+        url = 'http://188.120.227.131:8001/api/v1/triangular-arbitrage/'
+        response = requests.post(url, json=serializer.validated_data)
+        return Response({'data': response.json()})
+    
 
 class P2PLinks2View(BaseAPIView):
-    def get_serializer(self, data):
-        return P2PLinksSerializer(data=data)
-
-    def process_request(self, request, validated_data):
-        url = 'http://188.120.227.131:8002/api/v1/binary-arbitrage/'
-        response = requests.post(url, json = validated_data)
-        return {'data': response.json()}
-
+    def post(self, request):
+        serializer = P2PFilterSerializer(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        url = 'http://188.120.227.131:8001/api/v1/binary-arbitrage/'
+        response = requests.post(url, json=serializer.validated_data)
+        return Response({'data': response.json()})

@@ -1073,6 +1073,29 @@ body {
   padding: 0 7px;
   border-radius: 7px;
 }
+.main-video {
+  margin-top: 100px;
+}
+.main-video iframe {
+  width: 100%;
+  aspect-ratio: 560/315;
+  border-radius: 10px;
+}
+
+.video-manual {
+  margin-top: 50px;
+}
+.video-manual__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-manual iframe {
+  width: 560px;
+  aspect-ratio: 560/315;
+  border-radius: 10px;
+}
 
 .foryou__title p {
   background: linear-gradient(180deg, rgba(255, 165, 0, 0) 0%, #ffa500 100%);
@@ -3742,11 +3765,10 @@ table tbody {
   /* font-size: 20px; */
   /* font-weight: 700; */
 }
-.card__token:hover .card__token-hidden-info{
+.card__token:hover .card__token-hidden-info {
   display: inline-block;
-
 }
-.card__token-hidden-info{
+.card__token-hidden-info {
   display: none;
   padding: 5px;
   position: absolute;
@@ -3760,7 +3782,7 @@ table tbody {
   white-space: nowrap;
   font-weight: 400;
 }
-.card__token-hidden-info p:not(:first-child){
+.card__token-hidden-info p:not(:first-child) {
   margin-top: 5px;
 }
 
@@ -5151,9 +5173,9 @@ table tbody {
   max-width: 200px;
   opacity: 0.6;
 }
-.calc-p2p__item_commission input{
-height: 35px;
-font-size: 16px;
+.calc-p2p__item_commission input {
+  height: 35px;
+  font-size: 16px;
 }
 
 .calc-p2p__deposit {
@@ -5934,7 +5956,7 @@ font-size: 16px;
   .calculator__profit {
     gap: 30px;
   }
-  .calc-p2p{
+  .calc-p2p {
     margin-top: 0px;
   }
   .calc-p2p__input-block {
@@ -5956,7 +5978,6 @@ font-size: 16px;
   .calc-p2p__item_commission input {
     height: 50px;
   }
-
 }
 
 @media (max-width: 850px) {
@@ -7288,5 +7309,3 @@ font-size: 16px;
     filter: drop-shadow(0 0 0 rgb(173, 0, 255));
   }
 }
-
-/*# sourceMappingURL=style.css.map */

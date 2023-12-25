@@ -9,6 +9,18 @@ services:
             - 5432:5432
         env_file:
             - .env
+            
+        networks:
+            - network
+
+    pgadmin:
+        image: dpage/pgadmin4
+        ports:
+            - 800:80
+        env_file:
+            - .env
+        depends_on:
+            - db
         networks:
             - network
 

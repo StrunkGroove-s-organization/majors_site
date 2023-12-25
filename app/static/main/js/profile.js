@@ -1,27 +1,78 @@
 
+const form = document.querySelector('.premium form');
+const criptoBtn = document.querySelector("[data-pay='cripto']");
+const fiatBtn = document.querySelector("[data-pay='fiat']");
+const payBlock = document.querySelector('.pay-block');
+
 document.addEventListener("DOMContentLoaded", () => {
     const rateGroup = document.querySelector('.premium__rate-select')
     const description = document.querySelector('.premium__description span')
 
     changeDescription(rateGroup.querySelector('input:checked'))
 
-    rateGroup.addEventListener('change', (event) => {
-        changeDescription(event.target)
+    form.addEventListener('change', (event) => {
+        // changeDescription(event.target)
+        changeDescription(rateGroup.querySelector('input:checked'))
+
     })
 
     function changeDescription(element) {
+        const criptoType = document.querySelector('.premium__period-select input:checked').value
+        let infoText = ''
+        description.innerHTML = ''
+
         if (element == document.querySelector('#radio-test-subscription')) {
-            description.innerHTML = ''
-            description.insertAdjacentText("afterbegin", '10$ - доступ на 2 дня')
+            switch (criptoType) {
+                case 'USDT_TRX':
+                    infoText = '10$ - доступ на 2 дня'
+                    break;
+                case 'USDT_BSC':
+                    infoText = '3$ - доступ на 2 дня'
+                    break;
+                case 'BNB':
+                    infoText = '10$ - доступ на 2 дня'
+                    break;
+
+                default:
+                    infoText = 'Error'
+                    break;
+            }
         }
         else if (element == document.querySelector('#radio-profi-subscription')) {
-            description.innerHTML = ''
-            description.insertAdjacentText("afterbegin", '28$ - доступ на 1 месяц')
+            switch (criptoType) {
+                case 'USDT_TRX':
+                    infoText = '28$ - доступ на 1 месяц'
+                    break;
+                case 'USDT_BSC':
+                    infoText = '28$ - доступ на 1 месяц'
+                    break;
+                case 'BNB':
+                    infoText = '28$ - доступ на 1 месяц'
+                    break;
+
+                default:
+                    infoText = 'Error'
+                    break;
+            }
         }
         else if (element == document.querySelector('#radio-infinity-subscription')) {
-            description.innerHTML = ''
-            description.insertAdjacentText("afterbegin", '500$ - доступ без ограничений')
+            switch (criptoType) {
+                case 'USDT_TRX':
+                    infoText = '500$ - доступ без ограничений'
+                    break;
+                case 'USDT_BSC':
+                    infoText = '500$ - доступ без ограничений'
+                    break;
+                case 'BNB':
+                    infoText = '500$ - доступ без ограничений'
+                    break;
+                default:
+                    infoText = 'Error'
+                    break;
+            }
         }
+        description.insertAdjacentText("afterbegin", infoText)
+
         // else if (element == document.querySelector('#radio-1000_infinity_500-subscription')) {
         //     description.innerHTML = ''
         //     description.insertAdjacentText("afterbegin", 'unset')
@@ -30,10 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 
-const form = document.querySelector('.premium form');
-const criptoBtn = document.querySelector("[data-pay='cripto']");
-const fiatBtn = document.querySelector("[data-pay='fiat']");
-const payBlock = document.querySelector('.pay-block');
+
 
 criptoBtn.addEventListener('click', () => {
     sendForm('cripto')
