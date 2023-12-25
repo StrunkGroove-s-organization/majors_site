@@ -27,7 +27,11 @@ class ReferralView(View):
     @method_decorator(partial(login_required, login_url='/', redirect_field_name=None))
     def get(self, request, *args, **kwargs):
         user = request.user
-        referral = user.referral
+        try:
+            referral = user.referral
+        except Referral.DoesNotExist as e:
+            pass
+        
         if referral:
             invited_users = referral.invited_users.all()
             payments = referral.payments.all()
@@ -36,8 +40,7 @@ class ReferralView(View):
                 'invited_users': invited_users, 
                 'payments': payments
             })
-        elif not referral:
-            referral = self.create_referral(user)
-            return render(request, f'{APP_NAME}/{self.template_name}', {
-                'referral': referral
-            })
+        referral = self.create_referral(user)
+        return render(request, f'{APP_NAME}/{self.template_name}', {
+            'referral': referral
+        })
