@@ -30,7 +30,7 @@ class ReferralView(View):
         try:
             referral = user.referral
         except Referral.DoesNotExist as e:
-            pass
+            referral = None
         
         if referral:
             invited_users = referral.invited_users.all()
