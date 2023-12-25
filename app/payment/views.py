@@ -165,8 +165,15 @@ def payment_success(request):
             )
 
             send_gratitude_for_payment.delay(email)
-            
+
             user = User.objects.get(email=email)
+            # Refferal system
+            try:
+                referral_instance = Referral.objects.get(invited_users=user)
+                referral_instance.complete_payments.add(complete_order)
+            except Referral.DoesNotExist:
+                pass
+                    
             if type == 'infinity':
                 user.has_infinity_subscription = True
                 user.type_subscription = type
