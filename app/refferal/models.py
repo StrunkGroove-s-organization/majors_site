@@ -8,7 +8,7 @@ class Referral(models.Model):
     referral_code = models.CharField(max_length=20, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     clicks = models.PositiveIntegerField(default=0)
-    invited_users = models.ManyToManyField(User, blank=True, related_name="invited_by")
+    invited_users = models.ManyToManyField(User, blank=True, related_name="invited_users")
     payments = models.ManyToManyField(Order, blank=True, related_name="payments")
     
     def increment_clicks(self):
