@@ -61,7 +61,7 @@ class P2PFilters(forms.Form):
         crypto_queryset = CryptoFilterModel.objects.filter(active=True)
     except Exception as e:
         crypto_initial = 1 
-        crypto_queryset = None
+        crypto_queryset = CryptoFilterModel.objects.all()
 
     crypto = forms.ModelChoiceField(
         widget=CustomRadioSelect(
@@ -78,7 +78,7 @@ class P2PFilters(forms.Form):
         exchanges_queryset = ExchangeFilterModel.objects.filter(active=True)
     except Exception as e:
         exchanges_initial = [1, 2]
-        exchanges_queryset = None
+        exchanges_queryset = ExchangeFilterModel.objects.all()
 
     exchanges = forms.ModelMultipleChoiceField(
         initial={"name": ["Bybit", "Huobi"]},
@@ -96,7 +96,7 @@ class P2PFilters(forms.Form):
         payment_methods_queryset = PaymentsFilterModel.objects.filter(active=True)
     except Exception as e:
         payment_methods_initial = [1, 2] 
-        payment_methods_queryset = None
+        payment_methods_queryset = PaymentsFilterModel.objects.all()
 
     payment_methods = forms.ModelMultipleChoiceField(
         widget=CustomCheckboxSelectMultiple(
@@ -111,7 +111,7 @@ class P2PFilters(forms.Form):
         trade_type_queryset = TradeTypeFilterModel.objects.filter(active=True)
     except Exception as e:
         trade_type_initial = 1 
-        trade_type_queryset = None
+        trade_type_queryset = TradeTypeFilterModel.objects.all()
 
     trade_type = forms.ModelChoiceField(widget=CustomRadioSelect(
                                             custom_param='trade-type-filter', 
