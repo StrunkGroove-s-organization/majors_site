@@ -8,30 +8,9 @@ from .models import (
     TradeTypeFilterModel,
 )
 
-CRYPTO_CHOICES = [
-    ('USDT', 'USDT'),
-    ('BTC', 'BTC'),
-    ('ETH', 'ETH'),
-    # ('BUSD', 'BUSD'),
-    # ('BNB', 'BNB'),
-    # ('DOGE', 'DOGE'),
-    # ('TRX', 'TRX'),
-    # ('USDD', 'USDD'),
-    ('USDC', 'USDC'),
-    # ('RUB', 'RUB'),
-    # ('HT', 'HT'),
-    # ('EOS', 'EOS'),
-    # ('XRP', 'XRP'),
-    # ('LTC', 'LTC'),
-    # ('GMT', 'GMT'),
-    ('TON', 'TON'),
-    ('XMR', 'XMR'),
-    ('DAI', 'DAI'),
-    # ('TUSD', 'TUSD'),
-]
 
 class CustomRadioSelect(forms.RadioSelect):
-    def __init__(self, custom_param=None, custom_initial=0, *args, **kwargs):
+    def __init__(self, custom_param=None, custom_initial=1, *args, **kwargs):
         self.custom_param = custom_param
         self.custom_initial = custom_initial
         super().__init__(*args, **kwargs)
@@ -54,7 +33,7 @@ class CustomRadioSelect(forms.RadioSelect):
 
 
 class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    def __init__(self, custom_param=None, custom_initial=[], *args, **kwargs):
+    def __init__(self, custom_param=None, custom_initial=[1, 2], *args, **kwargs):
         self.custom_param = custom_param
         self.custom_initial = custom_initial
         super().__init__(*args, **kwargs)
@@ -80,8 +59,8 @@ class P2PFilters(forms.Form):
     try:
         crypto_initial = CryptoFilterModel.objects.filter(default=True).first().id
         crypto_queryset = CryptoFilterModel.objects.filter(active=True)
-    except:
-        crypto_initial = crypto_queryset = None
+    except Exception as e:
+        crypto_initial = crypto_queryset = 1
 
     crypto = forms.ModelChoiceField(
         widget=CustomRadioSelect(
@@ -96,8 +75,8 @@ class P2PFilters(forms.Form):
                                 .filter(default=True) \
                                 .values_list('id', flat=True))
         exchanges_queryset = ExchangeFilterModel.objects.filter(active=True)
-    except:
-        exchanges_initial = exchanges_queryset = None
+    except Exception as e:
+        exchanges_initial = exchanges_queryset = [1, 2]
 
     exchanges = forms.ModelMultipleChoiceField(
         initial={"name": ["Bybit", "Huobi"]},
@@ -113,8 +92,8 @@ class P2PFilters(forms.Form):
                                     .filter(default=True) \
                                     .values_list('id', flat=True))
         payment_methods_queryset = PaymentsFilterModel.objects.filter(active=True)
-    except:
-        payment_methods_initial = payment_methods_queryset = None
+    except Exception as e:
+        payment_methods_initial = payment_methods_queryset = [1, 2]
 
     payment_methods = forms.ModelMultipleChoiceField(
         widget=CustomCheckboxSelectMultiple(
@@ -127,40 +106,35 @@ class P2PFilters(forms.Form):
     try:
         trade_type_initial = TradeTypeFilterModel.objects.filter(default=True).first().id
         trade_type_queryset = TradeTypeFilterModel.objects.filter(active=True)
-    except:
-        trade_type_initial = trade_type_queryset = None
+    except Exception as e:
+        trade_type_initial = trade_type_queryset = 1
 
-    trade_type = forms.ModelChoiceField(
-        widget=CustomRadioSelect(
-            custom_param='trade-type-filter', 
-            custom_initial=trade_type_initial
-        ),
-        queryset=trade_type_queryset
-    )
-    lim_first = forms.IntegerField(initial=50000)
-    lim_second = forms.IntegerField(initial=5000)
-    ord_q = forms.IntegerField(
-        initial=90, 
-        widget=forms.NumberInput(attrs={
-            'class': 'sidebar__select_item sidebar__select_spred hidden'
-        })
-    )
-    ord_p = forms.IntegerField(        
-        initial=90, 
-        widget=forms.NumberInput(attrs={
-            'class': 'sidebar__select_item sidebar__select_spred hidden'
-        })
-    )
-    user_spread = forms.IntegerField(
-        initial=10, 
-        widget=forms.NumberInput(attrs={
-            'class': 'sidebar__select_item sidebar__select_spred hidden'
-        })
-    )
-    available_first = forms.IntegerField(required=False,)
+    trade_type = forms.ModelChoiceField(widget=CustomRadioSelect(
+                                            custom_param='trade-type-filter', 
+                                            custom_initial=trade_type_initial
+                                        ), 
+                                        queryset=trade_type_queryset)
+    
+    lim_first = forms.IntegerField(initial=50000, required=False)
+    lim_second = forms.IntegerField(initial=5000, required=False)
+    ord_q = forms.IntegerField(required=False,
+                               initial=90, 
+                               widget=forms.NumberInput(attrs={
+                                   'class': 'sidebar__select_item sidebar__select_spred hidden'}))
+    
+    ord_p = forms.IntegerField(required=False, 
+                               initial=90, 
+                               widget=forms.NumberInput(attrs={
+                                   'class': 'sidebar__select_item sidebar__select_spred hidden'}))
+    
+    user_spread = forms.IntegerField(required=False,
+                                     initial=10, 
+                                     widget=forms.NumberInput(attrs={
+                                         'class': 'sidebar__select_item sidebar__select_spred hidden'}))
+    
+    available_first = forms.IntegerField(required=False)
     available_second = forms.IntegerField(required=False)
-    only_stable_coin = forms.BooleanField(
-        required=False, 
-        initial=True,
-        widget=forms.CheckboxInput(attrs={'value': 'boolenField'})
-    )
+    only_stable_coin = forms.BooleanField(required=False, 
+                                          initial=True,
+                                          widget=forms.CheckboxInput(attrs={
+                                              'value': 'boolenField'}))

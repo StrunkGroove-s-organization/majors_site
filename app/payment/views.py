@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import os
+=======
+>>>>>>> origin/master
 import cgi
 import io
 import secrets
@@ -41,6 +44,8 @@ def create_payment_plisio(request):
             days = int(selected_subscription[0])
             type_sub = selected_subscription[1]
             amount = int(selected_subscription[2])
+            if type_sub == 'test' and currency == 'USDT_BSC':
+                amount = 3
             email = user_profile.email
             token = generate_token()
 

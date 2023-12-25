@@ -3,29 +3,32 @@ services:
     db:
         image: postgres:16
         container_name: majors-db
+        restart: always
         volumes:
             - ./db/postgres:/var/lib/postgresql/data/
         ports:
-            - 5432:5432
+            - 5433:5432
         env_file:
             - .env
             
         networks:
             - network
 
-    pgadmin:
-        image: dpage/pgadmin4
-        ports:
-            - 800:80
-        env_file:
-            - .env
-        depends_on:
-            - db
-        networks:
-            - network
+    # pgadmin:
+    #     image: dpage/pgadmin4
+    #     restart: always
+    #     ports:
+    #         - 800:80
+    #     env_file:
+    #         - .env
+    #     depends_on:
+    #         - db
+    #     networks:
+    #         - network
 
     redis:
         container_name: majors-redis
+        restart: always
         ports:
             - 6379:6379
         volumes:
@@ -66,8 +69,10 @@ services:
         networks:
             - network
 
+
     celery:
         container_name: majors-celery
+        restart: always
         build:
             context: .
         command: sh -c "celery -A myproject worker --loglevel=info"
@@ -83,6 +88,7 @@ services:
 
     # flower:
     #     container_name: majors-flower
+    #     restart: always
     #     build:
     #         context: .
     #     volumes:
