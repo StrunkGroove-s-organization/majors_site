@@ -577,6 +577,11 @@ body {
   /* padding: 10px; */
 }
 
+.navbar_profile {
+  margin-top: 27px;
+}
+
+
 .nav-link {
   display: flex;
   align-items: center;
@@ -4155,10 +4160,26 @@ table tbody {
 }
 
 /* Профиль пользователя */
+.page_profile,
+.page_referral {
+  display: none;
+}
+
+.page_profile.active,
+.page_referral.active {
+  display: block;
+}
+
 .user {
   margin: 80px auto 0;
   width: 757px;
   font-size: 18px;
+}
+
+.referral {
+  margin: 80px auto 0;
+  font-size: 18px;
+
 }
 
 .user__title {
@@ -4418,6 +4439,67 @@ table tbody {
   /* filter: invert(1); */
   color: #ffffff87;
 }
+
+.referral-section {
+  margin-top: 100px;
+}
+
+.referral-complete_pay__wrapper,
+.referral-pay__wrapper,
+.referral-users__wrapper {
+  margin-top: 40px;
+  background: #ececec;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.referral-pay__message,
+.referral-users__message {
+  text-align: center;
+  font-weight: 500;
+}
+
+.referral-pay__message {
+  margin-top: 20px;
+}
+
+.referral-users__list {
+  margin: 0 auto;
+}
+
+.referral-users__list li {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.referral-pay_list,
+.referral-pay_header {
+  padding-bottom: 10px;
+  display: grid;
+  grid-template-columns: 250px 1fr 150px;
+  justify-items: center;
+  border-bottom: 1px solid #000;
+}
+
+.referral-pay_list {
+  border-bottom: none;
+}
+
+.referral-pay_list li {
+  margin-top: 15px;
+}
+
+.referral-complete_pay_list,
+.referral-complete_pay_header {
+  padding-bottom: 10px;
+  display: grid;
+  grid-template-columns: 1fr 250px 150px 150px 150px;
+  justify-items: center;
+  border-bottom: 1px solid #000;
+}
+
+
+
 
 /* Дневник */
 .journal {

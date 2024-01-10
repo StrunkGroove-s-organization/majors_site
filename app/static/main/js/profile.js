@@ -3,6 +3,8 @@ const form = document.querySelector('.premium form');
 const criptoBtn = document.querySelector("[data-pay='cripto']");
 const fiatBtn = document.querySelector("[data-pay='fiat']");
 const payBlock = document.querySelector('.pay-block');
+const profilePageBtn = document.querySelector('[data-page = "profile"]')
+const referralPageBtn = document.querySelector('[data-page = "referral"]')
 
 document.addEventListener("DOMContentLoaded", () => {
     const rateGroup = document.querySelector('.premium__rate-select')
@@ -181,3 +183,18 @@ function showCopyMessage() {
         $body.removeChild(copyMessage)
     }, 1000);
 }
+
+
+profilePageBtn.addEventListener('click', () => {
+    referralPageBtn.classList.remove('active')
+    document.querySelector('.page_referral').classList.remove('active')
+    profilePageBtn.classList.add('active')
+    document.querySelector('.page_profile').classList.add('active')
+})
+
+referralPageBtn.addEventListener('click', () => {
+    referralPageBtn.classList.add('active')
+    document.querySelector('.page_referral').classList.add('active')
+    profilePageBtn.classList.remove('active')
+    document.querySelector('.page_profile').classList.remove('active')
+})
