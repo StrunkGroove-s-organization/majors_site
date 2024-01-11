@@ -42,7 +42,6 @@ class CalculatorSpread(BaseFormView):
     url = APP_NAME_URL
     template_name = 'calculator_spread.html'
 
-
 class TestView(View):
     def get(self, request):
         return render(
