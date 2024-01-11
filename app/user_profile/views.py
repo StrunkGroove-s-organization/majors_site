@@ -14,7 +14,7 @@ from payment.forms import Subscription
 APP_NAME = __package__
 
 
-class ReferralView(View):
+class ProfileView(View):
     template_name = 'profile.html'
 
     def generate_referral_code(self):

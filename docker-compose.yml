@@ -1,7 +1,7 @@
 version: '3'
 services:
     nginx:
-        container_name: majors-nginx-refferal
+        container_name: majors-nginx
         restart: always
         build: ./nginx/test
         ports:
@@ -13,7 +13,7 @@ services:
 
     db:
         image: postgres:16
-        container_name: majors-db-refferal
+        container_name: majors-db
         volumes:
             - ./db/postgres:/var/lib/postgresql/data/
         ports:
@@ -24,7 +24,7 @@ services:
             - network
 
     redis:
-        container_name: majors-redis-refferal
+        container_name: majors-redis
         ports:
             - 6379:6379
         volumes:
@@ -36,7 +36,7 @@ services:
     web:
         restart: always
         build: .
-        container_name: majors-web-refferal
+        container_name: majors-web
         command: sh -c "sleep 2 && gunicorn myproject.wsgi:application -w 4 -b 0.0.0.0:8000"
         ports:
             - 8000:8000
@@ -51,7 +51,7 @@ services:
             - network
 
     celery:
-        container_name: majors-celery-refferal
+        container_name: majors-celery
         build:
             context: .
         command: sh -c "celery -A myproject worker --loglevel=info"
