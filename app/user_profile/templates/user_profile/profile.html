@@ -192,7 +192,7 @@
 								{% for payment in payments %}
 								<li>{{ payment.timestamp }}</li>
 								<li>{{ payment.email }}</li>
-								<li>{{ payment.amount }}</li>
+								<li>{{ payment.amount|floatformat:2 }}</li>
 								{% endfor %}
 							</ul>
 							{% else %}
