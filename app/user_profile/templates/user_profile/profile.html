@@ -133,6 +133,18 @@
 								<div class="user__info-title">Ваша реферальная ссылка:</div>
 								<div class="user__info-value">{{ request.scheme }}://{{ request.get_host }}/?ref={{ referral.referral_code }}</div>
 							</div>
+							<div class="user__info-item user__info-item_earnings">
+								<div class="user__info-title">К выплате:</div>
+								<div class="user__info-value">{{ referral.earnings }}</div>
+							</div>
+							<div class="user__info-item user__info-item_complete_earnings">
+								<div class="user__info-title">Выплачено:</div>
+								<div class="user__info-value">{{ referral.complete_earnings }}</div>
+							</div>
+							<div class="user__info-item user__info-item_num_registration">
+								<div class="user__info-title">Кол. регистраций:</div>
+								<div class="user__info-value">{{ referral.earnings }}</div>
+							</div>
 							<div class="user__info-item user__info-item_email">
 								<div class="user__info-title">Создан в:</div>
 								<div class="user__info-value">{{ referral.created_at }}</div>
@@ -151,6 +163,7 @@
 						</div>
 						<div class="referral-users__wrapper">
 							{% if invited_users %}
+							Кол. пользоватей зарегестривовашиеся по вашей ссылке: {{ invited_users|length }}
 							<ul class="referral-users__list">
 								{% for invited_user in invited_users %}
 								<li>{{ invited_user.email }}</li>

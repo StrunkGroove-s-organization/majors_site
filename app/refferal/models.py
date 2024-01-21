@@ -30,6 +30,7 @@ class Referral(models.Model):
                                                related_name="complete_payments"
                                                )
     earnings = models.FloatField(default=0)
+    complete_earnings = models.FloatField(default=0)
 
     def increment_clicks(self):
         self.clicks += 1
@@ -44,7 +45,7 @@ class Referral(models.Model):
         cache.set(KEY_BNB, spot_price, 60 * 15)
         return spot_price
     
-    def calculate_earnings(self):
+    def calculate_earnings(self) -> float:
         bnbusdt_price = cache.get(KEY_BNB)
         if not bnbusdt_price:
             bnbusdt_price = self.__get_binance_price()
@@ -56,7 +57,8 @@ class Referral(models.Model):
                 total_earnings += order.amount_crypto
             elif order.currency in ['BNB']:
                 total_earnings += order.amount_crypto * bnbusdt_price
-            
+        
+        total_earnings = total_earnings - self.complete_earnings
         return total_earnings
 
     def __str__(self):
