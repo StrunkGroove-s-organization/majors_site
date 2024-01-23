@@ -4246,6 +4246,13 @@ table tbody {
   text-align: center;
 }
 
+.premium__subtitle {
+  margin-top: 30px;
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+}
+
 .premium__form {
   margin-top: 50px;
 }
