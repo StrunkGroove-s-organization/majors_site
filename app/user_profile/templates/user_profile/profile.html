@@ -168,7 +168,7 @@
 								{% for invited_user in invited_users %}
 
 								{% with masked_email=invited_user.email|slice:"0:4" %}
-									<li>{{ masked_email }}****</li>
+									<li>{{ masked_email }}****@mail.ru</li>
 								{% endwith %}
 
 								{% endfor %}
@@ -198,7 +198,7 @@
 								<li>{{ payment.timestamp }}</li>
 								
 								{% with masked_email=payment.email|slice:"0:4" %}
-									<li>{{ masked_email }}****</li>
+									<li>{{ masked_email }}****@mail.ru</li>
 								{% endwith %}
 
 								<li>{{ payment.type }}</li>
@@ -231,7 +231,7 @@
 								{% for complete_payment in complete_payments %}
 
 									{% with masked_email=complete_payment.email|slice:"0:4" %}
-										<li>{{ masked_email }}****</li>
+										<li>{{ masked_email }}****@mail.ru</li>
 									{% endwith %}
 
 									<li>{{ complete_payment.timestamp }}</li>
