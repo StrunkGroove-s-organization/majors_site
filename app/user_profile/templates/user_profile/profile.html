@@ -167,8 +167,8 @@
 							<ul class="referral-users__list">
 								{% for invited_user in invited_users %}
 
-								{% with masked_email=invited_user.email|slice:"-5:" %}
-									<li>{{ masked_email|slice:"0:-5" }}****{{ invited_user.email|slice:"-5:" }}</li>
+								{% with masked_email=invited_user.email|slice:"0:4" %}
+									<li>{{ masked_email }}****</li>
 								{% endwith %}
 
 								{% endfor %}
@@ -196,8 +196,8 @@
 								{% for payment in payments %}
 								<li>{{ payment.timestamp }}</li>
 
-								{% with masked_email=payment.email|slice:":@ "|slice:"-4:" %}
-									<li>{{ masked_email }}{{ payment.email|slice:"@ " }}</li>
+								{% with masked_email=payment.email|slice:"0:4" %}
+									<li>{{ masked_email }}****</li>
 								{% endwith %}
 
 								<li>{{ payment.amount|floatformat:2 }}</li>
@@ -227,8 +227,8 @@
 							<ul class="referral-complete_pay_list">
 								{% for complete_payment in complete_payments %}
 
-								{% with masked_email=complete_payment.email|slice:"-5:" %}
-									<li>{{ masked_email|slice:"0:-5" }}****{{ complete_payment.email|slice:"-5:" }}</li>
+								{% with masked_email=complete_payment.email|slice:"0:4" %}
+									<li>{{ masked_email }}****</li>
 								{% endwith %}
 
 								<li>{{ complete_payment.timestamp }}</li>
