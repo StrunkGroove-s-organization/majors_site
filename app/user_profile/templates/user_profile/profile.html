@@ -166,7 +166,11 @@
 							Кол. пользоватей зарегестривовашиеся по вашей ссылке: {{ invited_users|length }}
 							<ul class="referral-users__list">
 								{% for invited_user in invited_users %}
-								<li>{{ invited_user.email }}</li>
+
+								{% with masked_email=invited_user.email|slice:"-5:" %}
+									<li>{{ masked_email|slice:"0:-5" }}****{{ invited_user.email|slice:"-5:" }}</li>
+								{% endwith %}
+
 								{% endfor %}
 							</ul>
 							{% else %}
@@ -191,7 +195,11 @@
 							<ul class="referral-pay_list">
 								{% for payment in payments %}
 								<li>{{ payment.timestamp }}</li>
-								<li>{{ payment.email }}</li>
+
+								{% with masked_email=payment.email|slice:":@ "|slice:"-4:" %}
+									<li>{{ masked_email }}{{ payment.email|slice:"@ " }}</li>
+								{% endwith %}
+
 								<li>{{ payment.amount|floatformat:2 }}</li>
 								{% endfor %}
 							</ul>
@@ -218,7 +226,11 @@
 							{% if complete_payments %}
 							<ul class="referral-complete_pay_list">
 								{% for complete_payment in complete_payments %}
-								<li>{{ complete_payment.email }}</li>
+
+								{% with masked_email=complete_payment.email|slice:"-5:" %}
+									<li>{{ masked_email|slice:"0:-5" }}****{{ complete_payment.email|slice:"-5:" }}</li>
+								{% endwith %}
+
 								<li>{{ complete_payment.timestamp }}</li>
 								<li>{{ complete_payment.token }}</li>
 								<li>{{ complete_payment.currency }}</li>
