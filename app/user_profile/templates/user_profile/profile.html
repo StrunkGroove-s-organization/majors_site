@@ -189,17 +189,19 @@
 							<ul class="referral-pay_header">
 								<li>Время</li>
 								<li>Реферал</li>
+								<li>Тип</li>
 								<li>Сумма</li>
 							</ul>
 							{% if payments %}
 							<ul class="referral-pay_list">
 								{% for payment in payments %}
 								<li>{{ payment.timestamp }}</li>
-
+								
 								{% with masked_email=payment.email|slice:"0:4" %}
 									<li>{{ masked_email }}****</li>
 								{% endwith %}
 
+								<li>{{ payment.type }}</li>
 								<li>{{ payment.amount|floatformat:2 }}</li>
 								{% endfor %}
 							</ul>
