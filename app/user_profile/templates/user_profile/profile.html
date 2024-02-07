@@ -220,6 +220,7 @@
 								<li>Реферал</li>
 								<li>Время</li>
 								<li>Токен</li>
+								<li>Тип подпсики</li>
 								<li>Валюта</li>
 								<li>Сумма</li>
 							</ul>
@@ -227,15 +228,15 @@
 							<ul class="referral-complete_pay_list">
 								{% for complete_payment in complete_payments %}
 
-								{% with masked_email=complete_payment.email|slice:"0:4" %}
-									<li>{{ masked_email }}****</li>
-								{% endwith %}
+									{% with masked_email=complete_payment.email|slice:"0:4" %}
+										<li>{{ masked_email }}****</li>
+									{% endwith %}
 
-								<li>{{ complete_payment.timestamp }}</li>
-								<li>{{ complete_payment.token }}</li>
-								<li>{{ complete_payment.type }}</li>
-								<li>{{ complete_payment.currency }}</li>
-								<li>{{ complete_payment.amount_crypto }}</li>
+									<li>{{ complete_payment.timestamp }}</li>
+									<li>{{ complete_payment.token }}</li>
+									<li>{{ complete_payment.type }}</li>
+									<li>{{ complete_payment.currency }}</li>
+									<li>{{ complete_payment.amount_crypto }}</li>
 								{% endfor %}
 							</ul>
 							{% else %}
