@@ -38,6 +38,8 @@
 	{% include 'main/layout_header.html' %}
 
 	<main>
+
+		</div>
 		<div class="container">
 			<div class="navbar navbar_profile">
 				<a class="nav-link active" data-page="profile">Профиль пользователя</a>
@@ -125,56 +127,73 @@
 			<div class="referral">
 				<section class="refferal-info">
 					<div class="container">
-						<div class="user__title">
+						<div class="referal__title">
 							Реферальная программа
 						</div>
-						<div class="user__info">
-							<div class="user__info-item user__info-item_name">
-								<div class="user__info-title">Ваша реферальная ссылка:</div>
-								<div class="user__info-value">{{ request.scheme }}://{{ request.get_host }}/?ref={{ referral.referral_code }}</div>
+						<div class="referal__info">
+							<div class="referal__info-item referal__info-item_name">
+								<div class="referal__info-title">Ваша реферальная ссылка:</div>
+								<div class="referal__info-value referal__info-value_link">
+									{{ request.scheme }}://{{ request.get_host }}/?ref={{referral.referral_code }}
+								</div>
 							</div>
-							<div class="user__info-item user__info-item_earnings">
-								<div class="user__info-title">К выплате:</div>
-								<div class="user__info-value">{{ referral.earnings }}</div>
+							<div class="referal__info-item referal__info-item_earnings">
+								<div class="referal__info-title">К выплате:</div>
+								<div class="referal__info-value">{{ referral.earnings }}</div>
 							</div>
-							<div class="user__info-item user__info-item_complete_earnings">
-								<div class="user__info-title">Выплачено:</div>
-								<div class="user__info-value">{{ referral.complete_earnings }}</div>
+							<div class="referal__info-item referal__info-item_complete_earnings">
+								<div class="referal__info-title">Выплачено:</div>
+								<div class="referal__info-value">{{ referral.complete_earnings }}</div>
 							</div>
-							<div class="user__info-item user__info-item_num_registration">
-								<div class="user__info-title">Кол. регистраций:</div>
-								<div class="user__info-value">{{ referral.earnings }}</div>
+							<div class="referal__info-item referal__info-item_num_registration">
+								<div class="referal__info-title">Кол. регистраций:</div>
+								<div class="referal__info-value">{{ referral.earnings }}</div>
 							</div>
-							<div class="user__info-item user__info-item_email">
-								<div class="user__info-title">Создан в:</div>
-								<div class="user__info-value">{{ referral.created_at }}</div>
+							<div class="referal__info-item referal__info-item_email">
+								<div class="referal__info-title">Создан в:</div>
+								<div class="referal__info-value">{{ referral.created_at }}</div>
 							</div>
-							<div class="user__info-item user__info-item_rate">
-								<div class="user__info-title">Переходов:</div>
-								<div class="user__info-value">{{ referral.clicks }}</div>
+							<div class="referal__info-item referal__info-item_rate">
+								<div class="referal__info-title">Переходов:</div>
+								<div class="referal__info-value">{{ referral.clicks }}</div>
 							</div>
 						</div>
 					</div>
 				</section>
 				<section class="referral-section referral-users">
 					<div class="container">
-						<div class="user__title">
+						<div class="referal__title">
 							Мои рефералы
 						</div>
 						<div class="referral-users__wrapper">
 							{% if invited_users %}
-							Кол. пользоватей зарегестривовашиеся по вашей ссылке: {{ invited_users|length }}
+							<div class="referal__header referral-users__title">
+								Кол. пользоватей зарегестривовашиеся по вашей ссылке:
+								<span>{{ invited_users|length }}</span>
+							</div>
 							<ul class="referral-users__list">
 								{% for invited_user in invited_users %}
 
 								{% with masked_email=invited_user.email|slice:"0:4" %}
-									<li>{{ masked_email }}****@mail.ru</li>
+								<li>{{ masked_email }}****@mail.ru</li>
 								{% endwith %}
 
 								{% endfor %}
+
+								<!-- /temp -->
+
+								<li>dfsdfsd****@mail.ru</li>
+								<li>dfsdfsd****@mail.ru</li>
+								<li>dfsdfsd****@mail.ru</li>
+								<li>dfsdfsd****@mail.ru</li>
+								<li>dfsdfsd****@mail.ru</li>
+
+								<!-- /temp -->
 							</ul>
 							{% else %}
-							<p class="referral-users__message">У вас нет рефералов</p>
+							<div class="referal__header referral-users__title">
+								<span class="referral-users__message">У вас нет рефералов</span>
+							</div>
 							{% endif %}
 						</div>
 					</div>
@@ -182,31 +201,31 @@
 
 				<section class="referral-section referral-pay">
 					<div class="container">
-						<div class="user__title">
+						<div class="referal__title">
 							Мои платежи
 						</div>
 						<div class="referral-pay__wrapper">
-							<ul class="referral-pay_header">
+							{% if payments %}
+							<ul class="referal__header referral-pay_header">
 								<li>Время</li>
 								<li>Реферал</li>
 								<li>Тип</li>
 								<li>Сумма</li>
 							</ul>
-							{% if payments %}
 							<ul class="referral-pay_list">
 								{% for payment in payments %}
-								<li>{{ payment.timestamp }}</li>
-								
-								{% with masked_email=payment.email|slice:"0:4" %}
-									<li>{{ masked_email }}****@mail.ru</li>
-								{% endwith %}
-
-								<li>{{ payment.type }}</li>
-								<li>{{ payment.amount|floatformat:2 }}</li>
-								{% endfor %}
+								<li>
+									<span>{{ payment.timestamp }}</span>
+									{% with masked_email=payment.email|slice:"0:4" %}
+									<span>{{ masked_email }}****@mail.ru</span>
+									{% endwith %}
+									<span>{{ payment.type }}</span>
+									<span>{{ payment.amount|floatformat:2 }}</span>
+									{% endfor %}
+								</li>
 							</ul>
 							{% else %}
-							<p class="referral-pay__message">Текущие платежи отсутствуют</p>
+							<p class="referal__header referral-pay__message">Текущие платежи отсутствуют</p>
 							{% endif %}
 						</div>
 					</div>
@@ -214,43 +233,73 @@
 
 				<section class="referral-section referral-complete_pay">
 					<div class="container">
-						<div class="user__title">
+						<div class="referal__title">
 							История платежей
 						</div>
 						<div class="referral-complete_pay__wrapper">
-							<ul class="referral-complete_pay_header">
+							{% if complete_payments %}
+							<ul class="referal__header referral-complete_pay_header">
 								<li>Реферал</li>
 								<li>Время</li>
 								<li>Токен</li>
-								<li>Тип подпсики</li>
+								<li>Тип</li>
 								<li>Валюта</li>
 								<li>Сумма</li>
 							</ul>
-							{% if complete_payments %}
 							<ul class="referral-complete_pay_list">
 								{% for complete_payment in complete_payments %}
-
+								<li>
 									{% with masked_email=complete_payment.email|slice:"0:4" %}
-										<li>{{ masked_email }}****@mail.ru</li>
+									<span>{{ masked_email }}****@mail.ru</span>
 									{% endwith %}
-
-									<li>{{ complete_payment.timestamp }}</li>
-									<li>{{ complete_payment.token }}</li>
-									<li>{{ complete_payment.type }}</li>
-									<li>{{ complete_payment.currency }}</li>
-									<li>{{ complete_payment.amount_crypto }}</li>
+									<span>{{ complete_payment.timestamp }}</span>
+									<span>{{ complete_payment.token }}</span>
+									<span>{{ complete_payment.type }}</span>
+									<span>{{ complete_payment.currency }}</span>
+									<span>{{ complete_payment.amount_crypto }}</span>
+								</li>
 								{% endfor %}
 							</ul>
 							{% else %}
-							<p class="referral-pay__message">Платежи отсутствуют</p>
+							<p class="referal__header referral-pay__message">Платежи отсутствуют</p>
+
+							<!-- temp -->
+
+							<ul class="referal__header referral-complete_pay_header">
+								<li>Реферал</li>
+								<li>Время</li>
+								<li>Токен</li>
+								<li>Тип</li>
+								<li>Валюта</li>
+								<li>Сумма</li>
+							</ul>
+							<ul class="referral-complete_pay_list">
+								<li>
+									<span>stuf****@mail.ru</span>
+									<span>Dec. 25, 2023, 8:26 p.m.</span>
+									<span>BTC</span>
+									<span>profi</span>
+									<span>rub</span>
+									<span>2500</span>
+								</li>
+								<li>
+									<span>stuf****@mail.ru</span>
+									<span>Dec. 25, 2023, 8:26 p.m.</span>
+									<span>BTC</span>
+									<span>profi</span>
+									<span>rub</span>
+									<span>2500</span>
+								</li>
+							</ul>
+
+							<!-- /temp -->
+
 							{% endif %}
 						</div>
 					</div>
 				</section>
 			</div>
 		</div>
-
-
 	</main>
 	{% include 'main/layout_footer.html' %}
 

@@ -198,3 +198,11 @@ referralPageBtn.addEventListener('click', () => {
     profilePageBtn.classList.remove('active')
     document.querySelector('.page_profile').classList.remove('active')
 })
+
+const linkBtn = document.querySelector('.referal__info-value_link')
+const referalLink = String(linkBtn.textContent).replaceAll(' ', '')
+
+linkBtn.addEventListener('click', () => {
+    window.navigator.clipboard.writeText(referalLink)
+    showCopyMessage()
+})
