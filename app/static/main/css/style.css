@@ -4161,12 +4161,12 @@ table tbody {
 
 /* Профиль пользователя */
 .page_profile,
-.page_referral {
+.page_referal {
   display: none;
 }
 
 .page_profile.active,
-.page_referral.active {
+.page_referal.active {
   display: block;
 }
 
@@ -4176,11 +4176,62 @@ table tbody {
   font-size: 18px;
 }
 
-.referral {
-  margin: 80px auto 0;
+.referal {
+  margin: 20px auto 0;
   font-size: 18px;
   color: #fff;
 }
+
+.referal__info-line {
+  padding: 10px 20px;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #a54be3;
+  border-radius: 10px;
+}
+
+.referal__balance-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.referal__balance-value {
+  margin-top: 10px;
+  font-size: 35px;
+  font-weight: 600;
+}
+
+.referal__balance {
+  display: flex;
+  gap: 80px;
+}
+
+.referal__balance-item {
+  text-align: center;
+}
+
+.referal__btn {
+  padding: 15px 28px;
+  height: fit-content;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 14px;
+  border: 1px solid #fff;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.referal__btn:hover {
+  background: #fff;
+  color: #a54be3;
+}
+
 
 .user__title {
   margin: 0 auto;
@@ -4241,6 +4292,10 @@ table tbody {
   font-size: 22px;
   font-weight: 600;
   /* background: #ececec; */
+}
+
+.referal-info {
+  margin-top: 100px;
 }
 
 .referal__info {
@@ -4521,7 +4576,7 @@ table tbody {
   color: #ffffff87;
 }
 
-.referral-section {
+.referal-section {
   margin-top: 100px;
 }
 
@@ -4531,58 +4586,73 @@ table tbody {
   border-radius: 5px;
 }
 
-.referral-complete_pay__wrapper,
-.referral-pay__wrapper,
-.referral-users__wrapper {
+.referal-complete_pay__wrapper,
+.referal-pay__wrapper,
+.referal-users__wrapper,
+.referal-link__wrapper {
   margin-top: 40px;
   /* background: #ececec; */
   /* padding: 30px; */
   /* border-radius: 8px; */
 }
 
-.referral-users__title {
+.referal-users__title {
   /* display: flex; */
   /* align-items: center; */
   /* justify-content: space-between;/ */
   gap: 10px;
 }
 
-.referral-users__title span {
+.referal-users__title span {
   font-weight: 600;
+  font-size: 26px;
+}
+
+.referal-users__header,
+.referal-users__list li {
+  display: grid;
+  grid-template-columns: 200px 1fr 100px;
+  justify-items: center;
 }
 
 
-
-.referral-pay__message,
-.referral-users__message {
+.referal-pay__message,
+.referal-users__message {
   text-align: center;
   font-weight: 500;
 }
 
-.referral-pay__message {
+.referal-pay__message {
   margin-top: 20px;
 }
 
-.referral-users__list {
+.referal-users {
+  margin-top: 40px;
+}
+
+.referal-link__list,
+.referal-users__list {
   margin-top: 10px;
   /* margin: 0 auto; */
 }
 
-.referral-users__list li {
+.referal-link__list li,
+.referal-users__list li {
   padding: 10px 20px;
   /* margin-bottom: 5px; */
   /* font-weight: 500; */
 }
 
-.referral-complete_pay_list li:nth-child(2n),
-.referral-pay_list li:nth-child(2n),
-.referral-users__list li:nth-child(2n) {
+.referal-complete_pay_list li:nth-child(2n),
+.referal-pay_list li:nth-child(2n),
+.referal-users__list li:nth-child(2n),
+.referal-link__list li:nth-child(2n) {
   background: #ffffff0d;
 }
 
-.referral-pay_list {}
+.referal-pay_list {}
 
-.referral-pay_header {
+.referal-pay_header {
   /* padding-bottom: 10px; */
   display: grid;
   grid-template-columns: 250px 1fr 100px 100px;
@@ -4590,19 +4660,19 @@ table tbody {
   /* border-bottom: 1px solid #000; */
 }
 
-.referral-pay_list {
+.referal-pay_list {
   border-bottom: none;
 }
 
-.referral-pay_list li {
+.referal-pay_list li {
   padding: 10px 20px;
   display: grid;
   grid-template-columns: 250px 1fr 100px 100px;
   justify-items: center;
 }
 
-/* .referral-complete_pay_list, */
-.referral-complete_pay_header {
+/* .referal-complete_pay_list, */
+.referal-complete_pay_header {
   /* padding-bottom: 10px; */
   display: grid;
   grid-template-columns: 1fr 250px 100px 100px 100px 150px;
@@ -4610,7 +4680,7 @@ table tbody {
   /* border-bottom: 1px solid #000; */
 }
 
-.referral-complete_pay_list li {
+.referal-complete_pay_list li {
   padding: 10px 20px;
   display: grid;
   grid-template-columns: 1fr 250px 100px 100px 100px 150px;
@@ -6392,34 +6462,40 @@ table tbody {
     height: 50px;
   }
 
-  .referral {
+  .referal {
     font-size: 14px;
   }
 
-  .referral-section {
+  .referal-section {
     margin-top: 40px;
   }
 
-  .referral-complete_pay__wrapper,
-  .referral-pay__wrapper,
-  .referral-users__wrapper {
+  .referal-complete_pay__wrapper,
+  .referal-pay__wrapper,
+  .referal-users__wrapper {
     margin-top: 20px;
   }
 
-  .referral-complete_pay__wrapper,
-  .referral-pay__wrapper {
+  .referal-complete_pay__wrapper,
+  .referal-pay__wrapper,
+  .referal-users__wrapper {
     width: 100%;
     overflow-y: scroll;
     overflow-x: auto;
   }
 
-  .referral-pay_header,
-  .referral-pay_list {
+  .referal-users__header,
+  .referal-users__list {
+    min-width: 650px;
+  }
+
+  .referal-pay_header,
+  .referal-pay_list {
     min-width: 700px;
   }
 
-  .referral-complete_pay_header,
-  .referral-complete_pay_list {
+  .referal-complete_pay_header,
+  .referal-complete_pay_list {
     min-width: 860px;
   }
 }
@@ -7615,6 +7691,18 @@ table tbody {
 
   .text-content h2 {
     font-size: 15px;
+  }
+
+  .referal__info-line {
+    flex-direction: column;
+    height: auto;
+    gap: 20px;
+  }
+
+  .referal__balance {
+    width: 100%;
+    gap: unset;
+    justify-content: space-between;
   }
 }
 
