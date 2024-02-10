@@ -485,13 +485,13 @@ function renderData(dataObject) {
                 if (futures != null) {
                     if (futures) {
                         img = `<img src="/static/main/img/futures_true.svg">
-                    <div class="card__futures-hidden-info">Возможна фьючерсная торговля</div>
+                    <div class="card__futures-hidden-info">Хеджирование</div>
                     `
                     }
                 }
                 else {
                     img = `<img src="/static/main/img/futures_null.svg">
-                    <div class="card__futures-hidden-info">Нет данных о возможности фьючерсной торговли</div>`
+                    <div class="card__futures-hidden-info">Нет данных о хеджировании</div>`
                 }
                 return img
             }
