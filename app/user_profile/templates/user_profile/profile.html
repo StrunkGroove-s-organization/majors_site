@@ -78,6 +78,9 @@
 					<div class="premium__title">
 						Приобрести PREMIUM АККАУНТ
 					</div>
+					<div class="premium__subtitle">
+						После оплаты доступ откроется АВТОМАТИЧЕСКИ
+					</div>
 					<div class="premium__form">
 						<form action="#">
 							{% csrf_token %}
@@ -142,6 +145,7 @@
 						</a>
 					</div>
 				</div>
+
 				<section class="referal-users">
 					<div class="container">
 						<div class="referal__title referal-users__title">
@@ -166,6 +170,7 @@
 									{% endwith %}
 									{% endif %}
 									<span>{{ invited_user.id }}</span>
+
 								</li>
 								{% endfor %}
 							</ul>
@@ -174,16 +179,6 @@
 								<span class="referal-users__message">У вас нет рефералов</span>
 							</div>
 							{% endif %}
-				<div class="premium__subtitle">
-					После оплаты доступ откроется АВТОМАТИЧЕСКИ
-				</div>
-				<div class="premium__form">
-					<form action="#">
-						{% csrf_token %}
-						<div class="premium__select-title">Тариф:</div>
-						<div class="premium__rate-select">
-							{{ subscription.subscription }}
-
 						</div>
 					</div>
 				</section>
