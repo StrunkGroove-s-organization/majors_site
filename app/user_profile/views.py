@@ -1,6 +1,8 @@
 import random
 import string
 
+from os import getenv
+
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.decorators import login_required
@@ -46,6 +48,7 @@ class ProfileView(View):
             'payments': referral.payments.all() if referral else [],
             'complete_payments': referral.complete_payments.all() if referral else [],
 
+            'domain': getenv('DOMAIN'),
             'username': user.username,
             'email': user.email,
             'subscription_end': self.get_subscription_end_date(user),
