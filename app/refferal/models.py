@@ -17,7 +17,7 @@ class Referral(models.Model):
     referral_code = models.CharField(max_length=20, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     clicks = models.PositiveIntegerField(default=0)
-    invited_users = models.ManyToManyField(User, 
+    invited_users = models.ManyToManyField(User,
                                            blank=True, 
                                            related_name="invited_users"
                                            )
@@ -31,6 +31,10 @@ class Referral(models.Model):
                                                )
     earnings = models.FloatField(default=0)
     complete_earnings = models.FloatField(default=0)
+
+    def save(self, *args, **kwargs):
+        self.earnings = self.earnings - self.complete_earnings
+        super().save(*args, **kwargs)
 
     def increment_clicks(self):
         self.clicks += 1
@@ -58,12 +62,11 @@ class Referral(models.Model):
             elif order.currency in ['BNB']:
                 total_earnings += order.amount_crypto * bnbusdt_price
         
-        total_earnings = total_earnings - self.complete_earnings
+        total_earnings = float(total_earnings) - self.complete_earnings
         return total_earnings
 
     def __str__(self):
         return f"Referral for {self.user.username}"
-    
 
 @receiver(m2m_changed, sender=Referral.complete_payments.through)
 def update_earnings(sender, instance, **kwargs):

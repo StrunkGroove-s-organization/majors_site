@@ -1,7 +1,6 @@
 version: '3'
 services:
     nginx:
-        container_name: majors-nginx-refferal
         restart: always
         build: ./nginx/test
         ports:
