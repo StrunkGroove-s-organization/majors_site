@@ -38,89 +38,286 @@
 	{% include 'main/layout_header.html' %}
 
 	<main>
-		<section class="user">
-			<div class="container">
-				<div class="user__title">
-					Мой профиль
-				</div>
-				<div class="user__info">
-					<div class="user__info-item user__info-item_name">
-						<div class="user__info-title">Имя пользователя:</div>
-						<div class="user__info-value">{{ username }}</div>
-					</div>
-					<div class="user__info-item user__info-item_email">
-						<div class="user__info-title">EMAIL:</div>
-						<div class="user__info-value">{{ email }}</div>
-					</div>
 
-					<div class="user__info-item user__info-item_rate">
-						<div class="user__info-title">Подписка:</div>
-						{% if subscription_end != '01.01.2000' %}
-						<div class="user__info-value">до {{ subscription_end }}</div>
-						{% else %}
-						<div class="user__info-value">Не активна</div>
-						{% endif %}
-					</div>
-				</div>
+		</div>
+		<div class="container">
+			<div class="navbar navbar_profile">
+				<a class="nav-link active" data-page="profile">Профиль пользователя</a>
+				<a class="nav-link" data-page="referal">Реферальная программа</a>
 			</div>
-		</section>
+		</div>
 
-		<section class="premium" id='premium'>
-			<div class="container">
-				<div class="premium__title">
-					Приобрести PREMIUM АККАУНТ
+		<div class="page_profile active">
+			<section class="user">
+				<div class="container">
+					<div class="user__title">
+						Мой профиль
+					</div>
+					<div class="user__info">
+						<div class="user__info-item user__info-item_name">
+							<div class="user__info-title">Имя пользователя:</div>
+							<div class="user__info-value">{{ username }}</div>
+						</div>
+						<div class="user__info-item user__info-item_email">
+							<div class="user__info-title">EMAIL:</div>
+							<div class="user__info-value">{{ email }}</div>
+						</div>
+						<div class="user__info-item user__info-item_rate">
+							<div class="user__info-title">Подписка:</div>
+							{% if subscription_end != '01.01.2000' %}
+							<div class="user__info-value">до {{ subscription_end }}</div>
+							{% else %}
+							<div class="user__info-value">Не активна</div>
+							{% endif %}
+						</div>
+					</div>
 				</div>
-				<div class="premium__subtitle">
-					После оплаты доступ откроется АВТОМАТИЧЕСКИ
+			</section>
+			<section class="premium" id='premium'>
+				<div class="container">
+					<div class="premium__title">
+						Приобрести PREMIUM АККАУНТ
+					</div>
+					<div class="premium__subtitle">
+						После оплаты доступ откроется АВТОМАТИЧЕСКИ
+					</div>
+					<div class="premium__form">
+						<form action="#">
+							{% csrf_token %}
+							<div class="premium__select-title">Тариф:</div>
+							<div class="premium__rate-select">
+								{{ subscription.subscription }}
+							</div>
+							<div class="premium__description">
+								<span></span>
+							</div>
+							<div class="premium__select-title">Криптовалюта:</div>
+							<div class="premium__period-select">
+								{{ subscription.currency }}
+							</div>
+							<!-- <div class="premium__select-title">Способ оплаты:</div> -->
+							<div class="premium__select-title"></div>
+							<div class="premium__pay-select">
+								<div class="premium__pay-item">
+									<div class="premium__btn" data-pay='cripto'>Оплатить</div>
+								</div>
+								<div class="premium__pay-item">
+									<a href="https://t.me/ArbiToolsS" target="_blank" class="premium__btn">Оплатить
+										рублями</a>
+								</div>
+								<!-- <div class="premium__pay-item">
+									<div class="premium__btn" data-pay='fiat'>Binance</div>
+								</div> -->
+							</div>
+						</form>
+					</div>
 				</div>
-				<div class="premium__form">
-					<form action="#">
-						{% csrf_token %}
-						<div class="premium__select-title">Тариф:</div>
-						<div class="premium__rate-select">
-							{{ subscription.subscription }}
-						</div>
-						<div class="premium__description">
-							<span></span>
-						</div>
-
-						<div class="premium__select-title">Криптовалюта:</div>
-						<div class="premium__period-select">
-							{{ subscription.currency }}
-						</div>
-
-						<!-- <div class="premium__select-title">Способ оплаты:</div> -->
-						<div class="premium__select-title"></div>
-						<div class="premium__pay-select">
-							<div class="premium__pay-item">
-								<div class="premium__btn" data-pay='cripto'>Оплатить</div>
+			</section>
+			<section class="pay-block">
+			</section>
+			<section class="video-manual">
+				<div class="container">
+					<div class="video-manual__wrapper">
+						<iframe src="https://www.youtube.com/embed/VhKk2uOY4_M?si=N2jgFhF-o17yQ4IJ"
+							title="YouTube video player" frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowfullscreen></iframe>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div class="page_referal">
+			<div class="referal">
+				<div class="container">
+					<div class="referal__info-line">
+						<div class="referal__balance">
+							<div class="referal__balance-item">
+								<div class="referal__balance-title">Выплачено:</div>
+								<div class="referal__balance-value">{{ referral.complete_earnings }}</div>
 							</div>
-							<div class="premium__pay-item">
-								<a href="https://t.me/ArbiToolsS" target="_blank" class="premium__btn">Оплатить
-									рублями</a>
+							<div class="referal__balance-item">
+								<div class="referal__balance-title">К выплате:</div>
+								<div class="referal__balance-value">{{ referral.earnings }}</div>
 							</div>
-							<!-- <div class="premium__pay-item">
-								<div class="premium__btn" data-pay='fiat'>Binance</div>
+						</div>
+						<a href="https://t.me/ArbiToolsS" class="referal__btn" target="_blank">
+							Вывести
+						</a>
+					</div>
+				</div>
+
+				<section class="referal-users">
+					<div class="container">
+						<div class="referal__title referal-users__title">
+							Пользователи: <span>{{ invited_users|length }}</span>
+						</div>
+						<div class="referal-users__wrapper">
+							{% if invited_users %}
+							<ul class="referal__header referal-users__header">
+								<li>Имя</li>
+								<li>Email</li>
+								<li>ID</li>
+							</ul>
+							<ul class="referal-users__list">
+								{% for invited_user in invited_users %}
+								<li>
+									{% if user.is_superuser %}
+									<span>{{ invited_user.username }}</span>
+									<span>{{ invited_user.email }}</span>
+									{% else %}
+									{% with masked_email=invited_user.email|slice:"0:4" %}
+									<span>{{ masked_email }}****@mail.ru</span>
+									{% endwith %}
+									{% endif %}
+									<span>{{ invited_user.id }}</span>
+
+								</li>
+								{% endfor %}
+							</ul>
+							{% else %}
+							<div class="referal__header">
+								<span class="referal-users__message">У вас нет рефералов</span>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</section>
+				<section class="referal-link referal-section">
+					<div class="container">
+						<div class="referal__title referal-link__title">
+							Реферальные ссылки
+						</div>
+						<div class="referal-link__wrapper">
+							<div class="referal__header">
+								Ссылка
+							</div>
+							<ul class="referal-link__list">
+								<li class="referal__info-value_link">
+									{{ request.scheme }}://{{ request.get_host}}/?ref={{referral.referral_code }}
+								</li>
+							</ul>
+
+						</div>
+					</div>
+				</section>
+				{% if user.is_superuser %}
+
+				<section class="referal-info">
+					<div class="container">
+						<div class="referal__title">
+							Реферальная программа
+						</div>
+						<div class="referal__info">
+							<!-- <div class="referal__info-item referal__info-item_name">
+								<div class="referal__info-title">Ваша реферальная ссылка:</div>
+								<div class="referal__info-value referal__info-value_link">
+									{{ request.scheme }}://{{ request.get_host }}/?ref={{referral.referral_code }}
+								</div>
 							</div> -->
+							<div class="referal__info-item referal__info-item_earnings">
+								<div class="referal__info-title">К выплате:</div>
+								<div class="referal__info-value">{{ referral.earnings }}</div>
+							</div>
+							<div class="referal__info-item referal__info-item_complete_earnings">
+								<div class="referal__info-title">Выплачено:</div>
+								<div class="referal__info-value">{{ referral.complete_earnings }}</div>
+							</div>
+							<div class="referal__info-item referal__info-item_num_registration">
+								<div class="referal__info-title">Кол. регистраций:</div>
+								<div class="referal__info-value">{{ referral.earnings }}</div>
+							</div>
+							<div class="referal__info-item referal__info-item_email">
+								<div class="referal__info-title">Создан в:</div>
+								<div class="referal__info-value">{{ referral.created_at }}</div>
+							</div>
+							<div class="referal__info-item referal__info-item_rate">
+								<div class="referal__info-title">Переходов:</div>
+								<div class="referal__info-value">{{ referral.clicks }}</div>
+							</div>
+							<div class="referal__info-item referal__info-item_rate">
+								<div class="referal__info-title">Кол. пользоватей зарегестривовашиеся по вашей ссылке:
+								</div>
+								<div class="referal__info-value">{{ invited_users|length }}</div>
+							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-		</section>
-		<section class="pay-block">
-		</section>
-		<section class="video-manual">
-			<div class="container">
-				<div class="video-manual__wrapper">
-					<iframe src="https://www.youtube.com/embed/VhKk2uOY4_M?si=N2jgFhF-o17yQ4IJ"
-						title="YouTube video player" frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						allowfullscreen></iframe>
-				</div>
-			</div>
-		</section>
+					</div>
+				</section>
+				{% endif %}
 
 
+
+				{% if user.is_superuser %}
+				<section class="referal-section referal-pay">
+					<div class="container">
+						<div class="referal__title">
+							Мои платежи
+						</div>
+						<div class="referal-pay__wrapper">
+							{% if payments %}
+							<ul class="referal__header referal-pay_header">
+								<li>Время</li>
+								<li>Реферал</li>
+								<li>Тип</li>
+								<li>Сумма</li>
+							</ul>
+							<ul class="referal-pay_list">
+								{% for payment in payments %}
+								<li>
+									<span>{{ payment.timestamp }}</span>
+									{% with masked_email=payment.email|slice:"0:4" %}
+									<span>{{ masked_email }}****@mail.ru</span>
+									{% endwith %}
+									<span>{{ payment.type }}</span>
+									<span>{{ payment.amount|floatformat:2 }}</span>
+									{% endfor %}
+								</li>
+							</ul>
+							{% else %}
+							<p class="referal__header referal-pay__message">Текущие платежи отсутствуют</p>
+							{% endif %}
+						</div>
+					</div>
+				</section>
+
+				<section class="referal-section referal-complete_pay">
+					<div class="container">
+						<div class="referal__title">
+							История платежей
+						</div>
+						<div class="referal-complete_pay__wrapper">
+							{% if complete_payments %}
+							<ul class="referal__header referal-complete_pay_header">
+								<li>Реферал</li>
+								<li>Время</li>
+								<li>Токен</li>
+								<li>Тип</li>
+								<li>Валюта</li>
+								<li>Сумма</li>
+							</ul>
+							<ul class="referal-complete_pay_list">
+								{% for complete_payment in complete_payments %}
+								<li>
+									{% with masked_email=complete_payment.email|slice:"0:4" %}
+									<span>{{ masked_email }}****@mail.ru</span>
+									{% endwith %}
+									<span>{{ complete_payment.timestamp }}</span>
+									<span>{{ complete_payment.token }}</span>
+									<span>{{ complete_payment.type }}</span>
+									<span>{{ complete_payment.currency }}</span>
+									<span>{{ complete_payment.amount_crypto }}</span>
+								</li>
+								{% endfor %}
+							</ul>
+							{% else %}
+							<p class="referal__header referal-pay__message">Платежи отсутствуют</p>
+							{% endif %}
+						</div>
+					</div>
+				</section>
+				{% endif %}
+
+			</div>
+		</div>
 	</main>
 	{% include 'main/layout_footer.html' %}
 
