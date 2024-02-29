@@ -24,7 +24,7 @@ class SpreadTableView(BaseFormView):
         return render(request, self.url + self.template_name, context)
     
 
-class P2PLinks3View(APIView):
+class P2PLinks3View(BaseAPIView):
     def post(self, request):
         serializer = P2PFilterSerializer(data=request.data)
         
