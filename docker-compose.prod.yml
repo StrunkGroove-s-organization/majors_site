@@ -57,7 +57,7 @@ services:
     nginx:
         container_name: majors-nginx
         restart: always
-        build: ./nginx
+        build: ./nginx/prod
         ports:
             - 80:80
             - 443:443

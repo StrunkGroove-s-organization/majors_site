@@ -1,17 +1,11 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse
-
-from django.http import HttpResponse, JsonResponse
-
-from django.utils.http import urlsafe_base64_encode
-from django.template.loader import render_to_string
-from django.core.mail import send_mail
-
+from django.shortcuts import redirect
+from django.http import JsonResponse
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.tokens import default_token_generator
 
-from .forms import EmailPostForm, CustomUserRegistrationForm, LoginForm
+from .forms import CustomUserRegistrationForm, LoginForm
 from .models import User
+from refferal.models import Referral
+
 
 def custom_logout(request):
     logout(request)
@@ -24,10 +18,21 @@ def reg_view(request):
             username = register_form.cleaned_data['username']
             email = register_form.cleaned_data['email']
             password = register_form.cleaned_data['password']
-            user = User.objects.create_user(username=username, email=email, password=password)
-
+            user = User.objects.create_user(username=username,
+                                            email=email, 
+                                            password=password
+                                            )
+            
             if user:
                 login(request, user)
+
+                referral_code = request.session.get('referral_code')
+                if referral_code:
+                    try:
+                        referral = Referral.objects.get(referral_code=referral_code)
+                        referral.invited_users.add(user)
+                    except Referral.DoesNotExist:
+                        pass
             return redirect(request.META.get('HTTP_REFERER', 'index'))
         else:
             errors = register_form.errors

@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отказ от ответственности</title>
+    <link rel="icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="mask-icon" href="{% static 'main/img/favicon.svg' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/montserrat/stylesheet.css' %}">
+</head>
+
+<body>
+    {% include 'main/layout_header.html' %}
+
+    <div class="text-content">
+        <div class="container">
+            <h1>Отказ от ответственности</h1>
+            <p>
+                Рекомендации по инвестициям не предоставляются.
+            </p>
+            <p>
+                Вся информация, предоставленная на этом сайте, является общего характера и может быть использована
+                только в
+                образовательных и развлекательных целях.
+            </p>
+            <p>
+                ARBITOOLS не несет ответственности за какие-либо потери или убытки, даже если информацию для проведения
+                сделок
+                вы взяли с этого сайта. Мы не рекомендуем использовать нашу информацию для принятия торговых решений и
+                инвестировать в различные финансовые инструменты. Вся ответственность за принятие торговых решений и
+                инвестиций
+                лежит полностью на вас.
+            </p>
+            <h2>Точность информации</h2>
+            <p>
+                ARBITOOLS будет стремиться обеспечить точность информации, представленной на этом веб-сайте, но не будет
+                нести
+                никакой ответственности за недостающую или неверную информацию.
+            </p>
+            <p>
+                ARBITOOLS предоставляет всю информацию как есть. Вы понимаете, что используете любую и всю информацию,
+                доступную
+                здесь, на свой страх и риск.
+            </p>
+        </div>
+    </div>
+
+    {% include 'main/layout_footer.html' %}
+    {% include 'main/layout_modal.html' %}
+</body>
+<script src="{% static 'main/js/login.js' %}"></script>
+
+</html>

@@ -40,7 +40,10 @@ class PriceViewThree(BaseAPIView):
         payload = {"market": market, "token": token}
         url = 'http://188.120.226.254:8001/api/v1/triangular-arbitrage/'
         response = requests.post(url, data=payload)
-        return response.json()
+        try:
+            return response.json()
+        except:
+            return response
 
 class PriceViewTwo(BaseAPIView):
     def get_serializer(self, data):
@@ -55,8 +58,10 @@ class PriceViewTwo(BaseAPIView):
                    "exchanges_sell": exs_sell, "trade_type": trade_type}
         url = 'http://188.120.226.254:8001/api/v1/inter-arbitrage/'
         response = requests.post(url, data=payload)
-        return response.json()
-
+        try:
+            return response.json()
+        except:
+            return response
 
 class FavouriteThreeView(APIView):
     def post(self, request):

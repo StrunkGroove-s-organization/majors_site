@@ -1,18 +1,18 @@
 import os
-
+from os import getenv
 from pathlib import Path
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = getenv('SECRET_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = os.getenv('DEBUG').upper() == 'TRUE'
+DEBUG = True
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = getenv('ALLOWED_HOSTS').split(',')
 
-CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('ALLOWED_HOSTS')}"]
-CSRF_ALLOWED_ORIGINS = [f"https://{os.getenv('ALLOWED_HOSTS')}"]
-CORS_ORIGINS_WHITELIST = [f"https://{os.getenv('ALLOWED_HOSTS')}"]
+CSRF_TRUSTED_ORIGINS = getenv('CSRF_TRUSTED_ORIGINS').split(',')
+CSRF_ALLOWED_ORIGINS = getenv('CSRF_ALLOWED_ORIGINS').split(',')
+CORS_ORIGINS_WHITELIST = getenv('CORS_ORIGINS_WHITELIST').split(',')
 
 EXTENSIONS_APP = [
     'main',
@@ -23,6 +23,7 @@ EXTENSIONS_APP = [
     'blog',
     'payment',
     'register',
+    'refferal',
     'links_without_cards',
 
     'rest_framework',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'refferal.middleware.ReferralMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -72,33 +74,39 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'NAME': getenv('POSTGRES_DB'),
+        'USER': getenv('POSTGRES_USER'),
+        'PASSWORD': getenv('POSTGRES_PASSWORD'),
         'HOST': 'db',
-        'PORT': os.getenv('POSTGRES_PORT'),
+        'PORT': getenv('POSTGRES_PORT'),
     },
     'links_without_cards': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('WITHOUT_PG_NAME'),
-        'USER': os.getenv('WITHOUT_PG_USER'),
-        'PASSWORD': os.getenv('WITHOUT_PG_PASSWORD'),
-        'HOST': os.getenv('WITHOUT_PG_HOST'),
-        'PORT': os.getenv('WITHOUT_PG_PORT'),
+        'NAME': getenv('WITHOUT_PG_NAME'),
+        'USER': getenv('WITHOUT_PG_USER'),
+        'PASSWORD': getenv('WITHOUT_PG_PASSWORD'),
+        'HOST': getenv('WITHOUT_PG_HOST'),
+        'PORT': getenv('WITHOUT_PG_PORT'),
     },
 }
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://redis:{os.getenv('DEFAULT_REDIS_PORT')}/{os.getenv('DEFAULT_REDIS_NUMBER')}",
+        "LOCATION": 
+            f"redis://redis:{getenv('DEFAULT_REDIS_PORT')}/ \
+            {getenv('DEFAULT_REDIS_NUMBER')}",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
     "p2p_server": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://:{os.getenv('P2P_REDIS_PASSWORD')}@{os.getenv('P2P_REDIS_HOST')}:{os.getenv('P2P_REDIS_PORT')}/{os.getenv('P2P_REDIS_NUMBER')}",
+        "LOCATION": 
+            f"redis://:{getenv('P2P_REDIS_PASSWORD')}@ \
+            {getenv('P2P_REDIS_HOST')}: \
+            {getenv('P2P_REDIS_PORT')}/ \
+            {getenv('P2P_REDIS_NUMBER')}",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -151,11 +159,11 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'console': {
-            'level': 'WARNING',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
         },
         'file': {
-            'level': 'WARNING',
+            'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': 'logfile.log',
         },
@@ -163,7 +171,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console', 'file'],
-            'level': 'WARNING',
+            'level': 'DEBUG',
             'propagate': False,
         },
     },
@@ -184,27 +192,17 @@ REST_FRAMEWORK = {
 
 ### REDIS configuration ###
 
-CELERY_BROKER_URL = f"redis://redis:{os.getenv('DEFAULT_REDIS_PORT')}/{os.getenv('DEFAULT_REDIS_NUMBER')}"
-CELERY_RESULT_BACKEND = f"redis://redis:{os.getenv('DEFAULT_REDIS_PORT')}/{os.getenv('DEFAULT_REDIS_NUMBER')}"
+CELERY_BROKER_URL = f"redis://redis:{getenv('DEFAULT_REDIS_PORT')}/{getenv('DEFAULT_REDIS_NUMBER')}"
+CELERY_RESULT_BACKEND = f"redis://redis:{getenv('DEFAULT_REDIS_PORT')}/{getenv('DEFAULT_REDIS_NUMBER')}"
 CELERY_TIMEZONE = 'UTC'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASKSERILIZER =  'json'
 
 ### Email ###
 
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS').upper() == 'TRUE'
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-
-
-# Settings for self
-# if DEBUG is False: 
-#     HOST_P2P = os.getenv('HOST_P2P_PROD')
-#     HOST_SPOT = os.getenv('HOST_SPOT_PROD')
-
-# elif DEBUG is True:
-#     HOST_P2P = os.getenv('HOST_P2P_TEST')
-#     HOST_SPOT = os.getenv('HOST_SPOT_TEST')
+EMAIL_HOST = getenv('EMAIL_HOST')
+EMAIL_PORT = getenv('EMAIL_PORT')
+EMAIL_USE_TLS = getenv('EMAIL_USE_TLS').upper() == 'TRUE'
+EMAIL_BACKEND = getenv('EMAIL_BACKEND')
+EMAIL_HOST_USER = getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_PASSWORD')

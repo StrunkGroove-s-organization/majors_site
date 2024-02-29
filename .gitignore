@@ -7,3 +7,6 @@ myprojectenv/
 db/
 .env
 migrations/
+.gitignore
+referal_copy/
+

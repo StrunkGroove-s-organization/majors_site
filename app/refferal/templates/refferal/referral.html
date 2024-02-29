@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Generated</title>
+</head>
+<body>
+    <h1>Your Referral Details</h1>
+    <p>Your referral link: {{ request.scheme }}://{{ request.get_host }}/?ref={{ referral.referral_code }}</p>
+    <p>Created At: {{ referral.created_at }}</p>
+    <p>Clicks: {{ referral.clicks }}</p>
+
+    {% if invited_users %}
+        <h2>Invited Users:</h2>
+        <ul>
+            {% for invited_user in invited_users %}
+                <li>{{ invited_user.email }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No invited users yet.</p>
+    {% endif %}
+
+    {% if payments %}
+        <h2>Payments:</h2>
+        <ul>
+            {% for payment in payments %}
+                <li>{{ payment.timestamp }}</li>
+                <li>{{ payment.email }}</li>
+                <li>{{ payment.amount }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No payments yet.</p>
+    {% endif %}
+
+    {% if complete_payments %}
+        <h2>Complete payments:</h2>
+        <ul>
+            {% for complete_payment in complete_payments %}
+                <li>{{ complete_payment.email }}</li>
+                <li>{{ complete_payment.timestamp }}</li>
+                <li>{{ complete_payment.token }}</li>
+                <li>{{ complete_payment.currency }}</li>
+                <li>{{ complete_payment.amount_crypto }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No complete payments yet.</p>
+    {% endif %}
+</body>
+</html>
