@@ -3,6 +3,8 @@ const form = document.querySelector('.premium form');
 const criptoBtn = document.querySelector("[data-pay='cripto']");
 const fiatBtn = document.querySelector("[data-pay='fiat']");
 const payBlock = document.querySelector('.pay-block');
+const profilePageBtn = document.querySelector('[data-page = "profile"]')
+const referalPageBtn = document.querySelector('[data-page = "referal"]')
 
 document.addEventListener("DOMContentLoaded", () => {
     const rateGroup = document.querySelector('.premium__rate-select')
@@ -181,3 +183,26 @@ function showCopyMessage() {
         $body.removeChild(copyMessage)
     }, 1000);
 }
+
+
+profilePageBtn.addEventListener('click', () => {
+    referalPageBtn.classList.remove('active')
+    document.querySelector('.page_referal').classList.remove('active')
+    profilePageBtn.classList.add('active')
+    document.querySelector('.page_profile').classList.add('active')
+})
+
+referalPageBtn.addEventListener('click', () => {
+    referalPageBtn.classList.add('active')
+    document.querySelector('.page_referal').classList.add('active')
+    profilePageBtn.classList.remove('active')
+    document.querySelector('.page_profile').classList.remove('active')
+})
+
+const linkBtn = document.querySelector('.referal__info-value_link')
+const referalLink = String(linkBtn.textContent).replaceAll(' ', '')
+
+linkBtn.addEventListener('click', () => {
+    window.navigator.clipboard.writeText(referalLink)
+    showCopyMessage()
+})
