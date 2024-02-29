@@ -14,6 +14,7 @@ CSRF_TRUSTED_ORIGINS = getenv('CSRF_TRUSTED_ORIGINS').split(',')
 CSRF_ALLOWED_ORIGINS = getenv('CSRF_ALLOWED_ORIGINS').split(',')
 CORS_ORIGINS_WHITELIST = getenv('CORS_ORIGINS_WHITELIST').split(',')
 
+
 EXTENSIONS_APP = [
     'main',
     'price',
@@ -96,6 +97,7 @@ CACHES = {
         "LOCATION": 
             f"redis://redis:{getenv('DEFAULT_REDIS_PORT')}/ \
             {getenv('DEFAULT_REDIS_NUMBER')}",
+
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -206,3 +208,4 @@ EMAIL_USE_TLS = getenv('EMAIL_USE_TLS').upper() == 'TRUE'
 EMAIL_BACKEND = getenv('EMAIL_BACKEND')
 EMAIL_HOST_USER = getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_PASSWORD')
+
