@@ -164,7 +164,7 @@ def payment_success(request):
                 amount_crypto=amount,
             )
 
-            send_gratitude_for_payment.delay(email)
+            # send_gratitude_for_payment.delay(email)
 
             user = User.objects.get(email=email)
             # Refferal system
