@@ -171,7 +171,7 @@ def payment_success(request):
             try:
                 referral_instance = Referral.objects.get(invited_users=user)
                 referral_instance.complete_payments.add(complete_order)
-            except Referral.DoesNotExist:
+            except Exception as e:
                 pass
                     
             if type == 'infinity':
