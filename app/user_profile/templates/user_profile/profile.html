@@ -95,7 +95,6 @@
 							<div class="premium__period-select">
 								{{ subscription.currency }}
 							</div>
-							<!-- <div class="premium__select-title">Способ оплаты:</div> -->
 							<div class="premium__select-title"></div>
 							<div class="premium__pay-select">
 								<div class="premium__pay-item">
@@ -105,9 +104,7 @@
 									<a href="https://t.me/ArbiToolsS" target="_blank" class="premium__btn">Оплатить
 										рублями</a>
 								</div>
-								<!-- <div class="premium__pay-item">
-									<div class="premium__btn" data-pay='fiat'>Binance</div>
-								</div> -->
+
 							</div>
 						</form>
 					</div>
@@ -160,24 +157,24 @@
 							</ul>
 							<ul class="referal-users__list">
 								{% for invited_user in invited_users %}
-								<li>
-									{% if user.is_superuser %}
-										<span>{{ invited_user.username }}</span>
-										<span>{{ invited_user.email }}</span>
-									{% else %}
-									{% with masked_email=invited_user.email|slice:"0:4" %}
-										<span>{{ masked_email }}****@mail.ru</span>
-									{% endwith %}
-									{% endif %}
-									<span>{{ invited_user.id }}</span>
+									<li>
+										{% if user.is_superuser %}
+											<span>{{ invited_user.username }}</span>
+											<span>{{ invited_user.email }}</span>
+										{% else %}
+											{% with masked_email=invited_user.email|slice:"0:4" %}
+												<span>{{ masked_email }}****@mail.ru</span>
+											{% endwith %}
+										{% endif %}
+										<span>{{ invited_user.id }}</span>
 
-								</li>
+									</li>
 								{% endfor %}
 							</ul>
 							{% else %}
-							<div class="referal__header">
-								<span class="referal-users__message">У вас нет рефералов</span>
-							</div>
+								<div class="referal__header">
+									<span class="referal-users__message">У вас нет рефералов</span>
+								</div>
 							{% endif %}
 						</div>
 					</div>
@@ -241,9 +238,7 @@
 				{% if user.is_superuser %}
 				<section class="referal-section referal-pay">
 					<div class="container">
-						<div class="referal__title">
-							Мои платежи
-						</div>
+						<div class="referal__title">Мои платежи</div>
 						<div class="referal-pay__wrapper">
 							{% if payments %}
 								<ul class="referal__header referal-pay_header">

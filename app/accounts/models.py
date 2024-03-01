@@ -74,3 +74,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+    
+    def restore_referral_systems(self) -> None:
+        self.referral_info = Referral.objects.create()
+        self.save()
