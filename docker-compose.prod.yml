@@ -10,21 +10,8 @@ services:
             - 5433:5432
         env_file:
             - .env
-            
         networks:
-            - network
-
-    # pgadmin:
-    #     image: dpage/pgadmin4
-    #     restart: always
-    #     ports:
-    #         - 800:80
-    #     env_file:
-    #         - .env
-    #     depends_on:
-    #         - db
-    #     networks:
-    #         - network
+            - web-network
 
     redis:
         container_name: majors-redis
@@ -35,13 +22,13 @@ services:
             - ./db/redis:/data
         image: redis:7-alpine
         networks:
-            - network
+            - web-network
 
     web:
         container_name: majors-web
         restart: always
         build: .
-        command: gunicorn myproject.wsgi:application -w 4 -b 0.0.0.0:8000
+        command: sh -c "sleep 2 && gunicorn myproject.wsgi:application -w 4 -b 0.0.0.0:8000"
         ports:
             - 8000:8000
         env_file:
@@ -52,7 +39,7 @@ services:
             - db
             - redis
         networks:
-            - network
+            - web-network
 
     nginx:
         container_name: majors-nginx
@@ -67,8 +54,7 @@ services:
         depends_on:
             - web
         networks:
-            - network
-
+            - web-network
 
     celery:
         container_name: majors-celery
@@ -84,20 +70,7 @@ services:
             - web
             - redis
         networks:
-            - network
-
-    # flower:
-    #     container_name: majors-flower
-    #     restart: always
-    #     build:
-    #         context: .
-    #     volumes:
-    #         - ./app:/app
-    #     ports:
-    #         - 5555:5555
-    #     command: sh -c "sleep 4 && celery -A myproject flower"
-    #     depends_on:
-    #         - celery
+            - web-network
 
 networks:
-  network:
+  web-network:

@@ -1,15 +1,5 @@
 version: '3'
 services:
-    nginx:
-        restart: always
-        build: ./nginx/test
-        ports:
-            - 80:80
-        depends_on:
-            - web
-        networks:
-            - network
-
     db:
         image: postgres:16
         volumes:
@@ -19,7 +9,7 @@ services:
         env_file:
             - .env
         networks:
-            - network
+            - web-network
 
     redis:
         ports:
@@ -28,7 +18,7 @@ services:
             - ./db/redis:/data
         image: redis:7-alpine
         networks:
-            - network
+            - web-network
 
     web:
         restart: always
@@ -44,7 +34,7 @@ services:
             - db
             - redis
         networks:
-            - network
+            - web-network
 
     celery:
         build:
@@ -58,7 +48,7 @@ services:
             - web
             - redis
         networks:
-            - network
+            - web-network
 
 networks:
-  network:
+  web-network:
