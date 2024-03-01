@@ -137,7 +137,7 @@
 							</div>
 							<div class="referal__balance-item">
 								<div class="referal__balance-title">К выплате:</div>
-								<div class="referal__balance-value">{{ referral.earnings }}</div>
+								<div class="referal__balance-value">{{ referral.must_be_paid }}</div>
 							</div>
 						</div>
 						<a href="https://t.me/ArbiToolsS" class="referal__btn" target="_blank">
@@ -162,11 +162,11 @@
 								{% for invited_user in invited_users %}
 								<li>
 									{% if user.is_superuser %}
-									<span>{{ invited_user.username }}</span>
-									<span>{{ invited_user.email }}</span>
+										<span>{{ invited_user.username }}</span>
+										<span>{{ invited_user.email }}</span>
 									{% else %}
 									{% with masked_email=invited_user.email|slice:"0:4" %}
-									<span>{{ masked_email }}****@mail.ru</span>
+										<span>{{ masked_email }}****@mail.ru</span>
 									{% endwith %}
 									{% endif %}
 									<span>{{ invited_user.id }}</span>
@@ -208,15 +208,9 @@
 							Реферальная программа
 						</div>
 						<div class="referal__info">
-							<!-- <div class="referal__info-item referal__info-item_name">
-								<div class="referal__info-title">Ваша реферальная ссылка:</div>
-								<div class="referal__info-value referal__info-value_link">
-									{{ request.scheme }}://{{ request.get_host }}/?ref={{referral.referral_code }}
-								</div>
-							</div> -->
 							<div class="referal__info-item referal__info-item_earnings">
 								<div class="referal__info-title">К выплате:</div>
-								<div class="referal__info-value">{{ referral.earnings }}</div>
+								<div class="referal__info-value">{{ referral.must_be_paid }}</div>
 							</div>
 							<div class="referal__info-item referal__info-item_complete_earnings">
 								<div class="referal__info-title">Выплачено:</div>
@@ -244,8 +238,6 @@
 				</section>
 				{% endif %}
 
-
-
 				{% if user.is_superuser %}
 				<section class="referal-section referal-pay">
 					<div class="container">
@@ -254,26 +246,26 @@
 						</div>
 						<div class="referal-pay__wrapper">
 							{% if payments %}
-							<ul class="referal__header referal-pay_header">
-								<li>Время</li>
-								<li>Реферал</li>
-								<li>Тип</li>
-								<li>Сумма</li>
-							</ul>
-							<ul class="referal-pay_list">
-								{% for payment in payments %}
-								<li>
-									<span>{{ payment.timestamp }}</span>
-									{% with masked_email=payment.email|slice:"0:4" %}
-									<span>{{ masked_email }}****@mail.ru</span>
-									{% endwith %}
-									<span>{{ payment.type }}</span>
-									<span>{{ payment.amount|floatformat:2 }}</span>
+								<ul class="referal__header referal-pay_header">
+									<li>Время</li>
+									<li>Реферал</li>
+									<li>Тип</li>
+									<li>Сумма</li>
+								</ul>
+								<ul class="referal-pay_list">
+									{% for payment in payments %}
+										<li>
+											<span>{{ payment.timestamp }}</span>
+											{% with masked_email=payment.user.email|slice:"0:4" %}
+												<span>{{ masked_email }}****@mail.ru</span>
+											{% endwith %}
+											<span>{{ payment.type }}</span>
+											<span>{{ payment.amount|floatformat:2 }}</span>
+										</li>
 									{% endfor %}
-								</li>
-							</ul>
+								</ul>
 							{% else %}
-							<p class="referal__header referal-pay__message">Текущие платежи отсутствуют</p>
+								<p class="referal__header referal-pay__message">Текущие платежи отсутствуют</p>
 							{% endif %}
 						</div>
 					</div>
@@ -289,7 +281,6 @@
 							<ul class="referal__header referal-complete_pay_header">
 								<li>Реферал</li>
 								<li>Время</li>
-								<li>Токен</li>
 								<li>Тип</li>
 								<li>Валюта</li>
 								<li>Сумма</li>
@@ -297,14 +288,13 @@
 							<ul class="referal-complete_pay_list">
 								{% for complete_payment in complete_payments %}
 								<li>
-									{% with masked_email=complete_payment.email|slice:"0:4" %}
-									<span>{{ masked_email }}****@mail.ru</span>
+									{% with masked_email=complete_payment.order.user.email|slice:"0:4" %}
+										<span>{{ masked_email }}****@mail.ru</span>
 									{% endwith %}
-									<span>{{ complete_payment.timestamp }}</span>
-									<span>{{ complete_payment.token }}</span>
-									<span>{{ complete_payment.type }}</span>
-									<span>{{ complete_payment.currency }}</span>
-									<span>{{ complete_payment.amount_crypto }}</span>
+									<span>{{ complete_payment.order.timestamp }}</span>
+									<span>{{ complete_payment.order.type }}</span>
+									<span>{{ complete_payment.order.currency }}</span>
+									<span>{{ complete_payment.order.amount }}</span>
 								</li>
 								{% endfor %}
 							</ul>

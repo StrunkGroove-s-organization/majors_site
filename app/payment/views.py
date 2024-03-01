@@ -17,12 +17,10 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-
 API_KEY = os.getenv('API_ADM')
 URL = os.getenv('URL_PLISIO')
 
 logger = logging.getLogger(__name__)
-
 
 def generate_token(length=15):
     allowed_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -57,23 +55,21 @@ def create_payment_plisio(request):
                 "json": True,
             }
 
-            order = Order.objects.create(email=email,
+            order = Order.objects.create(user=user_profile,
                                          type=type_sub,
                                          days=days,
                                          token=token,
-                                         amount=amount
+                                         amount=amount,
+                                         currency=currency,
                                          )
 
             response = requests.get(URL, params=params)
             res_data = response.json()
             
             if res_data.get("status") == 'success':
-                # Refferal system
-                try:
-                    referral_instance = Referral.objects.get(invited_users=user_profile)
-                    referral_instance.payments.add(order)
-                except Referral.DoesNotExist:
-                    referral_instance = None
+                if user_profile.referral_belongs_to:
+                    order.referral = user_profile.referral_belongs_to
+                    order.save()
 
                 # Payment
                 data = res_data.get("data")
@@ -152,28 +148,13 @@ def payment_success(request):
             except Order.DoesNotExist as e:
                 return JsonResponse({'error': e})
 
-            email = order.email
             days = order.days
 
-            complete_order = CompleteOrder.objects.create(
-                email=email,
-                type=type,
-                days=days,
-                token=token,
-                currency=currency,
-                amount_crypto=amount,
-            )
+            CompleteOrder.objects.create(order=order)
 
             # send_gratitude_for_payment.delay(email)
 
-            user = User.objects.get(email=email)
-
-            # Refferal system
-            try:
-                referral_instance = Referral.objects.get(invited_users=user)
-                referral_instance.complete_payments.add(complete_order)
-            except Referral.DoesNotExist:
-                pass
+            user = order.user
 
             if type == 'infinity':
                 user.has_infinity_subscription = True

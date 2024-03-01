@@ -1,9 +1,10 @@
+from datetime import datetime
+
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
-
 from django.db import models
-from datetime import datetime
+from refferal.models import Referral
 
 
 class MyUserManager(BaseUserManager):
@@ -21,12 +22,13 @@ class MyUserManager(BaseUserManager):
             **extra_fields,
         )
 
+        user.referral_info = Referral.objects.create()
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_user(self, email, username, password):
-        return self._create_user(email, username, password)
+        return self._create_user(email, username, password) 
 
     def create_superuser(self, email, username, password):
         return self._create_user(
@@ -50,6 +52,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     subscription_start = models.DateTimeField(default=datetime(2000, 1, 1))
     subscription_end = models.DateTimeField(default=datetime(2000, 1, 1))
     type_subscription = models.CharField(max_length=50, null=True, blank=True)
+
+    # Refferal system
+    referral_info = models.OneToOneField(
+        Referral, 
+        on_delete=models.SET_NULL, 
+        null=True, blank=True, 
+        related_name='user_referral_info'
+    )
+    referral_belongs_to = models.ForeignKey(
+        Referral, 
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        related_name='users'
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

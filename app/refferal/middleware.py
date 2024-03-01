@@ -10,7 +10,7 @@ class ReferralMiddleware(MiddlewareMixin):
     def process_request(self, request):
         referral_code = request.GET.get('ref')
 
-        if referral_code:
+        if isinstance(referral_code, str):
             request.session['referral_code'] = referral_code
             
             new_url = request.path
@@ -19,8 +19,9 @@ class ReferralMiddleware(MiddlewareMixin):
             if query_params:
                 new_url += '?' + query_params.urlencode()
 
-            referral, created = Referral.objects.get_or_create(referral_code=referral_code)
+            referral = Referral.objects.get(referral_code=referral_code)
             referral.increment_clicks()
-
+            referral.save()
+            
             return HttpResponseRedirect(new_url)
 

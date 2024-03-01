@@ -3,9 +3,8 @@ from .models import Referral
 
 
 class ReferralAdmin(admin.ModelAdmin):
-    list_display = ('user', 'refferal_percent', 'referral_code', 'created_at', 
-                    'clicks', 'invited_users', 
-                    'payments', 'complete_payments', 'earnings', 'complete_earnings'
+    list_display = ('refferal_percent', 'referral_code', 'created_at', 
+                    'clicks', 'earnings', 'complete_earnings'
                     )
 
 admin.site.register(Referral, ReferralAdmin)

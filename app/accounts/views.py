@@ -22,17 +22,16 @@ def reg_view(request):
                                             email=email, 
                                             password=password
                                             )
-            
             if user:
                 login(request, user)
 
                 referral_code = request.session.get('referral_code')
-                if referral_code:
-                    try:
-                        referral = Referral.objects.get(referral_code=referral_code)
-                        referral.invited_users.add(user)
-                    except Referral.DoesNotExist:
-                        pass
+                if isinstance(referral_code, str):
+                    user.referral_belongs_to = Referral.objects.get(
+                        referral_code=referral_code
+                    )
+                    user.save()
+
             return redirect(request.META.get('HTTP_REFERER', 'index'))
         else:
             errors = register_form.errors
