@@ -148,6 +148,24 @@ function sendForm(paySelect) {
             document.querySelector('.pay-block__hash').addEventListener('click', () => {
                 copyWallet()
             })
+
+        }).catch(() => {
+            payBlock.innerHTML = `
+        <div class="container">
+            <div class="pay-block__wrapper">
+        <div class="pay-block__qr_error">
+           При запросе на сервис оплаты произошла ошибка. Попробуйте повторить запрос.
+        </div>
+        <p>Сумма оплаты</p>
+        <div class="pay-block__summ"></div>
+        <p>Кошелек</p>
+        <div class="pay-block__hash"></div>
+        <a href="" class="pay-block__link inactive">
+            Oплатить с помощью
+        </a>
+    </div>
+</div>
+        `
         })
 }
 
