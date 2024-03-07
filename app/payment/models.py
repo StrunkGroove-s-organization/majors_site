@@ -46,5 +46,6 @@ class CompleteOrder(models.Model):
 def update_referral(sender, instance, created, **kwargs):
     if created:
         referral = instance.order.referral
-        referral.earnings += (instance.order.amount - 1) * ((referral.refferal_percent) / 100)
-        referral.save()
+        if referral:
+            referral.earnings += (instance.order.amount - 1) * ((referral.refferal_percent) / 100)
+            referral.save()
