@@ -1,125 +1,148 @@
-import os
 import cgi
 import io
-import secrets
 import logging
-import requests
+import uuid
+from os import getenv
+from datetime import datetime, timedelta, timezone
 
-from datetime import timedelta, datetime, timezone
+import requests
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from .models import Order, CompleteOrder
 from .forms import Subscription
 from .tasks import send_gratitude_for_payment
-from refferal.models import Referral
-from accounts.forms import User
+from .schemas import PaymentData, SubscriptionData
 
-from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 
-API_KEY = os.getenv('API_ADM')
-URL = os.getenv('URL_PLISIO')
+API_KEY = getenv('API_ADM')
+URL = getenv('URL_PLISIO')
+
 
 logger = logging.getLogger(__name__)
 
-def generate_token(length=15):
-    allowed_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    return ''.join(secrets.choice(allowed_chars) for _ in range(length))
 
-@login_required(login_url='/')
-def create_payment_plisio(request):
-    if request.method == 'POST':
+class CreatePaymentPlisio(APIView):
+    def post(self, request):
         filters = Subscription(request.POST)
-        if filters.is_valid():
-            user_profile = request.user
 
-            selected_subscription = filters.cleaned_data['subscription'].split('_')
-            currency = filters.cleaned_data['currency']
-
-            days = int(selected_subscription[0])
-            type_sub = selected_subscription[1]
-            amount = int(selected_subscription[2])
-            if type_sub == 'test' and currency == 'USDT_BSC':
-                amount = 3
-            email = user_profile.email
-            token = generate_token()
-
-            params = {
-                "source_currency": 'USD',
-                "source_amount": amount,
-                "order_number": token,
-                "currency": currency,
-                "email": email,
-                "order_name": type_sub,
-                "api_key": API_KEY,
-                "json": True,
-            }
-
-            order = Order.objects.create(user=user_profile,
-                                         type=type_sub,
-                                         days=days,
-                                         token=token,
-                                         amount=amount,
-                                         currency=currency,
-                                         )
-
-            response = requests.get(URL, params=params)
-            res_data = response.json()
-            
-            if res_data.get("status") == 'success':
-                if user_profile.referral_belongs_to:
-                    order.referral = user_profile.referral_belongs_to
-                    order.save()
-
-                # Payment
-                data = res_data.get("data")
-
-                image_data = data.get("qr_code")
-                pay_url = data.get('invoice_url')
-                currency = data.get('currency')
-                invoice_total_sum = data.get('invoice_total_sum')
-                wallet_hash = data.get('wallet_hash')
-
-                response_data = {
-                    'pay_url': pay_url,
-                    'currency': currency,
-                    'wallet_hash': wallet_hash,
-                    'image': image_data,
-                    'sum': invoice_total_sum,
-                }
-                return JsonResponse(response_data)
+        if not filters.is_valid():
+            return Response({
+                'message': 'Filters is not valid'
+            }, status=status.HTTP_400_BAD_REQUEST)
         
-    error_data = {
-        'error': 'An error occurred',
-        'message': 'Error method',
-    }
-    return JsonResponse(error_data, status=400)
+        subscription_data = self.__process_subscription_data(filters)
 
+        user = request.user
 
-@login_required(login_url='/')
-def payment_fiat(request):
-    if request.method == 'POST':
-        response_data = {
-            'pay_url': 'https://google.com',
+        order = Order.objects.create(
+            user=user,
+            type=subscription_data.type_sub,
+            days=subscription_data.days,
+            token=f'{user.email}--{uuid.uuid4()}',
+            amount=subscription_data.amount,
+            currency=subscription_data.currency,
+        )
+
+        params = {
+            "source_currency": 'USD',
+            "source_amount": subscription_data.amount,
+            "order_number": order.token,
+            "currency": subscription_data.currency,
+            "email": user.email,
+            "order_name": subscription_data.type_sub,
+            "api_key": API_KEY,
+            "json": True,
         }
-        return JsonResponse(response_data)
 
-    else:
-        error_data = {
-            'error': 'Произошла ошибка',
-            'message': 'Подробное описание ошибки здесь...',
-        }
-        return JsonResponse(error_data, status=400)
+        response_json = self.__request_data_payment(params)
+        
+        if response_json.get("status") != 'success':
+            return Response({
+                'message': 'Cant get payment info.',
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        if user.referral_belongs_to:
+            order.referral = user.referral_belongs_to
+            order.save()
+
+        response_data = response_json.get("data")
+
+        print({
+            'pay_url': response_data.get('invoice_url'),
+            'currency': response_data.get('currency'),
+            'wallet_hash': response_data.get('wallet_hash'),
+            'image': response_data.get("qr_code"),
+            'sum': response_data.get('invoice_total_sum'),
+        })
+
+        return Response({
+            'pay_url': response_data.get('invoice_url'),
+            'currency': response_data.get('currency'),
+            'wallet_hash': response_data.get('wallet_hash'),
+            'image': response_data.get("qr_code"),
+            'sum': response_data.get('invoice_total_sum'),
+        }, status=status.HTTP_200_OK)
+
+    @staticmethod
+    def __request_data_payment(params):
+        response = requests.get(URL, params=params)
+        response.raise_for_status()
+        return  response.json()
+    
+    @staticmethod
+    def __process_subscription_data(filters) -> SubscriptionData:
+        selected_subscription = filters.cleaned_data['subscription'].split('_')
+        currency = filters.cleaned_data['currency']
+        
+        type_sub = selected_subscription[1]
+        amount = selected_subscription[2]
+        
+        if type_sub == 'test' and currency == 'USDT_BSC':
+            amount = 3
+        
+        return SubscriptionData(
+            type_sub=type_sub, 
+            days=selected_subscription[0], 
+            amount=amount, 
+            currency=currency
+        )
 
 
-@login_required(login_url='/')
-def paymenterror(request):
-    return HttpResponse('Ошибка во время оплаты.')
+class PaymentError(APIView):
+    def get(self, request):
+        return Response({
+            'message': 'Error in payment.',
+        }, status=status.HTTP_200_OK)
 
 
-@csrf_exempt
-def payment_success(request):
-    if request.method == 'POST':
+class PaymentSuccess(APIView):
+    def post(self, request):
+        response_status, list_response = self.parse_multipart_data(request)
+        
+        if response_status in ['new', 'cancelled', 'error', 'expired', 'pending internal', 'pending']:
+            return Response({
+                'status': 'not completed'
+            }, status=status.HTTP_200_OK)
+        
+        elif response_status in ['completed', 'mismatch']:
+            data = PaymentData(
+                token=list_response.get('order_number')[0],
+                type_subscription=list_response.get('order_name')[0],
+                currency=list_response.get('currency')[0],
+                amount=list_response.get('amount')[0],
+            )
+            self.handle_completed_status(data)
+            return Response({}, status=status.HTTP_200_OK)
+        
+        return Response({
+            'message: Oooops we are repairing it!. Sorry us for mistake :('
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+    @staticmethod
+    def parse_multipart_data(request):
         body = request.body.decode('utf-8')
         stream = io.BytesIO(body.encode())
         content_type = request.META.get('CONTENT_TYPE', '')
@@ -127,55 +150,31 @@ def payment_success(request):
         params = {'boundary': boundary.encode('utf-8')}
         list_response = cgi.parse_multipart(stream, params)
         status = list_response.get('status')[0]
+        return status, list_response
 
-        if status == 'new' \
-        or status == 'cancelled' \
-        or status == 'error' \
-        or status == 'expired' \
-        or status == 'pending internal' \
-        or status == 'pending':
-            return JsonResponse({'status': 'not completed'})
+    @staticmethod
+    def handle_completed_status(data: PaymentData):
+        try:
+            order = Order.objects.get(token=data.token)
+        except Order.DoesNotExist as e:
+            raise Exception("Order not found.")
 
-        elif status == 'completed' or status == 'mismatch':
+        CompleteOrder.objects.create(order=order)
+        send_gratitude_for_payment.delay(order.user.email)
+        user = order.user
 
-            token = list_response.get('order_number')[0]
-            type = list_response.get('order_name')[0]
-            currency = list_response.get('currency')[0]
-            amount = list_response.get('amount')[0]
+        if data.type_subscription == 'infinity':
+            user.has_infinity_subscription = True
+        elif data.type_subscription != 'infinity':
+            now = datetime.now(timezone.utc)
+            end = user.subscription_end 
 
-            try:
-                order = Order.objects.get(token=token)
-            except Order.DoesNotExist as e:
-                return JsonResponse({'error': e})
-
-            days = order.days
-
-            CompleteOrder.objects.create(order=order)
-
-            # send_gratitude_for_payment.delay(email)
-
-            user = order.user
-
-            if type == 'infinity':
-                user.has_infinity_subscription = True
-                user.type_subscription = type
-
-            elif type != 'infinity':
-                now = datetime.now(timezone.utc)
-                end = user.subscription_end 
-
-                if end > now:
-                    left_sub = end - now
-                    user.subscription_end = now + left_sub + timedelta(days=days)
-                    user.type_subscription = type
-                    
-                elif end <= now:  
-                    user.subscription_start = now
-                    user.subscription_end = now + timedelta(days=days)
-                    user.type_subscription = type
-            user.save()
-
-        else:
-            pass
-
-    return JsonResponse({})
+            if end > now:
+                left_sub = end - now
+                user.subscription_end = now + left_sub + timedelta(days=order.days) 
+            elif end <= now:  
+                user.subscription_start = now
+                user.subscription_end = now + timedelta(days=order.days)
+            
+        user.type_subscription = data.type_subscription
+        user.save()

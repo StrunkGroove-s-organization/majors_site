@@ -54,8 +54,12 @@ class PriceViewTwo(BaseAPIView):
         exs_sell = validated_data.get('exchanges_sell', [])
         trade_type = validated_data.get('trade_type')
 
-        payload = {"exchanges_buy": exs_buy,
-                   "exchanges_sell": exs_sell, "trade_type": trade_type}
+        payload = {
+            "exchanges_buy": exs_buy,
+            "exchanges_sell": exs_sell, 
+            "trade_type": trade_type
+        }
+        
         url = 'http://188.120.226.254:8001/api/v1/inter-arbitrage/'
         response = requests.post(url, data=payload)
         try:

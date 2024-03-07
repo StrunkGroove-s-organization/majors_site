@@ -16,7 +16,7 @@ class Order(models.Model):
     type = models.CharField(max_length=50)
     days = models.IntegerField()
     currency = models.CharField(max_length=50)
-    token = models.CharField(max_length=50)
+    token = models.CharField(max_length=150)
     amount = models.DecimalField(max_digits=40, decimal_places=2, default=0.0)
     referral = models.ForeignKey(
         Referral,
