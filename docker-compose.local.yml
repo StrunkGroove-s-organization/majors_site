@@ -1,54 +1,56 @@
 version: '3'
 services:
-    db:
-        image: postgres:16
-        volumes:
-            - ./db/postgres:/var/lib/postgresql/data/
-        ports:
-            - 5433:5432
-        env_file:
-            - .env
-        networks:
-            - web-network
+  db:
+    image: postgres:16
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data/
+    ports:
+      - 5433:5432
+    env_file:
+      - .env
+    networks:
+      - web-network
 
-    redis:
-        ports:
-            - 6379:6379
-        volumes:
-            - ./db/redis:/data
-        image: redis:7-alpine
-        networks:
-            - web-network
+  redis:
+    ports:
+      - 6379:6379
+    volumes:
+      - ./db/redis:/data
+    image: redis:7-alpine
+    networks:
+      - web-network
 
-    web:
-        restart: always
-        build: .
-        command: sh -c "sleep 2 && gunicorn myproject.wsgi:application -w 4 -b 0.0.0.0:8000"
-        ports:
-            - 8000:8000
-        env_file:
-            - .env
-        volumes:
-            - ./app:/app
-        depends_on:
-            - db
-            - redis
-        networks:
-            - web-network
+  web:
+    restart: always
+    build: .
+    command: sh -c "sleep 2 && 
+                    python manage.py migrate --noinput && 
+                    gunicorn myproject.wsgi:application -w 4 -b 0.0.0.0:8000"
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./app:/app
+    networks:
+      - web-network
 
-    celery:
-        build:
-            context: .
-        command: sh -c "celery -A myproject worker --loglevel=info"
-        volumes:
-            - ./app:/app
-        env_file:
-            - .env
-        depends_on:
-            - web
-            - redis
-        networks:
-            - web-network
+  celery:
+    build:
+      context: .
+    command: sh -c "celery -A myproject worker --loglevel=info"
+    volumes:
+      - ./app:/app
+    env_file:
+      - .env
+    depends_on:
+      - web
+      - redis
+    networks:
+      - web-network
 
 networks:
   web-network:
