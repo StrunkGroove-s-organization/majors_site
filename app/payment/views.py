@@ -69,14 +69,6 @@ class CreatePaymentPlisio(APIView):
 
         response_data = response_json.get("data")
 
-        print({
-            'pay_url': response_data.get('invoice_url'),
-            'currency': response_data.get('currency'),
-            'wallet_hash': response_data.get('wallet_hash'),
-            'image': response_data.get("qr_code"),
-            'sum': response_data.get('invoice_total_sum'),
-        })
-
         return Response({
             'pay_url': response_data.get('invoice_url'),
             'currency': response_data.get('currency'),
