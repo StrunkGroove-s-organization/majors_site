@@ -14,6 +14,8 @@ from .models import Order, CompleteOrder
 from .forms import Subscription
 from .tasks import send_gratitude_for_payment
 from .schemas import PaymentData, SubscriptionData
+from accounts.models import User
+from refferal.models import Referral
 
 
 API_KEY = getenv('API_ADM')
@@ -32,67 +34,26 @@ class CreatePaymentPlisio(APIView):
                 'message': 'Filters is not valid'
             }, status=status.HTTP_400_BAD_REQUEST)
         
-        subscription_data = self.__process_subscription_data(filters)
-
         user = request.user
+        subscription_data = self._process_subscription_data(filters)
+        order = self._create_order(user, subscription_data)
 
-        order = Order.objects.create(
-            user=user,
-            type=subscription_data.type_sub,
-            days=subscription_data.days,
-            token=f'{user.email}--{uuid.uuid4()}',
-            amount=subscription_data.amount,
-            currency=subscription_data.currency,
-        )
-
-        params = {
-            "source_currency": 'USD',
-            "source_amount": subscription_data.amount,
-            "order_number": order.token,
-            "currency": subscription_data.currency,
-            "email": user.email,
-            "order_name": subscription_data.type_sub,
-            "api_key": API_KEY,
-            "json": True,
-        }
-
-        response_json = self.__request_data_payment(params)
+        response_json = self._request_payment_data(user, order, subscription_data)
         
         if response_json.get("status") != 'success':
             return Response({
-                'message': 'Cant get payment info.',
+                'message': 'Cant get payment info.'
             }, status=status.HTTP_400_BAD_REQUEST)
 
         if user.referral_belongs_to:
-            order.referral = user.referral_belongs_to
-            order.save()
-
-        response_data = response_json.get("data")
-
-        print({
-            'pay_url': response_data.get('invoice_url'),
-            'currency': response_data.get('currency'),
-            'wallet_hash': response_data.get('wallet_hash'),
-            'image': response_data.get("qr_code"),
-            'sum': response_data.get('invoice_total_sum'),
-        })
+            self._assign_referral_to_order(order, user.referral_belongs_to)
 
         return Response({
-            'pay_url': response_data.get('invoice_url'),
-            'currency': response_data.get('currency'),
-            'wallet_hash': response_data.get('wallet_hash'),
-            'image': response_data.get("qr_code"),
-            'sum': response_data.get('invoice_total_sum'),
+            **self._payment_data(response_json)
         }, status=status.HTTP_200_OK)
 
     @staticmethod
-    def __request_data_payment(params):
-        response = requests.get(URL, params=params)
-        response.raise_for_status()
-        return  response.json()
-    
-    @staticmethod
-    def __process_subscription_data(filters) -> SubscriptionData:
+    def _process_subscription_data(filters) -> SubscriptionData:
         selected_subscription = filters.cleaned_data['subscription'].split('_')
         currency = filters.cleaned_data['currency']
         
@@ -108,6 +69,52 @@ class CreatePaymentPlisio(APIView):
             amount=amount, 
             currency=currency
         )
+
+    @staticmethod
+    def _create_order(user: User, subscription_data: SubscriptionData) -> Order:
+        return Order.objects.create(
+            user=user,
+            type=subscription_data.type_sub,
+            days=subscription_data.days,
+            token=f'{user.email}--{uuid.uuid4()}',
+            amount=subscription_data.amount,
+            currency=subscription_data.currency,
+        )
+
+    @staticmethod
+    def _request_payment_data(user: User, order: Order,
+                             subscription_data: SubscriptionData) -> dict:
+        params = {
+            "source_currency": 'USD',
+            "source_amount": subscription_data.amount,
+            "order_number": order.token,
+            "currency": subscription_data.currency,
+            "email": user.email,
+            "order_name": subscription_data.type_sub,
+            "api_key": API_KEY,
+            "json": True,
+        }
+
+        response = requests.get(URL, params=params)
+        response.raise_for_status()
+        return response.json()
+
+    @staticmethod
+    def _assign_referral_to_order(order: Order, referral: Referral) -> None:
+        order.referral = referral
+        order.save()
+
+    @staticmethod
+    def _payment_data(response_json: dict) -> dict[str, str]:
+        response_data = response_json.get("data")
+
+        return {
+            'pay_url': response_data.get('invoice_url'),
+            'currency': response_data.get('currency'),
+            'wallet_hash': response_data.get('wallet_hash'),
+            'image': response_data.get("qr_code"),
+            'sum': response_data.get('invoice_total_sum'),
+        }
 
 
 class PaymentError(APIView):
