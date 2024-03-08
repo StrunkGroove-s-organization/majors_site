@@ -4545,6 +4545,12 @@ table tbody {
   text-align: center;
 }
 
+.pay-block__qr_error {
+  text-align: center;
+  color: #fa1b1b;
+}
+
+
 .pay-block__qr img {
   width: 100%;
   max-width: 200px;
