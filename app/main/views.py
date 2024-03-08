@@ -1,53 +1,51 @@
 from django.views import View
 from django.shortcuts import render
 
-from base.views import BaseFormView
 from accounts.forms import CustomUserRegistrationForm, LoginForm
-from p2plinks.forms import P2PFilters
 
 
-APP_NAME_URL = __package__ + '/'
 APP_NAME = __package__
 
 
-class IndexView(BaseFormView):
-    url = APP_NAME_URL
-    template_name = 'index.html'
-
-class EmptyView(BaseFormView):
-    url = APP_NAME_URL
-    template_name = 'empty.html'
-
-class Cookies(BaseFormView):
-    url = APP_NAME_URL
-    template_name = 'cookies.html'
-
-class PrivacyPolicy(BaseFormView):
-    url = APP_NAME_URL
-    template_name = 'privacy_policy.html'
-
-class DenialOfResponsibility(BaseFormView):
-    url = APP_NAME_URL
-    template_name = 'denial_of_responsibility.html'
-
-class TermsOfUse(BaseFormView):
-    url = APP_NAME_URL
-    template_name = 'terms_of_use.html'
-
-class DenialOfResponsibility(BaseFormView):
-    url = APP_NAME_URL
-    template_name = 'denial_of_responsibility.html'
-
-class CalculatorSpread(BaseFormView):
-    url = APP_NAME_URL
-    template_name = 'calculator_spread.html'
-
-class TestView(View):
+class BaseFormView(View):
     def get(self, request):
         return render(
-                request, APP_NAME + '/' + 'test.html', {
-                'login_form': LoginForm(),
-                'register_form': CustomUserRegistrationForm(),
-                'filters': P2PFilters(),
-            }
-        )
+            request, self.template_path, {
+            'login_form': LoginForm(),
+            'register_form': CustomUserRegistrationForm(),
+        })
+    
+
+class IndexView(BaseFormView):
+    template_name = "index.html"
+    template_path = APP_NAME + "/" + template_name
+
+
+class EmptyView(BaseFormView):
+    template_name = "empty.html"
+    template_path = APP_NAME + "/" + template_name
+
+
+class Cookies(BaseFormView):
+    template_name = "cookies.html"
+    template_path = APP_NAME + "/" + template_name
+
+
+class PrivacyPolicy(BaseFormView):
+    template_name = "privacy_policy.html"
+    template_path = APP_NAME + "/" + template_name
+
+
+class TermsOfUse(BaseFormView):
+    template_name = "terms_of_use.html"
+    template_path = APP_NAME + "/" + template_name
+
+
+class DenialOfResponsibility(BaseFormView):
+    template_name = "denial_of_responsibility.html"
+    template_path = APP_NAME + "/" + template_name
+    
+
+class CalculatorSpread(BaseFormView):
+    template_name = "calculator_spread.html"
+    template_path = APP_NAME + "/" + template_name

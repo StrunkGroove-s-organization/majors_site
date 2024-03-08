@@ -27,7 +27,8 @@ EXTENSIONS_APP = [
     'register',
     'refferal',
     'links_without_cards',
-
+    'admin_panel',
+    
     'rest_framework',
 ]
 
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'admin_panel.middleware.UserPageVisitMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]

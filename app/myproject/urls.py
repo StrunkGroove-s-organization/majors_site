@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
-
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', include('main.urls')),
@@ -15,6 +15,7 @@ urlpatterns = [
     path('', include('register.urls')),
     path('', include('links_without_cards.urls')),
     path('refferal/', include('refferal.urls')),
+    path('admin-panel/', include('admin_panel.urls')),
 
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),

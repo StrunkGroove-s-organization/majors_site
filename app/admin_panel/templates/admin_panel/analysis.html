@@ -1,0 +1,74 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Analysis{% endblock %}
+
+{% block content %}
+  <table border="1">
+    <tr>
+        <th>Период</th>
+        <th>Кол. регистраций</th>
+    </tr>
+    <tr>
+        <td>За пред. день</td>
+        <td>{{ analysis.users_registered_last_day }}</td>
+    </tr>
+    <tr>
+        <td>За пред. неделю</td>
+        <td>{{ analysis.users_registered_last_week }}</td>
+    </tr>
+    <tr>
+        <td>За пред. мес</td>
+        <td>{{ analysis.users_registered_last_month }}</td>
+    </tr>
+  </table>
+
+  <table border="1">
+    <tr>
+        <th>Период</th>
+        <th>Кол. загрузок страниц</th>
+        <th>Уникальные зарегестрированые пользователи которые посещали стр</th>
+        <th>Посещений не аутентифицированных пользователй</th>
+    </tr>
+    <tr>
+        <td>За пред. день</td>
+        <td>{{ analysis.users_last_day }}</td>
+        <td>{{ analysis.unique_users_last_day }}</td>
+        <td>{{ analysis.anonymous_last_day }}</td>
+    </tr>
+    <tr>
+        <td>За пред. неделю</td>
+        <td>{{ analysis.users_last_week }}</td>
+        <td>{{ analysis.unique_users_last_week }}</td>
+        <td>{{ analysis.anonymous_last_week }}</td>
+    </tr>
+    <tr>
+        <td>За пред. мес</td>
+        <td>{{ analysis.users_last_month }}</td>
+        <td>{{ analysis.unique_users_last_month }}</td>
+        <td>{{ analysis.anonymous_last_month }}</td>
+    </tr>
+  </table>
+
+
+  <p>Кол. пользователей с активной подпиской: {{ analysis.users_with_active_subscription }}</p>
+  <p>Кол. пользователей с бесконечной подпиской: {{ analysis.users_with_infinity_subscription }}</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Page URL</th>
+        <th>Visit Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in records %}
+        <tr>
+          <td>{{ record.user }}</td>
+          <td>{{ record.page_url }}</td>
+          <td>{{ record.visit_time }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

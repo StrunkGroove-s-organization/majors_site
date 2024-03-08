@@ -17,5 +17,4 @@ urlpatterns = [
         views.CalculatorSpread.as_view(), 
         name='calculator_spread'
     ),
-    path('test/', views.TestView.as_view(), name='test')
 ]
