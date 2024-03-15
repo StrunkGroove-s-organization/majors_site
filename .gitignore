@@ -1,11 +1,6 @@
 *.log
 __pycache__
-migrations/
 __init__.py
-secrets.py
-myprojectenv/
 db/
 .env
-migrations/
-referal_copy/
 

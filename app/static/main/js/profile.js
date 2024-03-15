@@ -122,51 +122,54 @@ function sendForm(paySelect) {
         {
             method: "POST",
             body: new FormData(form),
+            mode: "no-cors",
         }).then((response) => {
             return response.json();
-        }).then((responseData) => {
+        // }).then((responseData) => {
+        //     payBlock.innerHTML = `
+        //             <div class="container">
+        //                 <div class="pay-block__wrapper">
+        //             <div class="pay-block__qr">
+        //                 <img src="${responseData.image}" alt="">
+        //             </div>
+        //             <p>Сумма оплаты</p>
+        //             <div class="pay-block__summ">${responseData.sum}</div>
+        //             <p>Кошелек</p>
+        //             <div class="pay-block__hash">${responseData.wallet_hash}</div>
+        //             <a href="${responseData.pay_url}" target="_blank" class="pay-block__link">
+        //                 Оплатить с помощью сервиса Plisio
+        //             </a>
+        //         </div>
+        //     </div>
+        //             `
+
+        //     document.querySelector('.pay-block__summ').addEventListener('click', () => {
+        //         copySumm()
+        //     })
+        //     document.querySelector('.pay-block__hash').addEventListener('click', () => {
+        //         copyWallet()
+        //     })
+
+        }).catch((error) => {
             payBlock.innerHTML = `
-                    <div class="container">
-                        <div class="pay-block__wrapper">
-                    <div class="pay-block__qr">
-                        <img src="${responseData.image}" alt="">
+                <div class="container">
+                    <div class="pay-block__wrapper">
+                        <div class="pay-block__qr_error">
+                            ${error.name}: ${error.message} <!-- Вывод имени и сообщения об ошибке -->
+                        </div>
+                        <p>Стек вызовов:</p>
+                        <pre class="pay-block__stack">${error.stack}</pre> <!-- Вывод стека вызовов -->
+                        <p>Сумма оплаты</p>
+                        <div class="pay-block__summ"></div>
+                        <p>Кошелек</p>
+                        <div class="pay-block__hash"></div>
+                        <a href="" class="pay-block__link inactive">
+                            Oплатить с помощью
+                        </a>
                     </div>
-                    <p>Сумма оплаты</p>
-                    <div class="pay-block__summ">${responseData.sum}</div>
-                    <p>Кошелек</p>
-                    <div class="pay-block__hash">${responseData.wallet_hash}</div>
-                    <a href="${responseData.pay_url}" target="_blank" class="pay-block__link">
-                        Оплатить с помощью сервиса Plisio
-                    </a>
                 </div>
-            </div>
-                    `
-
-            document.querySelector('.pay-block__summ').addEventListener('click', () => {
-                copySumm()
-            })
-            document.querySelector('.pay-block__hash').addEventListener('click', () => {
-                copyWallet()
-            })
-
-        }).catch(() => {
-            payBlock.innerHTML = `
-        <div class="container">
-            <div class="pay-block__wrapper">
-        <div class="pay-block__qr_error">
-           При запросе на сервис оплаты произошла ошибка. Попробуйте повторить запрос.
-        </div>
-        <p>Сумма оплаты</p>
-        <div class="pay-block__summ"></div>
-        <p>Кошелек</p>
-        <div class="pay-block__hash"></div>
-        <a href="" class="pay-block__link inactive">
-            Oплатить с помощью
-        </a>
-    </div>
-</div>
-        `
-        })
+            `;
+        });
 }
 
 function copySumm() {

@@ -2,6 +2,7 @@ import cgi
 import io
 import logging
 import uuid
+import time
 from os import getenv
 from datetime import datetime, timedelta, timezone
 
@@ -28,7 +29,7 @@ logger = logging.getLogger(__name__)
 class CreatePaymentPlisio(APIView):
     def post(self, request):
         filters = Subscription(request.POST)
-
+        time.sleep(5)
         if not filters.is_valid():
             return Response({
                 'message': 'Filters is not valid'
