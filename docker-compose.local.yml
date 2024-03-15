@@ -23,7 +23,18 @@ services:
   web:
     restart: always
     build: .
-    command: sh -c "sleep 2 && 
+    command: sh -c "sleep 2 &&
+                    python manage.py makemigrations main --noinput &&
+                    python manage.py makemigrations price --noinput &&
+                    python manage.py makemigrations p2plinks --noinput &&
+                    python manage.py makemigrations accounts --noinput &&
+                    python manage.py makemigrations user_profile --noinput &&
+                    python manage.py makemigrations blog --noinput &&
+                    python manage.py makemigrations payment --noinput &&
+                    python manage.py makemigrations register --noinput &&
+                    python manage.py makemigrations refferal --noinput &&
+                    python manage.py makemigrations links_without_cards --noinput &&
+                    python manage.py makemigrations admin_panel --noinput &&
                     python manage.py migrate --noinput && 
                     gunicorn myproject.wsgi:application -w 4 -b 0.0.0.0:8000"
     ports:
